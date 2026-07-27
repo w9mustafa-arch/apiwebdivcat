@@ -2,8 +2,8 @@
 @plugin "daisyui";
 
 @theme {
-    --color-main: #35864C; /* #36B864 */
-    --color-dark: #111D15;
+    --color-main: #FF6B01; /* #36B864 */
+    --color-dark: #1C232B;
 }
 
 .container {
