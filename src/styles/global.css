@@ -16,6 +16,7 @@
 
 .header {
     @apply text-lg;
+    border-bottom: 1px solid #F44E1E;
 }
 
 .menu {
