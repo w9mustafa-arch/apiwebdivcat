@@ -15,8 +15,8 @@
 }
 
 .header {
-    @apply text-lg;
-    border-bottom: 1px solid #F44E1E;
+    @apply text-lg fixed top-0 left-0 w-full z-50 bg-white;
+    border-bottom: 2px solid #F44E1E;
 }
 
 .menu {
