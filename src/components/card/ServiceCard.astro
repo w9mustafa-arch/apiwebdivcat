@@ -12,14 +12,12 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(w
 <article class="">
   <a href={`/service/${id}`}>
     <Image
-      src={data.thumbnail}
-      alt={data.title}
-      width="600"
-      height="300"
-      format="webp"
-      quality={80}
-      class="w-full h-auto aspect-2/1 rounded-xl object-cover mb-4"
-    />
+  src={data.thumbnail}
+  alt={data.title}
+  width={600}
+  height={300}
+  class="w-full h-auto aspect-2/1 rounded-xl object-cover mb-4"
+/>
 
     <h3 class="font-semibold text-xl sm:text-2xl my-4">{data.title}</h3>
 
