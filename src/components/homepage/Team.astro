@@ -1,39 +1,233 @@
----
-import TeamCard from "../card/TeamCard.astro";
-import { getCollection } from "astro:content";
-
-const team = (await getCollection("team"))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
----
-
 <section class="section section-services">
   <div class="container">
+
+    <!-- Header -->
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-4 border-b border-b-main pb-10"
+      class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-end border-b border-b-main pb-10"
     >
-      <h2 class="capitalize">
-        Effective Cleaning Requires an Expert Cleaning Team
-      </h2>
       <div>
-        <div class="flex flex-wrap justify-between items-center gap-3">
-          <p class="font-semibold mb-3 text-xl">Expert Team</p>
-          <p>
-            <a href="/team" class="text-main underline hover:no-underline"
-              >All team</a
-            >
-          </p>
-        </div>
+        <h2 class="capitalize">
+          Nos zones de livraison à Marrakech
+        </h2>
+      </div>
+
+      <div>
+        <p class="font-semibold mb-3 text-xl">
+          Livraison partout à Marrakech
+        </p>
+
         <p class="mb-3">
-          We have professional expert cleaning staff ensuring top-notch
-          cleanliness and hygiene for your space.
+          Kech Delivery assure vos livraisons dans les principaux quartiers
+          et zones de Marrakech, rapidement et en toute simplicité.
         </p>
       </div>
     </div>
+
+    <!-- Map -->
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 mt-10 relative"
+      class="mt-10 rounded-2xl overflow-hidden border border-gray-200 bg-gray-50"
     >
-      {team.map((people) => <TeamCard {...people} />)}
+      <div class="relative w-full aspect-[16/9] min-h-[450px]">
+
+        <!-- Map background -->
+        <div
+          class="absolute inset-0 bg-[#f5f5f3]"
+        >
+
+          <!-- Decorative roads -->
+          <div
+            class="absolute top-[35%] left-0 w-full h-px bg-gray-300 rotate-[-8deg]"
+          ></div>
+
+          <div
+            class="absolute top-[55%] left-0 w-full h-px bg-gray-300 rotate-[12deg]"
+          ></div>
+
+          <div
+            class="absolute top-0 left-[45%] w-px h-full bg-gray-300 rotate-[18deg]"
+          ></div>
+
+          <div
+            class="absolute top-0 left-[65%] w-px h-full bg-gray-300 rotate-[-12deg]"
+          ></div>
+
+        </div>
+
+        <!-- Marrakech center -->
+        <div
+          class="absolute top-[48%] left-[50%] -translate-x-1/2 -translate-y-1/2"
+        >
+          <div
+            class="w-5 h-5 bg-main rounded-full border-4 border-white shadow-lg"
+          ></div>
+
+          <div
+            class="absolute top-7 left-1/2 -translate-x-1/2 whitespace-nowrap
+            bg-white px-3 py-1.5 rounded-lg shadow-md text-sm font-semibold"
+          >
+            Marrakech
+          </div>
+        </div>
+
+        <!-- Guéliz -->
+        <div class="absolute top-[38%] left-[42%] group">
+          <div
+            class="w-4 h-4 bg-main rounded-full border-2 border-white shadow"
+          ></div>
+
+          <div
+            class="absolute bottom-6 left-1/2 -translate-x-1/2
+            whitespace-nowrap bg-white px-3 py-1.5 rounded-lg shadow-md
+            text-sm font-medium opacity-0 group-hover:opacity-100
+            transition"
+          >
+            Guéliz
+          </div>
+        </div>
+
+        <!-- Hivernage -->
+        <div class="absolute top-[55%] left-[43%] group">
+          <div
+            class="w-4 h-4 bg-main rounded-full border-2 border-white shadow"
+          ></div>
+
+          <div
+            class="absolute bottom-6 left-1/2 -translate-x-1/2
+            whitespace-nowrap bg-white px-3 py-1.5 rounded-lg shadow-md
+            text-sm font-medium opacity-0 group-hover:opacity-100
+            transition"
+          >
+            Hivernage
+          </div>
+        </div>
+
+        <!-- Agdal -->
+        <div class="absolute top-[68%] left-[55%] group">
+          <div
+            class="w-4 h-4 bg-main rounded-full border-2 border-white shadow"
+          ></div>
+
+          <div
+            class="absolute bottom-6 left-1/2 -translate-x-1/2
+            whitespace-nowrap bg-white px-3 py-1.5 rounded-lg shadow-md
+            text-sm font-medium opacity-0 group-hover:opacity-100
+            transition"
+          >
+            Agdal
+          </div>
+        </div>
+
+        <!-- M'Hamid -->
+        <div class="absolute top-[62%] left-[25%] group">
+          <div
+            class="w-4 h-4 bg-main rounded-full border-2 border-white shadow"
+          ></div>
+
+          <div
+            class="absolute bottom-6 left-1/2 -translate-x-1/2
+            whitespace-nowrap bg-white px-3 py-1.5 rounded-lg shadow-md
+            text-sm font-medium opacity-0 group-hover:opacity-100
+            transition"
+          >
+            M'Hamid
+          </div>
+        </div>
+
+        <!-- Massira -->
+        <div class="absolute top-[30%] left-[28%] group">
+          <div
+            class="w-4 h-4 bg-main rounded-full border-2 border-white shadow"
+          ></div>
+
+          <div
+            class="absolute bottom-6 left-1/2 -translate-x-1/2
+            whitespace-nowrap bg-white px-3 py-1.5 rounded-lg shadow-md
+            text-sm font-medium opacity-0 group-hover:opacity-100
+            transition"
+          >
+            Massira
+          </div>
+        </div>
+
+        <!-- Palmeraie -->
+        <div class="absolute top-[18%] left-[62%] group">
+          <div
+            class="w-4 h-4 bg-main rounded-full border-2 border-white shadow"
+          ></div>
+
+          <div
+            class="absolute bottom-6 left-1/2 -translate-x-1/2
+            whitespace-nowrap bg-white px-3 py-1.5 rounded-lg shadow-md
+            text-sm font-medium opacity-0 group-hover:opacity-100
+            transition"
+          >
+            Palmeraie
+          </div>
+        </div>
+
+        <!-- Route de l'Ourika -->
+        <div class="absolute bottom-[10%] left-[65%] group">
+          <div
+            class="w-4 h-4 bg-main rounded-full border-2 border-white shadow"
+          ></div>
+
+          <div
+            class="absolute bottom-6 right-0 whitespace-nowrap
+            bg-white px-3 py-1.5 rounded-lg shadow-md
+            text-sm font-medium opacity-0 group-hover:opacity-100
+            transition"
+          >
+            Route de l'Ourika
+          </div>
+        </div>
+
+        <!-- Map label -->
+        <div
+          class="absolute top-5 left-5 bg-white/95 backdrop-blur
+          rounded-xl px-4 py-3 shadow-md"
+        >
+          <p class="font-semibold text-sm">
+            📍 Zones desservies
+          </p>
+
+          <p class="text-xs text-gray-500 mt-1">
+            Marrakech et ses principaux quartiers
+          </p>
+        </div>
+
+      </div>
     </div>
+
+    <!-- Areas -->
+    <div class="flex flex-wrap justify-center gap-3 mt-8">
+      <span class="px-4 py-2 rounded-full bg-main/10 text-main font-medium">
+        Guéliz
+      </span>
+
+      <span class="px-4 py-2 rounded-full bg-main/10 text-main font-medium">
+        Hivernage
+      </span>
+
+      <span class="px-4 py-2 rounded-full bg-main/10 text-main font-medium">
+        Agdal
+      </span>
+
+      <span class="px-4 py-2 rounded-full bg-main/10 text-main font-medium">
+        M'Hamid
+      </span>
+
+      <span class="px-4 py-2 rounded-full bg-main/10 text-main font-medium">
+        Massira
+      </span>
+
+      <span class="px-4 py-2 rounded-full bg-main/10 text-main font-medium">
+        Palmeraie
+      </span>
+
+      <span class="px-4 py-2 rounded-full bg-main/10 text-main font-medium">
+        Route de l'Ourika
+      </span>
+    </div>
+
   </div>
 </section>
