@@ -2,291 +2,226 @@
   <div class="container">
 
     <!-- Header -->
-    <div
-      class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-end border-b border-b-main pb-10"
-    >
+    <div class="border-b border-b-main pb-10">
       <div>
-        <span class="text-main font-semibold text-sm uppercase tracking-wider">
-          Zones de livraison
-        </span>
+        <div class="flex flex-wrap justify-between items-center gap-3">
+          <p class="font-semibold mb-3 text-xl">
+            Nos zones de livraison
+          </p>
 
-        <h2 class="mt-3">
-          Nous livrons partout à Marrakech
-        </h2>
-      </div>
+          <p>
+            <a
+              href="/contact"
+              class="text-main underline hover:no-underline"
+            >
+              Vérifier ma zone
+            </a>
+          </p>
+        </div>
 
-      <div>
-        <p class="text-lg">
-          Besoin d’une livraison dans Marrakech ?
-          <strong>Kech Delivery</strong> vous accompagne dans les principaux
-          quartiers de la ville.
+        <p class="mb-3">
+          Nous assurons nos livraisons dans les principaux quartiers
+          de Marrakech, rapidement et en toute simplicité.
         </p>
       </div>
     </div>
 
-    <!-- Coverage -->
+    <!-- Zones -->
     <div
-      class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-10 items-center"
+      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4
+      gap-4 sm:gap-5 lg:gap-6 mt-10"
     >
 
-      <!-- Visual -->
+      <!-- Guéliz -->
       <div
-        class="relative min-h-[380px] sm:min-h-[450px] rounded-3xl
-        bg-[#1C232B] overflow-hidden flex items-center justify-center"
+        class="group rounded-2xl border border-gray-200
+        bg-white p-5 sm:p-6
+        transition-all duration-300
+        hover:border-main hover:shadow-md"
       >
-
-        <!-- Decorative circles -->
         <div
-          class="absolute w-[300px] h-[300px] sm:w-[400px] sm:h-[400px]
-          border border-white/10 rounded-full"
-        ></div>
-
-        <div
-          class="absolute w-[210px] h-[210px] sm:w-[290px] sm:h-[290px]
-          border border-white/10 rounded-full"
-        ></div>
-
-        <!-- Connection lines -->
-        <div
-          class="absolute w-[180px] sm:w-[250px] h-px bg-main/40 rotate-[-35deg]"
-        ></div>
-
-        <div
-          class="absolute w-[180px] sm:w-[250px] h-px bg-main/40 rotate-[35deg]"
-        ></div>
-
-        <div
-          class="absolute w-[180px] sm:w-[250px] h-px bg-main/40 rotate-[90deg]"
-        ></div>
-
-        <!-- Center -->
-        <div
-          class="relative z-10 w-32 h-32 sm:w-40 sm:h-40 rounded-full
-          bg-main flex flex-col items-center justify-center
-          shadow-[0_0_60px_rgba(244,78,30,0.35)]"
+          class="flex items-center justify-center
+          w-11 h-11 rounded-full
+          bg-main/10 text-main mb-4"
         >
-          <span class="text-white text-xs uppercase tracking-widest">
-            Livraison
-          </span>
-
-          <span class="text-white text-2xl sm:text-3xl font-bold mt-1">
-            Marrakech
-          </span>
+          📍
         </div>
 
-        <!-- Area points -->
-        <div
-          class="absolute top-[18%] left-[22%] sm:left-[25%]
-          flex items-center gap-2"
-        >
-          <span class="w-3 h-3 rounded-full bg-main"></span>
-          <span class="text-white text-xs sm:text-sm font-medium">
-            Guéliz
-          </span>
-        </div>
+        <h3 class="text-lg! sm:text-xl! font-semibold! mb-1!">
+          Guéliz
+        </h3>
 
-        <div
-          class="absolute top-[23%] right-[18%] sm:right-[23%]
-          flex items-center gap-2"
-        >
-          <span class="text-white text-xs sm:text-sm font-medium">
-            Palmeraie
-          </span>
-          <span class="w-3 h-3 rounded-full bg-main"></span>
-        </div>
-
-        <div
-          class="absolute bottom-[25%] left-[15%] sm:left-[20%]
-          flex items-center gap-2"
-        >
-          <span class="w-3 h-3 rounded-full bg-main"></span>
-          <span class="text-white text-xs sm:text-sm font-medium">
-            M'Hamid
-          </span>
-        </div>
-
-        <div
-          class="absolute bottom-[22%] right-[15%] sm:right-[20%]
-          flex items-center gap-2"
-        >
-          <span class="text-white text-xs sm:text-sm font-medium">
-            Agdal
-          </span>
-          <span class="w-3 h-3 rounded-full bg-main"></span>
-        </div>
-
-        <!-- Small label -->
-        <div
-          class="absolute bottom-5 left-5 right-5
-          flex justify-between items-center text-white/60 text-xs"
-        >
-          <span>Service disponible</span>
-          <span class="flex items-center gap-2">
-            <span class="w-2 h-2 bg-main rounded-full"></span>
-            Marrakech
-          </span>
-        </div>
-
+        <p class="text-sm text-gray-500">
+          Livraison disponible
+        </p>
       </div>
 
-      <!-- Areas -->
-      <div>
-
-        <div class="mb-6">
-          <p class="text-main font-semibold mb-2">
-            Nos principales zones
-          </p>
-
-          <p class="text-gray-600">
-            Notre service de livraison couvre plusieurs quartiers de
-            Marrakech.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3 sm:gap-4">
-
-          <div
-            class="group p-4 sm:p-5 rounded-2xl border border-gray-200
-            hover:border-main hover:bg-main/5 transition-all duration-300"
-          >
-            <div class="flex items-center gap-3">
-              <span
-                class="w-9 h-9 rounded-full bg-main/10 text-main
-                flex items-center justify-center"
-              >
-                📍
-              </span>
-
-              <div>
-                <p class="font-semibold">Guéliz</p>
-                <p class="text-xs text-gray-500">Disponible</p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="group p-4 sm:p-5 rounded-2xl border border-gray-200
-            hover:border-main hover:bg-main/5 transition-all duration-300"
-          >
-            <div class="flex items-center gap-3">
-              <span
-                class="w-9 h-9 rounded-full bg-main/10 text-main
-                flex items-center justify-center"
-              >
-                📍
-              </span>
-
-              <div>
-                <p class="font-semibold">Hivernage</p>
-                <p class="text-xs text-gray-500">Disponible</p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="group p-4 sm:p-5 rounded-2xl border border-gray-200
-            hover:border-main hover:bg-main/5 transition-all duration-300"
-          >
-            <div class="flex items-center gap-3">
-              <span
-                class="w-9 h-9 rounded-full bg-main/10 text-main
-                flex items-center justify-center"
-              >
-                📍
-              </span>
-
-              <div>
-                <p class="font-semibold">Agdal</p>
-                <p class="text-xs text-gray-500">Disponible</p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="group p-4 sm:p-5 rounded-2xl border border-gray-200
-            hover:border-main hover:bg-main/5 transition-all duration-300"
-          >
-            <div class="flex items-center gap-3">
-              <span
-                class="w-9 h-9 rounded-full bg-main/10 text-main
-                flex items-center justify-center"
-              >
-                📍
-              </span>
-
-              <div>
-                <p class="font-semibold">M'Hamid</p>
-                <p class="text-xs text-gray-500">Disponible</p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="group p-4 sm:p-5 rounded-2xl border border-gray-200
-            hover:border-main hover:bg-main/5 transition-all duration-300"
-          >
-            <div class="flex items-center gap-3">
-              <span
-                class="w-9 h-9 rounded-full bg-main/10 text-main
-                flex items-center justify-center"
-              >
-                📍
-              </span>
-
-              <div>
-                <p class="font-semibold">Massira</p>
-                <p class="text-xs text-gray-500">Disponible</p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="group p-4 sm:p-5 rounded-2xl border border-gray-200
-            hover:border-main hover:bg-main/5 transition-all duration-300"
-          >
-            <div class="flex items-center gap-3">
-              <span
-                class="w-9 h-9 rounded-full bg-main/10 text-main
-                flex items-center justify-center"
-              >
-                📍
-              </span>
-
-              <div>
-                <p class="font-semibold">Palmeraie</p>
-                <p class="text-xs text-gray-500">Disponible</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- CTA -->
+      <!-- Hivernage -->
+      <div
+        class="group rounded-2xl border border-gray-200
+        bg-white p-5 sm:p-6
+        transition-all duration-300
+        hover:border-main hover:shadow-md"
+      >
         <div
-          class="mt-6 p-5 rounded-2xl bg-[#1C232B] text-white
-          flex flex-col sm:flex-row sm:items-center
-          justify-between gap-4"
+          class="flex items-center justify-center
+          w-11 h-11 rounded-full
+          bg-main/10 text-main mb-4"
         >
-          <div>
-            <p class="font-semibold">
-              Votre quartier n’est pas dans la liste ?
-            </p>
-
-            <p class="text-white/60 text-sm mt-1">
-              Contactez-nous pour vérifier la disponibilité.
-            </p>
-          </div>
-
-          <a
-            href="/contact"
-            class="inline-flex items-center justify-center
-            px-5 py-3 rounded-xl bg-main text-white
-            font-semibold hover:opacity-90 transition whitespace-nowrap"
-          >
-            Nous contacter
-          </a>
+          📍
         </div>
 
+        <h3 class="text-lg! sm:text-xl! font-semibold! mb-1!">
+          Hivernage
+        </h3>
+
+        <p class="text-sm text-gray-500">
+          Livraison disponible
+        </p>
+      </div>
+
+      <!-- Agdal -->
+      <div
+        class="group rounded-2xl border border-gray-200
+        bg-white p-5 sm:p-6
+        transition-all duration-300
+        hover:border-main hover:shadow-md"
+      >
+        <div
+          class="flex items-center justify-center
+          w-11 h-11 rounded-full
+          bg-main/10 text-main mb-4"
+        >
+          📍
+        </div>
+
+        <h3 class="text-lg! sm:text-xl! font-semibold! mb-1!">
+          Agdal
+        </h3>
+
+        <p class="text-sm text-gray-500">
+          Livraison disponible
+        </p>
+      </div>
+
+      <!-- M'Hamid -->
+      <div
+        class="group rounded-2xl border border-gray-200
+        bg-white p-5 sm:p-6
+        transition-all duration-300
+        hover:border-main hover:shadow-md"
+      >
+        <div
+          class="flex items-center justify-center
+          w-11 h-11 rounded-full
+          bg-main/10 text-main mb-4"
+        >
+          📍
+        </div>
+
+        <h3 class="text-lg! sm:text-xl! font-semibold! mb-1!">
+          M'Hamid
+        </h3>
+
+        <p class="text-sm text-gray-500">
+          Livraison disponible
+        </p>
+      </div>
+
+      <!-- Massira -->
+      <div
+        class="group rounded-2xl border border-gray-200
+        bg-white p-5 sm:p-6
+        transition-all duration-300
+        hover:border-main hover:shadow-md"
+      >
+        <div
+          class="flex items-center justify-center
+          w-11 h-11 rounded-full
+          bg-main/10 text-main mb-4"
+        >
+          📍
+        </div>
+
+        <h3 class="text-lg! sm:text-xl! font-semibold! mb-1!">
+          Massira
+        </h3>
+
+        <p class="text-sm text-gray-500">
+          Livraison disponible
+        </p>
+      </div>
+
+      <!-- Palmeraie -->
+      <div
+        class="group rounded-2xl border border-gray-200
+        bg-white p-5 sm:p-6
+        transition-all duration-300
+        hover:border-main hover:shadow-md"
+      >
+        <div
+          class="flex items-center justify-center
+          w-11 h-11 rounded-full
+          bg-main/10 text-main mb-4"
+        >
+          📍
+        </div>
+
+        <h3 class="text-lg! sm:text-xl! font-semibold! mb-1!">
+          Palmeraie
+        </h3>
+
+        <p class="text-sm text-gray-500">
+          Livraison disponible
+        </p>
+      </div>
+
+      <!-- Route de l'Ourika -->
+      <div
+        class="group rounded-2xl border border-gray-200
+        bg-white p-5 sm:p-6
+        transition-all duration-300
+        hover:border-main hover:shadow-md"
+      >
+        <div
+          class="flex items-center justify-center
+          w-11 h-11 rounded-full
+          bg-main/10 text-main mb-4"
+        >
+          📍
+        </div>
+
+        <h3 class="text-lg! sm:text-xl! font-semibold! mb-1!">
+          Route de l'Ourika
+        </h3>
+
+        <p class="text-sm text-gray-500">
+          Livraison disponible
+        </p>
+      </div>
+
+      <!-- Marrakech -->
+      <div
+        class="group rounded-2xl border border-main/30
+        bg-main/5 p-5 sm:p-6
+        transition-all duration-300
+        hover:border-main hover:shadow-md"
+      >
+        <div
+          class="flex items-center justify-center
+          w-11 h-11 rounded-full
+          bg-main text-white mb-4"
+        >
+          ✓
+        </div>
+
+        <h3 class="text-lg! sm:text-xl! font-semibold! mb-1!">
+          Marrakech
+        </h3>
+
+        <p class="text-sm text-gray-500">
+          Et ses environs
+        </p>
       </div>
 
     </div>
