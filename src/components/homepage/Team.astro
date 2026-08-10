@@ -26,22 +26,211 @@
       </div>
     </div>
 
-    <!-- Google Maps -->
+    <!-- Search + Zones -->
     <div class="mt-10">
-      <div
-        class="overflow-hidden rounded-2xl border border-gray-200 shadow-sm"
-      >
-        <iframe 
-  title="Carte de Marrakech - Zones de livraison" 
-  src="https://maps.google.com/maps?q=31.6340,-8.0080&z=12&output=embed" 
-  class="w-full h-[350px] sm:h-[450px] md:h-[500px] lg:h-[600px] border-0" 
-  loading="lazy" 
-  allowfullscreen 
-  referrerpolicy="strict-origin-when-cross-origin">
-</iframe>
+
+      <!-- Search -->
+      <div class="relative max-w-xl mx-auto mb-6">
+
+        <div
+          class="flex items-center rounded-xl
+          border border-gray-200 bg-white
+          focus-within:border-main
+          transition-colors"
+        >
+
+          <!-- Search icon -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 ml-4 text-gray-400 shrink-0"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m21 21-4.35-4.35m1.35-5.65a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+            />
+          </svg>
+
+          <input
+            id="zone-search"
+            type="search"
+            placeholder="Rechercher votre quartier..."
+            class="w-full px-3 py-3.5
+            outline-none border-0
+            text-sm sm:text-base
+            bg-transparent"
+          />
+
+        </div>
 
       </div>
+
+      <!-- Zones -->
+      <div
+        id="delivery-zones"
+        class="grid grid-cols-2 sm:grid-cols-3
+        lg:grid-cols-4 gap-3 sm:gap-4"
+      >
+
+        <div
+          class="zone-item flex items-center gap-3
+          rounded-xl border border-gray-200
+          px-4 py-3
+          hover:border-main hover:bg-main/5
+          transition"
+          data-zone="Guéliz"
+        >
+          <span class="text-main">📍</span>
+          <span class="font-medium text-sm sm:text-base">
+            Guéliz
+          </span>
+        </div>
+
+        <div
+          class="zone-item flex items-center gap-3
+          rounded-xl border border-gray-200
+          px-4 py-3
+          hover:border-main hover:bg-main/5
+          transition"
+          data-zone="Hivernage"
+        >
+          <span class="text-main">📍</span>
+          <span class="font-medium text-sm sm:text-base">
+            Hivernage
+          </span>
+        </div>
+
+        <div
+          class="zone-item flex items-center gap-3
+          rounded-xl border border-gray-200
+          px-4 py-3
+          hover:border-main hover:bg-main/5
+          transition"
+          data-zone="Agdal"
+        >
+          <span class="text-main">📍</span>
+          <span class="font-medium text-sm sm:text-base">
+            Agdal
+          </span>
+        </div>
+
+        <div
+          class="zone-item flex items-center gap-3
+          rounded-xl border border-gray-200
+          px-4 py-3
+          hover:border-main hover:bg-main/5
+          transition"
+          data-zone="M'Hamid"
+        >
+          <span class="text-main">📍</span>
+          <span class="font-medium text-sm sm:text-base">
+            M'Hamid
+          </span>
+        </div>
+
+        <div
+          class="zone-item flex items-center gap-3
+          rounded-xl border border-gray-200
+          px-4 py-3
+          hover:border-main hover:bg-main/5
+          transition"
+          data-zone="Massira"
+        >
+          <span class="text-main">📍</span>
+          <span class="font-medium text-sm sm:text-base">
+            Massira
+          </span>
+        </div>
+
+        <div
+          class="zone-item flex items-center gap-3
+          rounded-xl border border-gray-200
+          px-4 py-3
+          hover:border-main hover:bg-main/5
+          transition"
+          data-zone="Palmeraie"
+        >
+          <span class="text-main">📍</span>
+          <span class="font-medium text-sm sm:text-base">
+            Palmeraie
+          </span>
+        </div>
+
+        <div
+          class="zone-item flex items-center gap-3
+          rounded-xl border border-gray-200
+          px-4 py-3
+          hover:border-main hover:bg-main/5
+          transition"
+          data-zone="Route de l'Ourika"
+        >
+          <span class="text-main">📍</span>
+          <span class="font-medium text-sm sm:text-base">
+            Route de l'Ourika
+          </span>
+        </div>
+
+        <div
+          class="zone-item flex items-center gap-3
+          rounded-xl border border-gray-200
+          px-4 py-3
+          hover:border-main hover:bg-main/5
+          transition"
+          data-zone="Centre Ville"
+        >
+          <span class="text-main">📍</span>
+          <span class="font-medium text-sm sm:text-base">
+            Centre Ville
+          </span>
+        </div>
+
+      </div>
+
+      <!-- No result -->
+      <p
+        id="no-zone"
+        class="hidden text-center text-sm text-gray-500 mt-6"
+      >
+        Aucune zone trouvée.
+      </p>
+
     </div>
 
   </div>
 </section>
+
+<script>
+  const searchInput = document.querySelector("#zone-search");
+  const zones = document.querySelectorAll(".zone-item");
+  const noZone = document.querySelector("#no-zone");
+
+  searchInput?.addEventListener("input", () => {
+    const search = searchInput.value
+      .toLowerCase()
+      .trim();
+
+    let visibleZones = 0;
+
+    zones.forEach((zone) => {
+      const name =
+        zone.getAttribute("data-zone")?.toLowerCase() || "";
+
+      if (name.includes(search)) {
+        zone.classList.remove("hidden");
+        visibleZones++;
+      } else {
+        zone.classList.add("hidden");
+      }
+    });
+
+    if (visibleZones === 0) {
+      noZone?.classList.remove("hidden");
+    } else {
+      noZone?.classList.add("hidden");
+    }
+  });
+</script>
