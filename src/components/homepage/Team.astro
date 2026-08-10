@@ -192,42 +192,6 @@ const initialVisible = 6;
       </div>
 
 
-      <!-- Show More -->
-      <div
-        id="show-more-wrapper"
-        class="flex justify-center mt-6"
-      >
-
-        <button
-          id="show-more"
-          type="button"
-          class="inline-flex items-center gap-2
-          px-5 py-2.5
-          rounded-lg
-          border border-main
-          text-main
-          font-medium
-          text-sm
-          transition-all duration-300
-          hover:bg-main
-          hover:text-white"
-        >
-
-          <span id="show-more-text">
-            Afficher plus
-          </span>
-
-          <Icon
-            id="show-more-icon"
-            name="lucide:chevron-down"
-            size={18}
-          />
-
-        </button>
-
-      </div>
-
-
       <!-- No result -->
       <div
         id="no-zone"
@@ -272,58 +236,7 @@ const initialVisible = 6;
 <script>
   const searchInput = document.querySelector("#zone-search");
   const zones = document.querySelectorAll(".zone-item");
-  const extraZones = document.querySelectorAll(".extra-zone");
   const noZone = document.querySelector("#no-zone");
-
-  const showMore = document.querySelector("#show-more");
-  const showMoreText = document.querySelector("#show-more-text");
-  const showMoreIcon = document.querySelector("#show-more-icon");
-  const showMoreWrapper = document.querySelector("#show-more-wrapper");
-
-  let expanded = false;
-
-
-  // -----------------------------
-  // Show / Hide all zones
-  // -----------------------------
-
-  showMore?.addEventListener("click", () => {
-
-    expanded = !expanded;
-
-    extraZones.forEach((zone) => {
-      zone.classList.toggle("hidden", !expanded);
-    });
-
-    if (expanded) {
-
-      if (showMoreText) {
-        showMoreText.textContent = "Afficher moins";
-      }
-
-      showMoreIcon?.setAttribute(
-        "name",
-        "lucide:chevron-up"
-      );
-
-    } else {
-
-      if (showMoreText) {
-        showMoreText.textContent = "Afficher plus";
-      }
-
-      showMoreIcon?.setAttribute(
-        "name",
-        "lucide:chevron-down"
-      );
-
-    }
-  });
-
-
-  // -----------------------------
-  // Search
-  // -----------------------------
 
   searchInput?.addEventListener("input", () => {
 
@@ -337,12 +250,16 @@ const initialVisible = 6;
     let visibleZones = 0;
 
 
+    // -----------------------------
     // Empty search
+    // Show only first 6 zones
+    // -----------------------------
+
     if (search === "") {
 
       zones.forEach((zone, index) => {
 
-        if (index < 6) {
+        if (index < initialVisible) {
           zone.classList.remove("hidden");
         } else {
           zone.classList.add("hidden");
@@ -350,25 +267,16 @@ const initialVisible = 6;
 
       });
 
-      expanded = false;
-
-      if (showMoreText) {
-        showMoreText.textContent = "Afficher plus";
-      }
-
-      showMoreIcon?.setAttribute(
-        "name",
-        "lucide:chevron-down"
-      );
-
-      showMoreWrapper?.classList.remove("hidden");
       noZone?.classList.add("hidden");
 
       return;
     }
 
 
-    // Search all zones
+    // -----------------------------
+    // Search ALL zones
+    // -----------------------------
+
     zones.forEach((zone) => {
 
       const name =
@@ -393,11 +301,10 @@ const initialVisible = 6;
     });
 
 
-    // Hide "Afficher plus" during search
-    showMoreWrapper?.classList.add("hidden");
-
-
+    // -----------------------------
     // No result
+    // -----------------------------
+
     if (visibleZones === 0) {
       noZone?.classList.remove("hidden");
     } else {
