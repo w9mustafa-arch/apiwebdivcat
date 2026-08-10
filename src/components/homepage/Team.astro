@@ -213,11 +213,12 @@ const initialVisible = 6;
           hover:text-white"
         >
 
-          <span>
+          <span id="show-more-text">
             Afficher plus
           </span>
 
           <Icon
+            id="show-more-icon"
             name="lucide:chevron-down"
             size={18}
           />
@@ -275,25 +276,48 @@ const initialVisible = 6;
   const noZone = document.querySelector("#no-zone");
 
   const showMore = document.querySelector("#show-more");
+  const showMoreText = document.querySelector("#show-more-text");
+  const showMoreIcon = document.querySelector("#show-more-icon");
   const showMoreWrapper = document.querySelector("#show-more-wrapper");
 
   let expanded = false;
 
 
   // -----------------------------
-  // Show all zones & Hide button forever
+  // Show / Hide all zones
   // -----------------------------
 
   showMore?.addEventListener("click", () => {
-    expanded = true;
 
-    // إظهار باقي المناطق
+    expanded = !expanded;
+
     extraZones.forEach((zone) => {
-      zone.classList.remove("hidden");
+      zone.classList.toggle("hidden", !expanded);
     });
 
-    // إخفاء الحاوية الخاصة بالزر نهائياً
-    showMoreWrapper?.classList.add("hidden");
+    if (expanded) {
+
+      if (showMoreText) {
+        showMoreText.textContent = "Afficher moins";
+      }
+
+      showMoreIcon?.setAttribute(
+        "name",
+        "lucide:chevron-up"
+      );
+
+    } else {
+
+      if (showMoreText) {
+        showMoreText.textContent = "Afficher plus";
+      }
+
+      showMoreIcon?.setAttribute(
+        "name",
+        "lucide:chevron-down"
+      );
+
+    }
   });
 
 
@@ -317,19 +341,27 @@ const initialVisible = 6;
     if (search === "") {
 
       zones.forEach((zone, index) => {
-        // إذا كان المستخدم قد اضغط على الزر سابقاً، تبقى كل المناطق ظاهرة
-        if (expanded || index < 6) {
+
+        if (index < 6) {
           zone.classList.remove("hidden");
         } else {
           zone.classList.add("hidden");
         }
+
       });
 
-      // إرجاع الزر فقط إذا لم يسبق للمستخدم الضغط عليه
-      if (!expanded) {
-        showMoreWrapper?.classList.remove("hidden");
+      expanded = false;
+
+      if (showMoreText) {
+        showMoreText.textContent = "Afficher plus";
       }
 
+      showMoreIcon?.setAttribute(
+        "name",
+        "lucide:chevron-down"
+      );
+
+      showMoreWrapper?.classList.remove("hidden");
       noZone?.classList.add("hidden");
 
       return;
