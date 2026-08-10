@@ -238,6 +238,13 @@ const initialVisible = 6;
   const zones = document.querySelectorAll(".zone-item");
   const noZone = document.querySelector("#no-zone");
 
+  const INITIAL_VISIBLE = 6;
+
+
+  // --------------------------------
+  // Search zones
+  // --------------------------------
+
   searchInput?.addEventListener("input", () => {
 
     const search =
@@ -247,19 +254,20 @@ const initialVisible = 6;
         .replace(/[\u0300-\u036f]/g, "")
         .trim();
 
+
     let visibleZones = 0;
 
 
-    // -----------------------------
-    // Empty search
+    // --------------------------------
+    // Search is empty
     // Show only first 6 zones
-    // -----------------------------
+    // --------------------------------
 
     if (search === "") {
 
       zones.forEach((zone, index) => {
 
-        if (index < initialVisible) {
+        if (index < INITIAL_VISIBLE) {
           zone.classList.remove("hidden");
         } else {
           zone.classList.add("hidden");
@@ -273,19 +281,21 @@ const initialVisible = 6;
     }
 
 
-    // -----------------------------
-    // Search ALL zones
-    // -----------------------------
+    // --------------------------------
+    // Search all zones
+    // --------------------------------
 
     zones.forEach((zone) => {
 
       const name =
         zone.getAttribute("data-zone")?.toLowerCase() || "";
 
+
       const normalizedName =
         name
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "");
+
 
       if (normalizedName.includes(search)) {
 
@@ -301,9 +311,9 @@ const initialVisible = 6;
     });
 
 
-    // -----------------------------
+    // --------------------------------
     // No result
-    // -----------------------------
+    // --------------------------------
 
     if (visibleZones === 0) {
       noZone?.classList.remove("hidden");
