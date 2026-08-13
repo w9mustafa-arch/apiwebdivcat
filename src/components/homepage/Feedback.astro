@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import Swiper from "../Swiper.astro";
 ---
@@ -11,7 +10,7 @@ import Swiper from "../Swiper.astro";
     <div class="mb-8">
       <h2>Avis de nos clients</h2>
 
-      <p class="mt-4 max-w-2xl text-gray-600">
+      <p class="mt-4 max-w-2xl text-gray-600 dark:text-gray-300">
         Découvrez les avis laissés par nos clients après leur expérience
         avec Kech Delivery à Marrakech.
       </p>
@@ -29,7 +28,7 @@ import Swiper from "../Swiper.astro";
       <!-- Review 1 -->
       <div class="swiper-slide">
         <article
-          class="bg-white border border-gray-200 rounded-xl p-6 sm:p-7 h-full"
+          class="bg-white dark:bg-[#252C33] border border-gray-200 dark:border-gray-700 rounded-xl p-6 sm:p-7 h-full transition-colors duration-300"
         >
 
           <!-- Customer -->
@@ -37,27 +36,22 @@ import Swiper from "../Swiper.astro";
 
             <div class="flex items-center gap-3">
 
+              <!-- Avatar -->
               <div
-                class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center shrink-0"
+                class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center shrink-0"
               >
-                <span class="font-semibold text-gray-600 text-lg">
+                <span class="font-semibold text-gray-600 dark:text-gray-200 text-lg">
                   M
                 </span>
               </div>
 
+              <!-- Name -->
               <div>
-                <div class="flex items-center gap-2">
-                  <p class="font-semibold text-gray-900">
-                    Mohamed A.
-                  </p>
+                <p class="font-semibold text-gray-900 dark:text-white">
+                  Mohamed A.
+                </p>
 
-                  <!-- Google -->
-                  <span class="text-sm font-medium">
-                    Google
-                  </span>
-                </div>
-
-                <p class="text-xs text-gray-500 mt-0.5">
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                   Local Guide
                 </p>
               </div>
@@ -65,7 +59,8 @@ import Swiper from "../Swiper.astro";
             </div>
 
             <!-- Google Icon -->
-            <div class="text-gray-400">
+            <div class="shrink-0">
+
               <svg
                 width="24"
                 height="24"
@@ -90,6 +85,7 @@ import Swiper from "../Swiper.astro";
                   fill="#EA4335"
                 />
               </svg>
+
             </div>
 
           </div>
@@ -105,26 +101,18 @@ import Swiper from "../Swiper.astro";
               }
             </div>
 
-            <span class="text-sm text-gray-500">
+            <span class="text-sm text-gray-500 dark:text-gray-400">
               Il y a 2 semaines
             </span>
 
           </div>
 
           <!-- Review -->
-          <p class="text-sm text-gray-700 leading-6 mt-4">
+          <p class="text-sm text-gray-700 dark:text-gray-200 leading-6 mt-4">
             Excellent service ! Livraison rapide et livreur très
             professionnel. Ma commande est arrivée à temps et tout
             s'est très bien passé.
           </p>
-
-          <!-- Read More -->
-          <button
-            type="button"
-            class="text-sm font-medium text-gray-900 hover:text-main mt-4"
-          >
-            Lire plus
-          </button>
 
         </article>
       </div>
@@ -133,7 +121,7 @@ import Swiper from "../Swiper.astro";
       <!-- Review 2 -->
       <div class="swiper-slide">
         <article
-          class="bg-white border border-gray-200 rounded-xl p-6 sm:p-7 h-full"
+          class="bg-white dark:bg-[#252C33] border border-gray-200 dark:border-gray-700 rounded-xl p-6 sm:p-7 h-full transition-colors duration-300"
         >
 
           <div class="flex items-start justify-between gap-4">
@@ -141,32 +129,28 @@ import Swiper from "../Swiper.astro";
             <div class="flex items-center gap-3">
 
               <div
-                class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center shrink-0"
+                class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center shrink-0"
               >
-                <span class="font-semibold text-gray-600 text-lg">
+                <span class="font-semibold text-gray-600 dark:text-gray-200 text-lg">
                   S
                 </span>
               </div>
 
               <div>
-                <div class="flex items-center gap-2">
-                  <p class="font-semibold text-gray-900">
-                    Sarah M.
-                  </p>
+                <p class="font-semibold text-gray-900 dark:text-white">
+                  Sarah M.
+                </p>
 
-                  <span class="text-sm font-medium">
-                    Google
-                  </span>
-                </div>
-
-                <p class="text-xs text-gray-500 mt-0.5">
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                   Local Guide
                 </p>
               </div>
 
             </div>
 
-            <div class="text-gray-400">
+            <!-- Google Icon -->
+            <div class="shrink-0">
+
               <svg
                 width="24"
                 height="24"
@@ -191,10 +175,12 @@ import Swiper from "../Swiper.astro";
                   fill="#EA4335"
                 />
               </svg>
+
             </div>
 
           </div>
 
+          <!-- Rating -->
           <div class="flex items-center gap-2 mt-5">
 
             <div class="flex gap-0.5 text-yellow-500">
@@ -205,24 +191,18 @@ import Swiper from "../Swiper.astro";
               }
             </div>
 
-            <span class="text-sm text-gray-500">
+            <span class="text-sm text-gray-500 dark:text-gray-400">
               Il y a 1 mois
             </span>
 
           </div>
 
-          <p class="text-sm text-gray-700 leading-6 mt-4">
+          <!-- Review -->
+          <p class="text-sm text-gray-700 dark:text-gray-200 leading-6 mt-4">
             Très bon service de livraison à Marrakech. La commande a été
             récupérée rapidement et livrée directement à mon hôtel.
             Très pratique et efficace !
           </p>
-
-          <button
-            type="button"
-            class="text-sm font-medium text-gray-900 hover:text-main mt-4"
-          >
-            Lire plus
-          </button>
 
         </article>
       </div>
@@ -231,7 +211,7 @@ import Swiper from "../Swiper.astro";
       <!-- Review 3 -->
       <div class="swiper-slide">
         <article
-          class="bg-white border border-gray-200 rounded-xl p-6 sm:p-7 h-full"
+          class="bg-white dark:bg-[#252C33] border border-gray-200 dark:border-gray-700 rounded-xl p-6 sm:p-7 h-full transition-colors duration-300"
         >
 
           <div class="flex items-start justify-between gap-4">
@@ -239,32 +219,28 @@ import Swiper from "../Swiper.astro";
             <div class="flex items-center gap-3">
 
               <div
-                class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center shrink-0"
+                class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center shrink-0"
               >
-                <span class="font-semibold text-gray-600 text-lg">
+                <span class="font-semibold text-gray-600 dark:text-gray-200 text-lg">
                   T
                 </span>
               </div>
 
               <div>
-                <div class="flex items-center gap-2">
-                  <p class="font-semibold text-gray-900">
-                    Thomas R.
-                  </p>
+                <p class="font-semibold text-gray-900 dark:text-white">
+                  Thomas R.
+                </p>
 
-                  <span class="text-sm font-medium">
-                    Google
-                  </span>
-                </div>
-
-                <p class="text-xs text-gray-500 mt-0.5">
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                   Local Guide
                 </p>
               </div>
 
             </div>
 
-            <div class="text-gray-400">
+            <!-- Google Icon -->
+            <div class="shrink-0">
+
               <svg
                 width="24"
                 height="24"
@@ -289,10 +265,12 @@ import Swiper from "../Swiper.astro";
                   fill="#EA4335"
                 />
               </svg>
+
             </div>
 
           </div>
 
+          <!-- Rating -->
           <div class="flex items-center gap-2 mt-5">
 
             <div class="flex gap-0.5 text-yellow-500">
@@ -303,24 +281,18 @@ import Swiper from "../Swiper.astro";
               }
             </div>
 
-            <span class="text-sm text-gray-500">
+            <span class="text-sm text-gray-500 dark:text-gray-400">
               Il y a 2 mois
             </span>
 
           </div>
 
-          <p class="text-sm text-gray-700 leading-6 mt-4">
+          <!-- Review -->
+          <p class="text-sm text-gray-700 dark:text-gray-200 leading-6 mt-4">
             Service rapide et sérieux. Le livreur était ponctuel,
             sympathique et professionnel. Je recommande Kech Delivery
             sans hésitation.
           </p>
-
-          <button
-            type="button"
-            class="text-sm font-medium text-gray-900 hover:text-main mt-4"
-          >
-            Lire plus
-          </button>
 
         </article>
       </div>
