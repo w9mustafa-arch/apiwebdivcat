@@ -305,6 +305,8 @@ import Swiper from "../Swiper.astro";
   </div>
 </section>
 
+
+<!-- Swiper -->
 <script>
   import Swiper from "swiper";
   import { Navigation } from "swiper/modules";
@@ -334,3 +336,81 @@ import Swiper from "../Swiper.astro";
     },
   });
 </script>
+
+
+<!-- Arrows Design Only -->
+<style>
+  .swiper-prev,
+  .swiper-next {
+    width: 44px;
+    height: 44px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #1c232b;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .swiper-prev:hover,
+  .swiper-next:hover {
+    background: #f44e1e;
+    border-color: #f44e1e;
+    color: #ffffff;
+
+    transform: scale(1.08);
+
+    box-shadow: 0 6px 18px rgba(244, 78, 30, 0.25);
+  }
+
+  .swiper-prev::after,
+  .swiper-next::after {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  /* Dark Mode */
+  :global(.dark) .swiper-prev,
+  :global(.dark) .swiper-next {
+    background: #1c232b;
+    border-color: #374151;
+    color: #ffffff;
+  }
+
+  :global(.dark) .swiper-prev:hover,
+  :global(.dark) .swiper-next:hover {
+    background: #f44e1e;
+    border-color: #f44e1e;
+    color: #ffffff;
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    .swiper-prev,
+    .swiper-next {
+      width: 38px;
+      height: 38px;
+    }
+
+    .swiper-prev::after,
+    .swiper-next::after {
+      font-size: 14px;
+    }
+  }
+</style>
