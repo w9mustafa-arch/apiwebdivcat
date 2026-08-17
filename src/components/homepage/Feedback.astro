@@ -334,3 +334,70 @@ import Swiper from "../Swiper.astro";
     },
   });
 </script>
+
+
+<style>
+  /* Reviews navigation */
+  .section-reviews :global(.swiper-prev),
+  .section-reviews :global(.swiper-next) {
+    top: auto !important;
+    bottom: -64px !important;
+
+    width: 44px !important;
+    height: 44px !important;
+
+    margin: 0 !important;
+
+    background: white !important;
+    color: #1c232b !important;
+
+    border-radius: 9999px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+
+    transform: none !important;
+  }
+
+  /* Previous */
+  .section-reviews :global(.swiper-prev) {
+    left: calc(50% - 52px) !important;
+    right: auto !important;
+  }
+
+  /* Next */
+  .section-reviews :global(.swiper-next) {
+    right: calc(50% - 52px) !important;
+    left: auto !important;
+  }
+
+  /* Make space for the navigation below the slider */
+  .section-reviews :global(.swiper) {
+    margin-bottom: 70px;
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    .section-reviews :global(.swiper-prev),
+    .section-reviews :global(.swiper-next) {
+      width: 42px !important;
+      height: 42px !important;
+      bottom: -58px !important;
+    }
+
+    .section-reviews :global(.swiper-prev) {
+      left: calc(50% - 48px) !important;
+    }
+
+    .section-reviews :global(.swiper-next) {
+      right: calc(50% - 48px) !important;
+    }
+
+    .section-reviews :global(.swiper) {
+      margin-bottom: 65px;
+    }
+  }
+</style>
