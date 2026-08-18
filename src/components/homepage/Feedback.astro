@@ -46,18 +46,20 @@ const reviews = [
   <div class="container">
 
     <!-- Header -->
-    <div class="reviews-header mb-8 lg:mb-10">
-      <h2>Avis de nos clients</h2>
+    <div class="border-b border-b-main pb-10">
+      <div>
+        <h2>Avis de nos clients</h2>
 
-      <p class="mt-4 max-w-2xl text-gray-600 dark:text-gray-300">
-        Découvrez les avis laissés par nos clients après leur expérience
-        avec Kech Delivery à Marrakech.
-      </p>
+        <p class="mb-3">
+          Découvrez les avis de nos clients et leur expérience avec
+          Kech Delivery à Marrakech.
+        </p>
+      </div>
     </div>
 
 
     <!-- Reviews Slider -->
-    <div class="reviews-slider-wrapper">
+    <div class="reviews-slider-wrapper mt-10">
 
       <Swiper
         pagination={false}
@@ -79,9 +81,7 @@ const reviews = [
                   <div class="flex items-center gap-3 min-w-0">
 
                     <!-- Avatar -->
-                    <div
-                      class="review-avatar shrink-0 flex items-center justify-center rounded-full bg-main/10 text-main"
-                    >
+                    <div class="review-avatar shrink-0">
                       {review.initial}
                     </div>
 
@@ -183,11 +183,13 @@ const reviews = [
 
 
         <div class="reviews-counter">
+
           <span>15+</span>
 
           <small class="text-gray-500 dark:text-gray-400">
             Avis clients
           </small>
+
         </div>
 
 
@@ -217,9 +219,6 @@ const reviews = [
     position: relative;
   }
 
-
-  /* Card */
-
   .review-card {
     transition:
       transform 0.25s ease,
@@ -234,18 +233,31 @@ const reviews = [
   }
 
 
-  /* Avatar */
+  /* ================================
+     Avatar
+  ================================= */
 
   .review-avatar {
     width: 48px;
     height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9999px;
+
+    background: rgba(244, 78, 30, 0.12);
+    color: var(--color-main);
 
     font-size: 18px;
     font-weight: 700;
   }
 
 
-  /* Customer */
+  /* ================================
+     Customer
+  ================================= */
 
   .review-name {
     margin: 0;
@@ -261,7 +273,9 @@ const reviews = [
   }
 
 
-  /* Google */
+  /* ================================
+     Google
+  ================================= */
 
   .review-google {
     display: flex;
@@ -270,12 +284,15 @@ const reviews = [
   }
 
 
-  /* Rating */
+  /* ================================
+     Rating
+  ================================= */
 
   .review-meta {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+
     gap: 10px;
 
     margin-top: 22px;
@@ -284,6 +301,7 @@ const reviews = [
   .review-stars {
     display: flex;
     align-items: center;
+
     gap: 2px;
 
     color: #f4b400;
@@ -294,7 +312,9 @@ const reviews = [
   }
 
 
-  /* Review text */
+  /* ================================
+     Review text
+  ================================= */
 
   .review-text {
     margin-top: 18px;
@@ -315,6 +335,7 @@ const reviews = [
     justify-content: center;
 
     gap: 18px;
+
     margin-top: 30px;
   }
 
@@ -351,7 +372,9 @@ const reviews = [
   }
 
 
-  /* Counter */
+  /* ================================
+     Counter
+  ================================= */
 
   .reviews-counter {
     min-width: 90px;
@@ -373,6 +396,7 @@ const reviews = [
 
   .reviews-counter small {
     margin-top: 5px;
+
     font-size: 11px;
   }
 
