@@ -69,25 +69,30 @@ const reviews = [
           reviews.map((review) => (
             <div class="swiper-slide h-auto">
 
-              <article class="review-card">
+              <article
+                class="review-card h-full p-7 rounded-xl bg-gray-50 dark:bg-dark border border-gray-200 dark:border-gray-700"
+              >
 
-                <!-- Top -->
+                <!-- Customer -->
                 <div class="flex items-start justify-between gap-4">
 
-                  <!-- Customer -->
                   <div class="flex items-center gap-3 min-w-0">
 
-                    <div class="review-avatar">
+                    <!-- Avatar -->
+                    <div
+                      class="review-avatar shrink-0 flex items-center justify-center rounded-full bg-main/10 text-main"
+                    >
                       {review.initial}
                     </div>
 
+                    <!-- Name -->
                     <div class="min-w-0">
 
                       <p class="review-name">
                         {review.name}
                       </p>
 
-                      <p class="review-guide">
+                      <p class="review-guide text-gray-500 dark:text-gray-400">
                         Local Guide
                       </p>
 
@@ -143,7 +148,7 @@ const reviews = [
                     }
                   </div>
 
-                  <span class="review-time">
+                  <span class="review-time text-gray-500 dark:text-gray-400">
                     {review.time}
                   </span>
 
@@ -151,7 +156,7 @@ const reviews = [
 
 
                 <!-- Review -->
-                <p class="review-text">
+                <p class="review-text text-gray-700 dark:text-gray-300">
                   {review.text}
                 </p>
 
@@ -170,7 +175,7 @@ const reviews = [
         <button
           id="reviews-prev"
           type="button"
-          class="reviews-arrow"
+          class="reviews-arrow bg-white dark:bg-dark border-gray-200 dark:border-gray-700 text-dark dark:text-white"
           aria-label="Avis précédent"
         >
           <Icon name="heroicons:arrow-left" size={20} />
@@ -179,14 +184,17 @@ const reviews = [
 
         <div class="reviews-counter">
           <span>15+</span>
-          <small>Avis clients</small>
+
+          <small class="text-gray-500 dark:text-gray-400">
+            Avis clients
+          </small>
         </div>
 
 
         <button
           id="reviews-next"
           type="button"
-          class="reviews-arrow"
+          class="reviews-arrow bg-white dark:bg-dark border-gray-200 dark:border-gray-700 text-dark dark:text-white"
           aria-label="Avis suivant"
         >
           <Icon name="heroicons:arrow-right" size={20} />
@@ -209,12 +217,10 @@ const reviews = [
     position: relative;
   }
 
+
+  /* Card */
+
   .review-card {
-    height: 100%;
-    padding: 28px;
-    border: 1px solid rgb(229 231 235);
-    border-radius: 20px;
-    background: rgb(249 250 251);
     transition:
       transform 0.25s ease,
       border-color 0.25s ease,
@@ -233,16 +239,6 @@ const reviews = [
   .review-avatar {
     width: 48px;
     height: 48px;
-    flex-shrink: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 9999px;
-
-    background: rgba(244, 78, 30, 0.12);
-    color: var(--color-main);
 
     font-size: 18px;
     font-weight: 700;
@@ -253,15 +249,15 @@ const reviews = [
 
   .review-name {
     margin: 0;
+
     font-size: 16px;
     font-weight: 700;
-    color: inherit;
   }
 
   .review-guide {
     margin: 3px 0 0;
+
     font-size: 12px;
-    color: rgb(107 114 128);
   }
 
 
@@ -295,7 +291,6 @@ const reviews = [
 
   .review-time {
     font-size: 13px;
-    color: rgb(107 114 128);
   }
 
 
@@ -307,8 +302,6 @@ const reviews = [
 
     font-size: 15px;
     line-height: 1.75;
-
-    color: rgb(55 65 81);
   }
 
 
@@ -320,8 +313,8 @@ const reviews = [
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 18px;
 
+    gap: 18px;
     margin-top: 30px;
   }
 
@@ -333,11 +326,9 @@ const reviews = [
     align-items: center;
     justify-content: center;
 
-    border: 1px solid rgb(229 231 235);
+    border-width: 1px;
+    border-style: solid;
     border-radius: 9999px;
-
-    background: white;
-    color: #252c33;
 
     cursor: pointer;
 
@@ -376,57 +367,13 @@ const reviews = [
   .reviews-counter span {
     font-size: 17px;
     font-weight: 700;
+
     color: var(--color-main);
   }
 
   .reviews-counter small {
     margin-top: 5px;
-
     font-size: 11px;
-    color: rgb(107 114 128);
-  }
-
-
-  /* ================================
-     Dark Mode
-  ================================= */
-
-  :global(.dark) .review-card {
-    background: #252c33;
-    border-color: rgba(255, 255, 255, 0.08);
-  }
-
-  :global(.dark) .review-card:hover {
-    border-color: rgba(244, 78, 30, 0.45);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-  }
-
-  :global(.dark) .review-name {
-    color: #f3f4f6;
-  }
-
-  :global(.dark) .review-guide,
-  :global(.dark) .review-time {
-    color: rgb(156 163 175);
-  }
-
-  :global(.dark) .review-text {
-    color: rgb(209 213 219);
-  }
-
-  :global(.dark) .reviews-arrow {
-    background: #252c33;
-    border-color: rgba(255, 255, 255, 0.1);
-    color: white;
-  }
-
-  :global(.dark) .reviews-arrow:hover {
-    background: var(--color-main);
-    border-color: var(--color-main);
-  }
-
-  :global(.dark) .reviews-counter small {
-    color: rgb(156 163 175);
   }
 
 
@@ -464,7 +411,7 @@ const reviews = [
   import Swiper from "swiper";
   import { Navigation } from "swiper/modules";
 
-  const swiper = new Swiper("#reviewsSwiper", {
+  new Swiper("#reviewsSwiper", {
     modules: [Navigation],
 
     loop: true,
