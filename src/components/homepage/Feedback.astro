@@ -1,13 +1,52 @@
 ---
 import { Icon } from "astro-icon/components";
 import Swiper from "../Swiper.astro";
+
+const reviews = [
+  {
+    name: "Mohamed A.",
+    initial: "M",
+    time: "Il y a 2 semaines",
+    text: "Excellent service ! Livraison rapide et livreur très professionnel. Ma commande est arrivée à temps et tout s'est très bien passé.",
+  },
+  {
+    name: "Sarah M.",
+    initial: "S",
+    time: "Il y a 1 mois",
+    text: "Très bon service de livraison à Marrakech. La commande a été récupérée rapidement et livrée directement à mon hôtel. Très pratique et efficace !",
+  },
+  {
+    name: "Thomas R.",
+    initial: "T",
+    time: "Il y a 2 mois",
+    text: "Service rapide et sérieux. Le livreur était ponctuel, sympathique et professionnel. Je recommande Kech Delivery sans hésitation.",
+  },
+  {
+    name: "Sophie L.",
+    initial: "S",
+    time: "Il y a 2 mois",
+    text: "Très bonne expérience. Le livreur était à l'heure et la livraison s'est parfaitement déroulée. Je recommande ce service.",
+  },
+  {
+    name: "David B.",
+    initial: "D",
+    time: "Il y a 3 mois",
+    text: "Service très professionnel et livraison rapide. Une excellente solution lorsque l'on a besoin de se faire livrer à Marrakech.",
+  },
+  {
+    name: "Claire D.",
+    initial: "C",
+    time: "Il y a 3 mois",
+    text: "Commande récupérée rapidement et livrée directement à mon hôtel. Service pratique, rapide et efficace.",
+  },
+];
 ---
 
 <section class="section section-reviews">
   <div class="container">
 
-    <!-- Section Header -->
-    <div class="mb-8">
+    <!-- Header -->
+    <div class="reviews-header mb-8 lg:mb-10">
       <h2>Avis de nos clients</h2>
 
       <p class="mt-4 max-w-2xl text-gray-600 dark:text-gray-300">
@@ -16,300 +55,416 @@ import Swiper from "../Swiper.astro";
       </p>
     </div>
 
+
     <!-- Reviews Slider -->
-    <Swiper
-      pagination={false}
-      navigation={true}
-      id="mySwiper"
-      prev="swiper-prev"
-      next="swiper-next"
-    >
+    <div class="reviews-slider-wrapper">
 
-      <!-- Review 1 -->
-      <div class="swiper-slide">
-        <article
-          class="bg-gray-50 dark:bg-dark border border-gray-200 dark:border-dark rounded-xl p-6 sm:p-7 h-full"
+      <Swiper
+        pagination={false}
+        navigation={false}
+        id="reviewsSwiper"
+      >
+
+        {
+          reviews.map((review) => (
+            <div class="swiper-slide h-auto">
+
+              <article class="review-card">
+
+                <!-- Top -->
+                <div class="flex items-start justify-between gap-4">
+
+                  <!-- Customer -->
+                  <div class="flex items-center gap-3 min-w-0">
+
+                    <div class="review-avatar">
+                      {review.initial}
+                    </div>
+
+                    <div class="min-w-0">
+
+                      <p class="review-name">
+                        {review.name}
+                      </p>
+
+                      <p class="review-guide">
+                        Local Guide
+                      </p>
+
+                    </div>
+
+                  </div>
+
+
+                  <!-- Google -->
+                  <div class="review-google shrink-0">
+
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-label="Google"
+                    >
+                      <path
+                        d="M21.35 12.27c0-.79-.07-1.55-.2-2.27H12v4.3h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.42Z"
+                        fill="#4285F4"
+                      />
+                      <path
+                        d="M12 21.5c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.29v2.53A9.74 9.74 0 0 0 12 21.5Z"
+                        fill="#34A853"
+                      />
+                      <path
+                        d="M6.54 13.58a5.86 5.86 0 0 1 0-3.76V7.29H3.29a9.5 9.5 0 0 0 0 8.82l3.25-2.53Z"
+                        fill="#FBBC05"
+                      />
+                      <path
+                        d="M12 5.79c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.84 2.87 14.63 2 12 2a9.74 9.74 0 0 0-8.71 5.29l3.25 2.53C7.31 7.51 9.46 5.79 12 5.79Z"
+                        fill="#EA4335"
+                      />
+                    </svg>
+
+                  </div>
+
+                </div>
+
+
+                <!-- Rating -->
+                <div class="review-meta">
+
+                  <div class="review-stars">
+                    {
+                      Array.from({ length: 5 }).map(() => (
+                        <Icon
+                          name="heroicons:star-solid"
+                          size={18}
+                        />
+                      ))
+                    }
+                  </div>
+
+                  <span class="review-time">
+                    {review.time}
+                  </span>
+
+                </div>
+
+
+                <!-- Review -->
+                <p class="review-text">
+                  {review.text}
+                </p>
+
+              </article>
+
+            </div>
+          ))
+        }
+
+      </Swiper>
+
+
+      <!-- Navigation -->
+      <div class="reviews-navigation">
+
+        <button
+          id="reviews-prev"
+          type="button"
+          class="reviews-arrow"
+          aria-label="Avis précédent"
         >
+          <Icon name="heroicons:arrow-left" size={20} />
+        </button>
 
-          <!-- Customer -->
-          <div class="flex items-start justify-between gap-4">
 
-            <div class="flex items-center gap-3">
+        <div class="reviews-counter">
+          <span>15+</span>
+          <small>Avis clients</small>
+        </div>
 
-              <!-- Avatar -->
-              <div
-                class="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center shrink-0"
-              >
-                <span class="font-semibold text-gray-600 dark:text-gray-200 text-lg">
-                  M
-                </span>
-              </div>
 
-              <!-- Name -->
-              <div>
-                <p class="font-semibold">
-                  Mohamed A.
-                </p>
+        <button
+          id="reviews-next"
+          type="button"
+          class="reviews-arrow"
+          aria-label="Avis suivant"
+        >
+          <Icon name="heroicons:arrow-right" size={20} />
+        </button>
 
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                  Local Guide
-                </p>
-              </div>
-
-            </div>
-
-            <!-- Google Icon -->
-            <div class="shrink-0">
-
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-label="Google"
-              >
-                <path
-                  d="M21.35 12.27c0-.79-.07-1.55-.2-2.27H12v4.3h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.42Z"
-                  fill="#4285F4"
-                />
-                <path
-                  d="M12 21.5c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.29v2.53A9.74 9.74 0 0 0 12 21.5Z"
-                  fill="#34A853"
-                />
-                <path
-                  d="M6.54 13.58a5.86 5.86 0 0 1 0-3.76V7.29H3.29a9.5 9.5 0 0 0 0 8.82l3.25-2.53Z"
-                  fill="#FBBC05"
-                />
-                <path
-                  d="M12 5.79c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.84 2.87 14.63 2 12 2a9.74 9.74 0 0 0-8.71 5.29l3.25 2.53C7.31 7.51 9.46 5.79 12 5.79Z"
-                  fill="#EA4335"
-                />
-              </svg>
-
-            </div>
-
-          </div>
-
-          <!-- Rating -->
-          <div class="flex items-center gap-2 mt-5">
-
-            <div class="flex gap-0.5 text-yellow-500">
-              {
-                Array.from({ length: 5 }).map(() => (
-                  <Icon name="heroicons:star-solid" size={18} />
-                ))
-              }
-            </div>
-
-            <span class="text-sm text-gray-500 dark:text-gray-400">
-              Il y a 2 semaines
-            </span>
-
-          </div>
-
-          <!-- Review -->
-          <p class="text-sm leading-6 mt-4">
-            Excellent service ! Livraison rapide et livreur très
-            professionnel. Ma commande est arrivée à temps et tout
-            s'est très bien passé.
-          </p>
-
-        </article>
       </div>
 
+    </div>
 
-      <!-- Review 2 -->
-      <div class="swiper-slide">
-        <article
-          class="bg-gray-50 dark:bg-dark border border-gray-200 dark:border-dark rounded-xl p-6 sm:p-7 h-full"
-        >
-
-          <div class="flex items-start justify-between gap-4">
-
-            <div class="flex items-center gap-3">
-
-              <!-- Avatar -->
-              <div
-                class="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center shrink-0"
-              >
-                <span class="font-semibold text-gray-600 dark:text-gray-200 text-lg">
-                  S
-                </span>
-              </div>
-
-              <!-- Name -->
-              <div>
-                <p class="font-semibold">
-                  Sarah M.
-                </p>
-
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                  Local Guide
-                </p>
-              </div>
-
-            </div>
-
-            <!-- Google Icon -->
-            <div class="shrink-0">
-
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-label="Google"
-              >
-                <path
-                  d="M21.35 12.27c0-.79-.07-1.55-.2-2.27H12v4.3h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.42Z"
-                  fill="#4285F4"
-                />
-                <path
-                  d="M12 21.5c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.29v2.53A9.74 9.74 0 0 0 12 21.5Z"
-                  fill="#34A853"
-                />
-                <path
-                  d="M6.54 13.58a5.86 5.86 0 0 1 0-3.76V7.29H3.29a9.5 9.5 0 0 0 0 8.82l3.25-2.53Z"
-                  fill="#FBBC05"
-                />
-                <path
-                  d="M12 5.79c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.84 2.87 14.63 2 12 2a9.74 9.74 0 0 0-8.71 5.29l3.25 2.53C7.31 7.51 9.46 5.79 12 5.79Z"
-                  fill="#EA4335"
-                />
-              </svg>
-
-            </div>
-
-          </div>
-
-          <!-- Rating -->
-          <div class="flex items-center gap-2 mt-5">
-
-            <div class="flex gap-0.5 text-yellow-500">
-              {
-                Array.from({ length: 5 }).map(() => (
-                  <Icon name="heroicons:star-solid" size={18} />
-                ))
-              }
-            </div>
-
-            <span class="text-sm text-gray-500 dark:text-gray-400">
-              Il y a 1 mois
-            </span>
-
-          </div>
-
-          <!-- Review -->
-          <p class="text-sm leading-6 mt-4">
-            Très bon service de livraison à Marrakech. La commande a été
-            récupérée rapidement et livrée directement à mon hôtel.
-            Très pratique et efficace !
-          </p>
-
-        </article>
-      </div>
-
-
-      <!-- Review 3 -->
-      <div class="swiper-slide">
-        <article
-          class="bg-gray-50 dark:bg-dark border border-gray-200 dark:border-dark rounded-xl p-6 sm:p-7 h-full"
-        >
-
-          <div class="flex items-start justify-between gap-4">
-
-            <div class="flex items-center gap-3">
-
-              <!-- Avatar -->
-              <div
-                class="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center shrink-0"
-              >
-                <span class="font-semibold text-gray-600 dark:text-gray-200 text-lg">
-                  T
-                </span>
-              </div>
-
-              <!-- Name -->
-              <div>
-                <p class="font-semibold">
-                  Thomas R.
-                </p>
-
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                  Local Guide
-                </p>
-              </div>
-
-            </div>
-
-            <!-- Google Icon -->
-            <div class="shrink-0">
-
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-label="Google"
-              >
-                <path
-                  d="M21.35 12.27c0-.79-.07-1.55-.2-2.27H12v4.3h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.42Z"
-                  fill="#4285F4"
-                />
-                <path
-                  d="M12 21.5c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.29v2.53A9.74 9.74 0 0 0 12 21.5Z"
-                  fill="#34A853"
-                />
-                <path
-                  d="M6.54 13.58a5.86 5.86 0 0 1 0-3.76V7.29H3.29a9.5 9.5 0 0 0 0 8.82l3.25-2.53Z"
-                  fill="#FBBC05"
-                />
-                <path
-                  d="M12 5.79c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.84 2.87 14.63 2 12 2a9.74 9.74 0 0 0-8.71 5.29l3.25 2.53C7.31 7.51 9.46 5.79 12 5.79Z"
-                  fill="#EA4335"
-                />
-              </svg>
-
-            </div>
-
-          </div>
-
-          <!-- Rating -->
-          <div class="flex items-center gap-2 mt-5">
-
-            <div class="flex gap-0.5 text-yellow-500">
-              {
-                Array.from({ length: 5 }).map(() => (
-                  <Icon name="heroicons:star-solid" size={18} />
-                ))
-              }
-            </div>
-
-            <span class="text-sm text-gray-500 dark:text-gray-400">
-              Il y a 2 mois
-            </span>
-
-          </div>
-
-          <!-- Review -->
-          <p class="text-sm leading-6 mt-4">
-            Service rapide et sérieux. Le livreur était ponctuel,
-            sympathique et professionnel. Je recommande Kech Delivery
-            sans hésitation.
-          </p>
-
-        </article>
-      </div>
-
-    </Swiper>
   </div>
 </section>
+
+
+<style>
+  /* ================================
+     Reviews
+  ================================= */
+
+  .reviews-slider-wrapper {
+    position: relative;
+  }
+
+  .review-card {
+    height: 100%;
+    padding: 28px;
+    border: 1px solid rgb(229 231 235);
+    border-radius: 20px;
+    background: rgb(249 250 251);
+    transition:
+      transform 0.25s ease,
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .review-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(244, 78, 30, 0.35);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  }
+
+
+  /* Avatar */
+
+  .review-avatar {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9999px;
+
+    background: rgba(244, 78, 30, 0.12);
+    color: var(--color-main);
+
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+
+  /* Customer */
+
+  .review-name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: inherit;
+  }
+
+  .review-guide {
+    margin: 3px 0 0;
+    font-size: 12px;
+    color: rgb(107 114 128);
+  }
+
+
+  /* Google */
+
+  .review-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  /* Rating */
+
+  .review-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-top: 22px;
+  }
+
+  .review-stars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    color: #f4b400;
+  }
+
+  .review-time {
+    font-size: 13px;
+    color: rgb(107 114 128);
+  }
+
+
+  /* Review text */
+
+  .review-text {
+    margin-top: 18px;
+    margin-bottom: 0;
+
+    font-size: 15px;
+    line-height: 1.75;
+
+    color: rgb(55 65 81);
+  }
+
+
+  /* ================================
+     Navigation
+  ================================= */
+
+  .reviews-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+
+    margin-top: 30px;
+  }
+
+  .reviews-arrow {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgb(229 231 235);
+    border-radius: 9999px;
+
+    background: white;
+    color: #252c33;
+
+    cursor: pointer;
+
+    transition:
+      background 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .reviews-arrow:hover {
+    background: var(--color-main);
+    border-color: var(--color-main);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  .reviews-arrow:active {
+    transform: translateY(0);
+  }
+
+
+  /* Counter */
+
+  .reviews-counter {
+    min-width: 90px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    line-height: 1;
+  }
+
+  .reviews-counter span {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--color-main);
+  }
+
+  .reviews-counter small {
+    margin-top: 5px;
+
+    font-size: 11px;
+    color: rgb(107 114 128);
+  }
+
+
+  /* ================================
+     Dark Mode
+  ================================= */
+
+  :global(.dark) .review-card {
+    background: #252c33;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  :global(.dark) .review-card:hover {
+    border-color: rgba(244, 78, 30, 0.45);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  :global(.dark) .review-name {
+    color: #f3f4f6;
+  }
+
+  :global(.dark) .review-guide,
+  :global(.dark) .review-time {
+    color: rgb(156 163 175);
+  }
+
+  :global(.dark) .review-text {
+    color: rgb(209 213 219);
+  }
+
+  :global(.dark) .reviews-arrow {
+    background: #252c33;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  :global(.dark) .reviews-arrow:hover {
+    background: var(--color-main);
+    border-color: var(--color-main);
+  }
+
+  :global(.dark) .reviews-counter small {
+    color: rgb(156 163 175);
+  }
+
+
+  /* ================================
+     Mobile
+  ================================= */
+
+  @media (max-width: 639px) {
+
+    .review-card {
+      padding: 22px;
+      border-radius: 18px;
+    }
+
+    .review-text {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .reviews-navigation {
+      margin-top: 24px;
+      gap: 14px;
+    }
+
+    .reviews-arrow {
+      width: 42px;
+      height: 42px;
+    }
+
+  }
+</style>
+
 
 <script>
   import Swiper from "swiper";
   import { Navigation } from "swiper/modules";
 
-  new Swiper("#mySwiper", {
+  const swiper = new Swiper("#reviewsSwiper", {
     modules: [Navigation],
 
     loop: true,
@@ -319,6 +474,10 @@ import Swiper from "../Swiper.astro";
     slidesPerView: 1,
 
     breakpoints: {
+      640: {
+        slidesPerView: 1.2,
+      },
+
       768: {
         slidesPerView: 2,
       },
@@ -329,75 +488,8 @@ import Swiper from "../Swiper.astro";
     },
 
     navigation: {
-      nextEl: ".swiper-next",
-      prevEl: ".swiper-prev",
+      nextEl: "#reviews-next",
+      prevEl: "#reviews-prev",
     },
   });
 </script>
-
-
-<style>
-  /* Reviews navigation */
-  .section-reviews :global(.swiper-prev),
-  .section-reviews :global(.swiper-next) {
-    top: auto !important;
-    bottom: -64px !important;
-
-    width: 44px !important;
-    height: 44px !important;
-
-    margin: 0 !important;
-
-    background: white !important;
-    color: #1c232b !important;
-
-    border-radius: 9999px !important;
-
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-
-    transform: none !important;
-  }
-
-  /* Previous */
-  .section-reviews :global(.swiper-prev) {
-    left: calc(50% - 52px) !important;
-    right: auto !important;
-  }
-
-  /* Next */
-  .section-reviews :global(.swiper-next) {
-    right: calc(50% - 52px) !important;
-    left: auto !important;
-  }
-
-  /* Make space for the navigation below the slider */
-  .section-reviews :global(.swiper) {
-    margin-bottom: 70px;
-  }
-
-  /* Mobile */
-  @media (max-width: 767px) {
-    .section-reviews :global(.swiper-prev),
-    .section-reviews :global(.swiper-next) {
-      width: 42px !important;
-      height: 42px !important;
-      bottom: -58px !important;
-    }
-
-    .section-reviews :global(.swiper-prev) {
-      left: calc(50% - 48px) !important;
-    }
-
-    .section-reviews :global(.swiper-next) {
-      right: calc(50% - 48px) !important;
-    }
-
-    .section-reviews :global(.swiper) {
-      margin-bottom: 65px;
-    }
-  }
-</style>
