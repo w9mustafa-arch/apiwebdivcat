@@ -6,7 +6,7 @@ import Swiper from "../Swiper.astro";
 
 const reviews = (await getCollection("team"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 6);
+  .slice(0, 3);
 ---
 
 <section class="section section-reviews">
@@ -64,7 +64,7 @@ const reviews = (await getCollection("team"))
                     <!-- Avatar -->
                     <div class="review-avatar shrink-0">
                       <Image
-                        src={review.data.avatar}
+                        src={review.data.thumbnail}
                         alt={`Photo de ${review.data.title}`}
                         width={48}
                         height={48}
