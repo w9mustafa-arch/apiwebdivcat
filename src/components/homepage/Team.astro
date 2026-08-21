@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import Swiper from "../Swiper.astro";
 
@@ -61,10 +62,16 @@ const reviews = (await getCollection("team"))
                   <div class="flex items-center gap-3 min-w-0">
 
                     <!-- Avatar -->
-                    <div
-                      class="review-avatar shrink-0 flex items-center justify-center rounded-full bg-main/10 text-main"
-                    >
-                      {review.data.title.charAt(0)}
+                    <div class="review-avatar shrink-0">
+                      <Image
+                        src={review.data.avatar}
+                        alt={`Photo de ${review.data.title}`}
+                        width={48}
+                        height={48}
+                        format="webp"
+                        quality={80}
+                        class="w-full h-full rounded-full object-cover"
+                      />
                     </div>
 
                     <!-- Name -->
@@ -171,7 +178,7 @@ const reviews = (await getCollection("team"))
 
         <div class="reviews-counter">
 
-          <span>{reviews.length}+</span>
+          <span>15+</span>
 
           <small class="text-gray-500 dark:text-gray-400">
             Avis clients
@@ -232,8 +239,10 @@ const reviews = (await getCollection("team"))
     width: 48px;
     height: 48px;
 
-    font-size: 18px;
-    font-weight: 700;
+    overflow: hidden;
+    border-radius: 9999px;
+
+    flex-shrink: 0;
   }
 
 
