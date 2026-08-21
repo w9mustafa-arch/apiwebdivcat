@@ -54,12 +54,13 @@ const team = defineCollection({
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
       featured: z.boolean().default(false),
-      rating: z.number().default(5)
+      rating: z.number().default(5),
+      time: z.string(),
     }),
 });
 
 export const collections = {
   blog,
   service,
-  team
+  team,
 };
