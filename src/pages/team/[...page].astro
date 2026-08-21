@@ -2,14 +2,14 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Main.astro";
 import Pagination from "../../components/pagination.astro";
-import TeamCard from "../../components/card/TeamCard.astro";
+import { Icon } from "astro-icon/components";
 
 export async function getStaticPaths({ paginate }) {
-  const team = (await getCollection("team")).sort(
+  const reviews = (await getCollection("team")).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
   );
 
-  return paginate(team, {
+  return paginate(reviews, {
     pageSize: 6,
   });
 }
@@ -17,29 +17,217 @@ export async function getStaticPaths({ paginate }) {
 const { page } = Astro.props;
 ---
 
-<Layout title="Team">
+<Layout title="Avis de nos clients">
   <section class="section">
     <div class="container">
+
+      <!-- Breadcrumbs -->
       <div class="breadcrumbs text-sm mb-6">
         <ul class="flex! flex-wrap">
-          <li><a href="/">Home</a></li>
-          <li>Team</li>
+          <li>
+            <a href="/">Home</a>
+          </li>
+
+          <li>Avis</li>
         </ul>
       </div>
 
+
+      <!-- Header -->
+      <div class="border-b border-b-main pb-10 mb-10">
+
+        <h1>Avis de nos clients</h1>
+
+        <p class="mt-4 max-w-2xl text-gray-600 dark:text-gray-300">
+          Découvrez les avis laissés par nos clients après leur expérience
+          avec Kech Delivery à Marrakech.
+        </p>
+
+      </div>
+
+
+      <!-- Reviews -->
       <ul
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 items-stretch"
       >
+
         {
-          page.data.map((post) => (
+          page.data.map((review) => (
             <li>
-              <TeamCard {...post} />
+
+              <article
+                class="review-card h-full p-7 rounded-xl bg-gray-50 dark:bg-dark border border-gray-200 dark:border-gray-700"
+              >
+
+                <!-- Customer -->
+                <div class="flex items-start justify-between gap-4">
+
+                  <div class="flex items-center gap-3 min-w-0">
+
+                    <!-- Avatar -->
+                    <div
+                      class="review-avatar shrink-0 flex items-center justify-center rounded-full bg-main/10 text-main"
+                    >
+                      {review.data.title.charAt(0)}
+                    </div>
+
+                    <!-- Name -->
+                    <div class="min-w-0">
+
+                      <p class="review-name">
+                        {review.data.title}
+                      </p>
+
+                      <p class="review-guide text-gray-500 dark:text-gray-400">
+                        Local Guide
+                      </p>
+
+                    </div>
+
+                  </div>
+
+
+                  <!-- Google -->
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-label="Google"
+                  >
+
+                    <path
+                      d="M21.35 12.27c0-.79-.07-1.55-.2-2.27H12v4.3h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.42Z"
+                      fill="#4285F4"
+                    />
+
+                    <path
+                      d="M12 21.5c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.29v2.53A9.74 9.74 0 0 0 12 21.5Z"
+                      fill="#34A853"
+                    />
+
+                    <path
+                      d="M6.54 13.58a5.86 5.86 0 0 1 0-3.76V7.29H3.29a9.5 9.5 0 0 0 0 8.82l3.25-2.53Z"
+                      fill="#FBBC05"
+                    />
+
+                    <path
+                      d="M12 5.79c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.84 2.87 14.63 2 12 2a9.74 9.74 0 0 0-8.71 5.29l3.25 2.53C7.31 7.51 9.46 5.79 12 5.79Z"
+                      fill="#EA4335"
+                    />
+
+                  </svg>
+
+                </div>
+
+
+                <!-- Rating -->
+                <div class="review-meta">
+
+                  <div class="review-stars">
+
+                    {
+                      Array.from({
+                        length: review.data.rating || 5,
+                      }).map(() => (
+                        <Icon
+                          name="heroicons:star-solid"
+                          size={18}
+                        />
+                      ))
+                    }
+
+                  </div>
+
+                  <span class="review-time text-gray-500 dark:text-gray-400">
+                    {new Date(review.data.pubDate).toLocaleDateString(
+                      "fr-FR",
+                      {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      },
+                    )}
+                  </span>
+
+                </div>
+
+
+                <!-- Review -->
+                <p class="review-text text-gray-700 dark:text-gray-300">
+                  {review.data.description}
+                </p>
+
+              </article>
+
             </li>
           ))
         }
+
       </ul>
 
+
+      <!-- Pagination -->
       {page.lastPage != 1 && <Pagination page={page} />}
+
     </div>
   </section>
 </Layout>
+
+
+<style>
+  .review-card {
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .review-card:hover {
+    border-color: rgba(244, 78, 30, 0.35);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  }
+
+  .review-avatar {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .review-name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .review-guide {
+    margin: 3px 0 0;
+    font-size: 12px;
+  }
+
+  .review-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .review-stars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    color: #f4b400;
+  }
+
+  .review-time {
+    font-size: 13px;
+  }
+
+  .review-text {
+    margin-top: 18px;
+    margin-bottom: 0;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+</style>
