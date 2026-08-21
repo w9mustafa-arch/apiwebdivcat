@@ -1,45 +1,478 @@
 ---
-import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
 import Layout from "../../layouts/Main.astro";
 import Pagination from "../../components/pagination.astro";
-import TeamCard from "../../components/card/TeamCard.astro";
 
-export async function getStaticPaths({ paginate }) {
-  const team = (await getCollection("team")).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-  );
+const reviews = [
+  {
+    name: "Mohamed A.",
+    initial: "M",
+    time: "Il y a 2 semaines",
+    text: "Excellent service ! Livraison rapide et livreur très professionnel. Ma commande est arrivée à temps et tout s'est très bien passé.",
+  },
+  {
+    name: "Sarah M.",
+    initial: "S",
+    time: "Il y a 1 mois",
+    text: "Très bon service de livraison à Marrakech. La commande a été récupérée rapidement et livrée directement à mon hôtel. Très pratique et efficace !",
+  },
+  {
+    name: "Thomas R.",
+    initial: "T",
+    time: "Il y a 2 mois",
+    text: "Service rapide et sérieux. Le livreur était ponctuel, sympathique et professionnel. Je recommande Kech Delivery sans hésitation.",
+  },
+  {
+    name: "Sophie L.",
+    initial: "S",
+    time: "Il y a 2 mois",
+    text: "Très bonne expérience. Le livreur était à l'heure et la livraison s'est parfaitement déroulée. Je recommande ce service.",
+  },
+  {
+    name: "David B.",
+    initial: "D",
+    time: "Il y a 3 mois",
+    text: "Service très professionnel et livraison rapide. Une excellente solution lorsque l'on a besoin de se faire livrer à Marrakech.",
+  },
+  {
+    name: "Claire D.",
+    initial: "C",
+    time: "Il y a 3 mois",
+    text: "Commande récupérée rapidement et livrée directement à mon hôtel. Service pratique, rapide et efficace.",
+  },
+  {
+    name: "Yassine B.",
+    initial: "Y",
+    time: "Il y a 4 mois",
+    text: "Très bon service, rapide et professionnel. Le livreur était très sympathique et la livraison s'est parfaitement déroulée.",
+  },
+  {
+    name: "Emma P.",
+    initial: "E",
+    time: "Il y a 4 mois",
+    text: "Service très pratique à Marrakech. Livraison rapide et communication excellente. Je recommande vivement.",
+  },
+  {
+    name: "Lucas M.",
+    initial: "L",
+    time: "Il y a 5 mois",
+    text: "Excellent service de livraison. Tout s'est bien passé du début à la fin. Très professionnel.",
+  },
+];
 
-  return paginate(team, {
-    pageSize: 6,
+const pageSize = 6;
+
+export async function getStaticPaths() {
+  const totalPages = Math.ceil(reviews.length / pageSize);
+
+  return Array.from({ length: totalPages }, (_, index) => {
+    const pageNumber = index + 1;
+
+    return {
+      params: pageNumber === 1 ? {} : { page: String(pageNumber) },
+      props: {
+        currentPage: pageNumber,
+      },
+    };
   });
 }
 
-const { page } = Astro.props;
+const { currentPage } = Astro.props;
+
+const start = (currentPage - 1) * pageSize;
+const end = start + pageSize;
+
+const currentReviews = reviews.slice(start, end);
+const totalPages = Math.ceil(reviews.length / pageSize);
 ---
 
-<Layout title="Team">
+<Layout title="Avis de nos clients">
   <section class="section">
     <div class="container">
+
+      <!-- Breadcrumbs -->
       <div class="breadcrumbs text-sm mb-6">
         <ul class="flex! flex-wrap">
-          <li><a href="/">Home</a></li>
-          <li>Team</li>
+          <li>
+            <a href="/">Home</a>
+          </li>
+
+          <li>Avis</li>
         </ul>
       </div>
 
+
+      <!-- Header -->
+      <div class="border-b border-b-main pb-10 mb-10">
+
+        <h1>Avis de nos clients</h1>
+
+        <p class="mt-4 max-w-2xl text-gray-600 dark:text-gray-300">
+          Découvrez les avis laissés par nos clients après leur expérience
+          avec Kech Delivery à Marrakech.
+        </p>
+
+      </div>
+
+
+      <!-- Reviews -->
       <ul
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 items-stretch"
       >
+
         {
-          page.data.map((post) => (
+          currentReviews.map((review) => (
             <li>
-              <TeamCard {...post} />
+
+              <article
+                class="review-card h-full p-7 rounded-xl bg-gray-50 dark:bg-dark border border-gray-200 dark:border-gray-700"
+              >
+
+                <!-- Customer -->
+                <div class="flex items-start justify-between gap-4">
+
+                  <!-- Customer Info -->
+                  <div class="flex items-center gap-3 min-w-0">
+
+                    <!-- Avatar -->
+                    <div
+                      class="review-avatar shrink-0 flex items-center justify-center rounded-full bg-main/10 text-main"
+                    >
+                      {review.initial}
+                    </div>
+
+                    <!-- Name -->
+                    <div class="min-w-0">
+
+                      <p class="review-name">
+                        {review.name}
+                      </p>
+
+                      <p class="review-guide text-gray-500 dark:text-gray-400">
+                        Local Guide
+                      </p>
+
+                    </div>
+
+                  </div>
+
+
+                  <!-- Google -->
+                  <div class="review-google shrink-0">
+
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-label="Google"
+                    >
+
+                      <path
+                        d="M21.35 12.27c0-.79-.07-1.55-.2-2.27H12v4.3h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.42Z"
+                        fill="#4285F4"
+                      />
+
+                      <path
+                        d="M12 21.5c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.29v2.53A9.74 9.74 0 0 0 12 21.5Z"
+                        fill="#34A853"
+                      />
+
+                      <path
+                        d="M6.54 13.58a5.86 5.86 0 0 1 0-3.76V7.29H3.29a9.5 9.5 0 0 0 0 8.82l3.25-2.53Z"
+                        fill="#FBBC05"
+                      />
+
+                      <path
+                        d="M12 5.79c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.84 2.87 14.63 2 12 2a9.74 9.74 0 0 0-8.71 5.29l3.25 2.53C7.31 7.51 9.46 5.79 12 5.79Z"
+                        fill="#EA4335"
+                      />
+
+                    </svg>
+
+                  </div>
+
+                </div>
+
+
+                <!-- Rating -->
+                <div class="review-meta">
+
+                  <div class="review-stars">
+                    {
+                      Array.from({ length: 5 }).map(() => (
+                        <Icon
+                          name="heroicons:star-solid"
+                          size={18}
+                        />
+                      ))
+                    }
+                  </div>
+
+                  <span class="review-time text-gray-500 dark:text-gray-400">
+                    {review.time}
+                  </span>
+
+                </div>
+
+
+                <!-- Review -->
+                <p class="review-text text-gray-700 dark:text-gray-300">
+                  {review.text}
+                </p>
+
+              </article>
+
             </li>
           ))
         }
+
       </ul>
 
-      {page.lastPage != 1 && <Pagination page={page} />}
+
+      <!-- Pagination -->
+      {
+        totalPages > 1 && (
+          <div class="reviews-pagination">
+
+            {
+              currentPage > 1 && (
+                <a
+                  href={currentPage === 2 ? "/avis" : `/avis/${currentPage - 1}`}
+                  class="pagination-arrow"
+                  aria-label="Page précédente"
+                >
+                  <Icon name="heroicons:arrow-left" size={20} />
+                </a>
+              )
+            }
+
+
+            {
+              Array.from({ length: totalPages }, (_, index) => {
+                const pageNumber = index + 1;
+
+                return (
+                  <a
+                    href={pageNumber === 1 ? "/avis" : `/avis/${pageNumber}`}
+                    class:list={[
+                      "pagination-number",
+                      { active: pageNumber === currentPage },
+                    ]}
+                  >
+                    {pageNumber}
+                  </a>
+                );
+              })
+            }
+
+
+            {
+              currentPage < totalPages && (
+                <a
+                  href={`/avis/${currentPage + 1}`}
+                  class="pagination-arrow"
+                  aria-label="Page suivante"
+                >
+                  <Icon name="heroicons:arrow-right" size={20} />
+                </a>
+              )
+            }
+
+          </div>
+        )
+      }
+
     </div>
   </section>
 </Layout>
+
+
+<style>
+  /* ================================
+     Review Card
+  ================================= */
+
+  .review-card {
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .review-card:hover {
+    border-color: rgba(244, 78, 30, 0.35);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  }
+
+
+  /* ================================
+     Avatar
+  ================================= */
+
+  .review-avatar {
+    width: 48px;
+    height: 48px;
+
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+
+  /* ================================
+     Customer
+  ================================= */
+
+  .review-name {
+    margin: 0;
+
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .review-guide {
+    margin: 3px 0 0;
+
+    font-size: 12px;
+  }
+
+
+  /* ================================
+     Google
+  ================================= */
+
+  .review-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  /* ================================
+     Rating
+  ================================= */
+
+  .review-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 22px;
+  }
+
+  .review-stars {
+    display: flex;
+    align-items: center;
+
+    gap: 2px;
+
+    color: #f4b400;
+  }
+
+  .review-time {
+    font-size: 13px;
+  }
+
+
+  /* ================================
+     Review Text
+  ================================= */
+
+  .review-text {
+    margin-top: 18px;
+    margin-bottom: 0;
+
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+
+  /* ================================
+     Pagination
+  ================================= */
+
+  .reviews-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 50px;
+  }
+
+  .pagination-number,
+  .pagination-arrow {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgb(229 231 235);
+
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition:
+      background 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .pagination-number:hover,
+  .pagination-arrow:hover {
+    background: var(--color-main);
+    border-color: var(--color-main);
+    color: white;
+  }
+
+  .pagination-number.active {
+    background: var(--color-main);
+    border-color: var(--color-main);
+    color: white;
+  }
+
+
+  /* ================================
+     Dark Mode
+  ================================= */
+
+  :global(.dark) .pagination-number,
+  :global(.dark) .pagination-arrow {
+    border-color: rgb(55 65 81);
+  }
+
+
+  /* ================================
+     Mobile
+  ================================= */
+
+  @media (max-width: 639px) {
+
+    .review-card {
+      padding: 22px;
+      border-radius: 18px;
+    }
+
+    .review-text {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .reviews-pagination {
+      margin-top: 35px;
+    }
+
+    .pagination-number,
+    .pagination-arrow {
+      width: 40px;
+      height: 40px;
+    }
+
+  }
+</style>
