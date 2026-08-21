@@ -66,10 +66,8 @@ const reviews = (await getCollection("team"))
                       <Image
                         src={review.data.thumbnail}
                         alt={`Photo de ${review.data.title}`}
-                        width={48}
-                        height={48}
                         format="webp"
-                        quality={80}
+                        quality={100}
                         class="w-full h-full rounded-full object-cover"
                       />
                     </div>
