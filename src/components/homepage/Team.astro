@@ -1,231 +1,154 @@
 ---
+import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 
-const zones = [
-  // Marrakech
-  { name: "Guéliz", search: "gueliz guéliz" },
-  { name: "Hivernage", search: "hivernage" },
-  { name: "Médina", search: "medina médina" },
-  { name: "Kasbah", search: "kasbah" },
-  { name: "Mellah", search: "mellah" },
-  { name: "Sidi Youssef Ben Ali", search: "sidi youssef ben ali syba" },
-  { name: "Daoudiate", search: "daoudiate" },
-  { name: "Bab Doukkala", search: "bab doukkala" },
-  { name: "Semlalia", search: "semlalia" },
-  { name: "Targa", search: "targa" },
-  { name: "Massira", search: "massira al massira" },
-  { name: "M'Hamid", search: "mhamid m hamid" },
-  { name: "Azli", search: "azli" },
-  { name: "Issil", search: "issil" },
-  { name: "Amerchich", search: "amerchich" },
-  { name: "Hay Al Qods", search: "hay al qods qods" },
-  { name: "Sidi Ghanem", search: "sidi ghanem" },
-  { name: "Palmeraie", search: "palmeraie" },
-  { name: "Agdal", search: "agdal" },
-  { name: "Chrifia", search: "chrifia" },
-  { name: "Tassoultante", search: "tassoultante" },
-  { name: "Centre Ville", search: "centre ville" },
-
-  // Routes
-  { name: "Route de l'Ourika", search: "route ourika ourika" },
-  { name: "Route de Targa", search: "route targa" },
-  { name: "Route de Fès", search: "route fes fès" },
-  { name: "Route de Casablanca", search: "route casablanca" },
-  { name: "Route de Safi", search: "route safi" },
-  { name: "Route de Ouarzazate", search: "route ouarzazate" },
-  { name: "Route de l'Aéroport", search: "route aeroport aéroport" },
-  { name: "Route de Tahannaout", search: "route tahannaout" },
-
-  // Around Marrakech
-  { name: "Tamansourt", search: "tamansourt" },
-  { name: "Saada", search: "saada" },
-  { name: "Harbil", search: "harbil" },
-  { name: "Aït Ourir", search: "ait ourir aït ourir" },
-  { name: "Tameslohte", search: "tameslohte" },
-  { name: "Tahannaout", search: "tahannaout" },
-  { name: "Sidi Abdallah Ghiat", search: "sidi abdallah ghiat" },
-  { name: "Chwiter", search: "chwiter" },
-  { name: "Aghmat", search: "aghmat" },
-  { name: "Lalla Takerkoust", search: "lalla takerkoust takerkoust" },
-  { name: "Amizmiz", search: "amizmiz" },
-  { name: "Ourika", search: "ourika vallée ourika" },
-  { name: "Setti Fatma", search: "setti fatma" },
-  { name: "Moulay Brahim", search: "moulay brahim" },
-  { name: "Asni", search: "asni" },
-  { name: "Ouirgane", search: "ouirgane" },
-  { name: "Imlil", search: "imlil" },
-];
-
-const initialVisible = 6;
+const reviews = (await getCollection("team"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
 ---
 
-<section class="section section-services">
+<section class="section section-reviews">
   <div class="container">
 
     <!-- Header -->
-    <div class="border-b border-b-main pb-8 sm:pb-10">
+    <div class="border-b border-b-main pb-10">
 
-      <div>
-        <div class="flex flex-wrap justify-between items-center gap-3">
+      <div class="flex flex-wrap justify-between items-center gap-3">
 
-          <p class="font-semibold mb-3 text-xl">
-            Nos zones de livraison
-          </p>
+        <h2>Avis de nos clients</h2>
 
-          <p>
-            <a
-              href="/contact"
-              class="text-main underline hover:no-underline"
-            >
-              Vérifier ma zone
-            </a>
-          </p>
-
-        </div>
-
-        <p class="mb-3">
-          Nous assurons nos livraisons dans les principaux quartiers
-          de Marrakech et ses environs, rapidement et en toute simplicité.
+        <p>
+          <a
+            href="/team"
+            class="text-main underline hover:no-underline"
+          >
+            Tous les avis
+          </a>
         </p>
+
       </div>
+
+      <p class="mb-3">
+        Découvrez les avis laissés par nos clients après leur expérience
+        avec Kech Delivery à Marrakech.
+      </p>
 
     </div>
 
 
-    <!-- Search + Zones -->
-    <div class="mt-8 sm:mt-10">
+    <!-- Reviews -->
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 mt-10"
+    >
 
-      <!-- Search -->
-      <div class="max-w-xl mx-auto mb-6">
-
-        <div
-          class="flex items-center
-          dark:bg-dark dark:border-dark
-          bg-gray-50 border border-gray-200
-          rounded-lg
-          transition-all duration-200
-          focus-within:border-main
-          focus-within:ring-2
-          focus-within:ring-main/10"
-        >
-
-          <div
-            class="flex items-center justify-center
-            text-main pl-4 shrink-0"
-          >
-            <Icon
-              name="lucide:search"
-              size={20}
-            />
-          </div>
-
-          <input
-            id="zone-search"
-            type="search"
-            autocomplete="off"
-            placeholder="Rechercher votre quartier ou votre ville..."
-            class="w-full px-3 py-3.5
-            bg-transparent
-            border-0 outline-none
-            text-sm sm:text-base
-            text-black dark:text-white
-            placeholder:text-gray-400
-            dark:placeholder:text-gray-500"
-          />
-
-        </div>
-
-      </div>
-
-
-      <!-- Zones -->
-      <div
-        id="delivery-zones"
-        class="grid grid-cols-2
-        sm:grid-cols-3
-        lg:grid-cols-4
-        gap-3 sm:gap-4"
-      >
-
-        {zones.map((zone, index) => (
-          <div
-            class:list={[
-              "zone-item group",
-              "flex items-center gap-2.5 sm:gap-3",
-              "dark:bg-dark dark:border-dark",
-              "bg-gray-50 border border-gray-200",
-              "rounded-lg p-3 sm:p-4",
-              "transition-all duration-300",
-              "hover:border-main",
-              "hover:bg-main/5",
-              "hover:shadow-sm",
-              index >= initialVisible ? "extra-zone hidden" : "",
-            ]}
-            data-zone={`${zone.name} ${zone.search}`}
+      {
+        reviews.map((review) => (
+          <article
+            class="review-card h-full p-7 rounded-xl bg-gray-50 dark:bg-dark border border-gray-200 dark:border-gray-700"
           >
 
-            <div
-              class="flex items-center justify-center
-              shrink-0
-              bg-main text-white
-              rounded-full
-              w-9 h-9 sm:w-10 sm:h-10"
-            >
-              <Icon
-                name="lucide:map-pin"
-                size={18}
-                class="sm:w-5 sm:h-5"
-              />
+            <!-- Customer -->
+            <div class="flex items-start justify-between gap-4">
+
+              <!-- Customer Info -->
+              <div class="flex items-center gap-3 min-w-0">
+
+                <!-- Avatar -->
+                <div
+                  class="review-avatar shrink-0 flex items-center justify-center rounded-full bg-main/10 text-main"
+                >
+                  {review.data.title.charAt(0)}
+                </div>
+
+                <!-- Name -->
+                <div class="min-w-0">
+
+                  <p class="review-name">
+                    {review.data.title}
+                  </p>
+
+                  <p class="review-guide text-gray-500 dark:text-gray-400">
+                    Local Guide
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <!-- Google -->
+              <div class="review-google shrink-0">
+
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-label="Google"
+                >
+
+                  <path
+                    d="M21.35 12.27c0-.79-.07-1.55-.2-2.27H12v4.3h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.42Z"
+                    fill="#4285F4"
+                  />
+
+                  <path
+                    d="M12 21.5c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.29v2.53A9.74 9.74 0 0 0 12 21.5Z"
+                    fill="#34A853"
+                  />
+
+                  <path
+                    d="M6.54 13.58a5.86 5.86 0 0 1 0-3.76V7.29H3.29a9.5 9.5 0 0 0 0 8.82l3.25-2.53Z"
+                    fill="#FBBC05"
+                  />
+
+                  <path
+                    d="M12 5.79c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.84 2.87 14.63 2 12 2a9.74 9.74 0 0 0-8.71 5.29l3.25 2.53C7.31 7.51 9.46 5.79 12 5.79Z"
+                    fill="#EA4335"
+                  />
+
+                </svg>
+
+              </div>
+
             </div>
 
-            <span
-              class="font-medium
-              text-xs sm:text-sm lg:text-base
-              leading-tight"
-            >
-              {zone.name}
-            </span>
 
-          </div>
-        ))}
+            <!-- Rating -->
+            <div class="review-meta">
 
-      </div>
+              <div class="review-stars">
+                {
+                  Array.from({
+                    length: review.data.rating || 5,
+                  }).map(() => (
+                    <Icon
+                      name="heroicons:star-solid"
+                      size={18}
+                    />
+                  ))
+                }
+              </div>
+
+              <span class="review-time text-gray-500 dark:text-gray-400">
+                {new Date(review.data.pubDate).toLocaleDateString("fr-FR", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </span>
+
+            </div>
 
 
-      <!-- No result -->
-      <div
-        id="no-zone"
-        class="hidden text-center mt-8"
-      >
+            <!-- Review -->
+            <p class="review-text text-gray-700 dark:text-gray-300">
+              {review.data.description}
+            </p>
 
-        <div
-          class="flex items-center justify-center
-          w-12 h-12 mx-auto mb-3
-          rounded-full
-          bg-gray-100 dark:bg-dark
-          text-gray-400"
-        >
-          <Icon
-            name="lucide:map-pin-off"
-            size={22}
-          />
-        </div>
-
-        <p
-          class="text-sm text-gray-500
-          dark:text-gray-400"
-        >
-          Aucune zone trouvée.
-        </p>
-
-        <p
-          class="text-xs text-gray-400
-          dark:text-gray-500 mt-1"
-        >
-          Contactez-nous pour vérifier votre zone de livraison.
-        </p>
-
-      </div>
+          </article>
+        ))
+      }
 
     </div>
 
@@ -233,93 +156,66 @@ const initialVisible = 6;
 </section>
 
 
-<script>
-  const searchInput = document.querySelector("#zone-search");
-  const zones = document.querySelectorAll(".zone-item");
-  const noZone = document.querySelector("#no-zone");
+<style>
+  .review-card {
+    transition:
+      transform 0.25s ease,
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
 
-  const INITIAL_VISIBLE = 6;
+  .review-card:hover {
+    border-color: rgba(244, 78, 30, 0.35);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  }
 
+  .review-avatar {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+    font-weight: 700;
+  }
 
-  // --------------------------------
-  // Search zones
-  // --------------------------------
+  .review-name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+  }
 
-  searchInput?.addEventListener("input", () => {
+  .review-guide {
+    margin: 3px 0 0;
+    font-size: 12px;
+  }
 
-    const search =
-      searchInput.value
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim();
+  .review-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
+  .review-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+  }
 
-    let visibleZones = 0;
+  .review-stars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    color: #f4b400;
+  }
 
+  .review-time {
+    font-size: 13px;
+  }
 
-    // --------------------------------
-    // Search is empty
-    // Show only first 6 zones
-    // --------------------------------
-
-    if (search === "") {
-
-      zones.forEach((zone, index) => {
-
-        if (index < INITIAL_VISIBLE) {
-          zone.classList.remove("hidden");
-        } else {
-          zone.classList.add("hidden");
-        }
-
-      });
-
-      noZone?.classList.add("hidden");
-
-      return;
-    }
-
-
-    // --------------------------------
-    // Search all zones
-    // --------------------------------
-
-    zones.forEach((zone) => {
-
-      const name =
-        zone.getAttribute("data-zone")?.toLowerCase() || "";
-
-
-      const normalizedName =
-        name
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
-
-
-      if (normalizedName.includes(search)) {
-
-        zone.classList.remove("hidden");
-        visibleZones++;
-
-      } else {
-
-        zone.classList.add("hidden");
-
-      }
-
-    });
-
-
-    // --------------------------------
-    // No result
-    // --------------------------------
-
-    if (visibleZones === 0) {
-      noZone?.classList.remove("hidden");
-    } else {
-      noZone?.classList.add("hidden");
-    }
-
-  });
-</script>
+  .review-text {
+    margin-top: 18px;
+    margin-bottom: 0;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+</style>
