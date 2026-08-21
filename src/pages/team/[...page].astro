@@ -1,93 +1,126 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Main.astro";
-import Pagination from "../../components/pagination.astro";
+import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 
-export async function getStaticPaths({ paginate }) {
-  const reviews = (await getCollection("team")).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-  );
+const team = (await getCollection("team")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 
-  return paginate(reviews, {
-    pageSize: 6,
-  });
+function getRelativeTime(date: Date) {
+  const now = new Date();
+
+  const diff = now.getTime() - date.getTime();
+
+  const seconds = Math.floor(diff / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const weeks = Math.floor(days / 7);
+  const months = Math.floor(days / 30);
+  const years = Math.floor(days / 365);
+
+  if (years >= 1) {
+    return years === 1
+      ? "Il y a 1 an"
+      : `Il y a ${years} ans`;
+  }
+
+  if (months >= 1) {
+    return months === 1
+      ? "Il y a 1 mois"
+      : `Il y a ${months} mois`;
+  }
+
+  if (weeks >= 1) {
+    return weeks === 1
+      ? "Il y a 1 semaine"
+      : `Il y a ${weeks} semaines`;
+  }
+
+  if (days >= 1) {
+    return days === 1
+      ? "Il y a 1 jour"
+      : `Il y a ${days} jours`;
+  }
+
+  if (hours >= 1) {
+    return hours === 1
+      ? "Il y a 1 heure"
+      : `Il y a ${hours} heures`;
+  }
+
+  if (minutes >= 1) {
+    return minutes === 1
+      ? "Il y a 1 minute"
+      : `Il y a ${minutes} minutes`;
+  }
+
+  return "À l'instant";
 }
-
-const { page } = Astro.props;
 ---
 
 <Layout title="Avis de nos clients">
   <section class="section">
     <div class="container">
 
-      <!-- Breadcrumbs -->
-      <div class="breadcrumbs text-sm mb-6">
-        <ul class="flex! flex-wrap">
-          <li>
-            <a href="/">Home</a>
-          </li>
-
-          <li>Avis</li>
-        </ul>
-      </div>
-
-
-      <!-- Header -->
-      <div class="border-b border-b-main pb-10 mb-10">
-
-        <h1>Avis de nos clients</h1>
-
-        <p class="mt-4 max-w-2xl text-gray-600 dark:text-gray-300">
-          Découvrez les avis laissés par nos clients après leur expérience
-          avec Kech Delivery à Marrakech.
-        </p>
-
-      </div>
-
-
-      <!-- Reviews -->
-      <ul
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 items-stretch"
+      <!-- Reviews Grid -->
+      <div
+        id="reviews-grid"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch"
       >
-
         {
-          page.data.map((review) => (
-            <li>
+          team.map((review, index) => (
+            <article
+              class:list={[
+                "review-card h-full p-7 rounded-xl bg-gray-50 dark:bg-dark border border-gray-200 dark:border-gray-700",
+                { "review-hidden": index >= 6 },
+              ]}
+              data-review
+            >
+              <!-- Customer -->
+              <div class="flex items-start justify-between gap-4">
 
-              <article
-                class="review-card h-full p-7 rounded-xl bg-gray-50 dark:bg-dark border border-gray-200 dark:border-gray-700"
-              >
+                <!-- Customer Info -->
+                <div class="flex items-center gap-3 min-w-0">
 
-                <!-- Customer -->
-                <div class="flex items-start justify-between gap-4">
+                  <!-- Avatar -->
+                  <div class="review-avatar shrink-0">
+                    {review.data.thumbnail ? (
+                      <Image
+                        src={review.data.thumbnail}
+                        alt={`Photo de ${review.data.title}`}
+                        format="webp"
+                        quality={100}
+                        class="w-full h-full rounded-full object-cover"
+                      />
+                    ) : (
+                      <span>
+                        {review.data.title.charAt(0)}
+                      </span>
+                    )}
+                  </div>
 
-                  <div class="flex items-center gap-3 min-w-0">
+                  <!-- Name + Time -->
+                  <div class="min-w-0">
 
-                    <!-- Avatar -->
-                    <div
-                      class="review-avatar shrink-0 flex items-center justify-center rounded-full bg-main/10 text-main"
-                    >
-                      {review.data.title.charAt(0)}
-                    </div>
+                    <p class="review-name">
+                      {review.data.title}
+                    </p>
 
-                    <!-- Name -->
-                    <div class="min-w-0">
-
-                      <p class="review-name">
-                        {review.data.title}
-                      </p>
-
-                      <p class="review-guide text-gray-500 dark:text-gray-400">
-                        Local Guide
-                      </p>
-
-                    </div>
+                    <p class="review-guide text-gray-500 dark:text-gray-400">
+                      {getRelativeTime(review.data.pubDate)}
+                    </p>
 
                   </div>
 
+                </div>
 
-                  <!-- Google -->
+
+                <!-- Google -->
+                <div class="review-google shrink-0">
+
                   <svg
                     width="24"
                     height="24"
@@ -95,7 +128,6 @@ const { page } = Astro.props;
                     fill="none"
                     aria-label="Google"
                   >
-
                     <path
                       d="M21.35 12.27c0-.79-.07-1.55-.2-2.27H12v4.3h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.42Z"
                       fill="#4285F4"
@@ -115,60 +147,62 @@ const { page } = Astro.props;
                       d="M12 5.79c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.84 2.87 14.63 2 12 2a9.74 9.74 0 0 0-8.71 5.29l3.25 2.53C7.31 7.51 9.46 5.79 12 5.79Z"
                       fill="#EA4335"
                     />
-
                   </svg>
 
                 </div>
 
+              </div>
 
-                <!-- Rating -->
-                <div class="review-meta">
 
-                  <div class="review-stars">
+              <!-- Rating -->
+              <div class="review-meta">
 
-                    {
-                      Array.from({
-                        length: review.data.rating || 5,
-                      }).map(() => (
-                        <Icon
-                          name="heroicons:star-solid"
-                          size={18}
-                        />
-                      ))
-                    }
-
-                  </div>
-
-                  <span class="review-time text-gray-500 dark:text-gray-400">
-                    {new Date(review.data.pubDate).toLocaleDateString(
-                      "fr-FR",
-                      {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                      },
-                    )}
-                  </span>
-
+                <div class="review-stars">
+                  {
+                    Array.from({ length: 5 }).map((_, starIndex) => (
+                      <Icon
+                        name="heroicons:star-solid"
+                        size={18}
+                        class={
+                          starIndex < (review.data.rating || 5)
+                            ? "review-star-active"
+                            : "review-star-inactive"
+                        }
+                      />
+                    ))
+                  }
                 </div>
 
+              </div>
 
-                <!-- Review -->
-                <p class="review-text text-gray-700 dark:text-gray-300">
-                  {review.data.description}
-                </p>
 
-              </article>
+              <!-- Review Text -->
+              <p class="review-text text-gray-700 dark:text-gray-300">
+                {review.data.description}
+              </p>
 
-            </li>
+            </article>
           ))
         }
+      </div>
 
-      </ul>
 
+      <!-- Load More Button -->
+      {
+        team.length > 6 && (
+          <div class="reviews-load-more">
 
-      <!-- Pagination -->
-      {page.lastPage != 1 && <Pagination page={page} />}
+            <button
+              id="load-more-reviews"
+              type="button"
+              class="load-more-button"
+            >
+              Afficher plus d'avis
+            </button>
+
+          </div>
+        )
+      }
 
     </div>
   </section>
@@ -176,8 +210,13 @@ const { page } = Astro.props;
 
 
 <style>
+  /* ================================
+     Review Card
+  ================================= */
+
   .review-card {
     transition:
+      transform 0.25s ease,
       border-color 0.25s ease,
       box-shadow 0.25s ease;
   }
@@ -187,47 +226,214 @@ const { page } = Astro.props;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
   }
 
+
+  /* ================================
+     Hidden Reviews
+  ================================= */
+
+  .review-hidden {
+    display: none;
+  }
+
+
+  /* ================================
+     Avatar
+  ================================= */
+
   .review-avatar {
     width: 48px;
     height: 48px;
+
+    overflow: hidden;
+    border-radius: 9999px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(244, 78, 30, 0.1);
+    color: var(--color-main);
+
     font-size: 18px;
     font-weight: 700;
   }
 
+
+  /* ================================
+     Customer
+  ================================= */
+
   .review-name {
     margin: 0;
+
     font-size: 16px;
     font-weight: 700;
   }
 
   .review-guide {
     margin: 3px 0 0;
+
     font-size: 12px;
   }
+
+
+  /* ================================
+     Google
+  ================================= */
+
+  .review-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  /* ================================
+     Rating
+  ================================= */
 
   .review-meta {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+
     gap: 10px;
+
     margin-top: 22px;
   }
 
   .review-stars {
     display: flex;
     align-items: center;
+
     gap: 2px;
+  }
+
+  .review-star-active {
     color: #f4b400;
   }
 
-  .review-time {
-    font-size: 13px;
+  .review-star-inactive {
+    color: #d1d5db;
   }
+
+  :global(.dark) .review-star-inactive {
+    color: #4b5563;
+  }
+
+
+  /* ================================
+     Review Text
+  ================================= */
 
   .review-text {
     margin-top: 18px;
     margin-bottom: 0;
+
     font-size: 15px;
     line-height: 1.75;
   }
+
+
+  /* ================================
+     Load More
+  ================================= */
+
+  .reviews-load-more {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 40px;
+  }
+
+  .load-more-button {
+    padding: 12px 24px;
+
+    border-radius: 9999px;
+
+    background: var(--color-main);
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    border: none;
+
+    cursor: pointer;
+
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .load-more-button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  .load-more-button:active {
+    transform: translateY(0);
+  }
+
+
+  /* ================================
+     Mobile
+  ================================= */
+
+  @media (max-width: 639px) {
+
+    .review-card {
+      padding: 22px;
+      border-radius: 18px;
+    }
+
+    .review-text {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .reviews-load-more {
+      margin-top: 30px;
+    }
+
+    .load-more-button {
+      width: 100%;
+      max-width: 280px;
+    }
+
+  }
 </style>
+
+
+<script>
+  const loadMoreButton = document.getElementById(
+    "load-more-reviews"
+  ) as HTMLButtonElement | null;
+
+  if (loadMoreButton) {
+    const reviews = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-review]")
+    );
+
+    let visibleReviews = 6;
+
+    loadMoreButton.addEventListener("click", () => {
+      const nextReviews = reviews.slice(
+        visibleReviews,
+        visibleReviews + 6
+      );
+
+      nextReviews.forEach((review) => {
+        review.classList.remove("review-hidden");
+      });
+
+      visibleReviews += 6;
+
+      if (visibleReviews >= reviews.length) {
+        loadMoreButton.style.display = "none";
+      }
+    });
+  }
+</script>
