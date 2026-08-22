@@ -4,74 +4,33 @@ import Layout from "../../layouts/Main.astro";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 
-const team = (await getCollection("team")).sort(
+const reviews = (await getCollection("team")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-
-function getRelativeTime(date: Date) {
-  const now = new Date();
-
-  const diff = now.getTime() - date.getTime();
-
-  const seconds = Math.floor(diff / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-  const weeks = Math.floor(days / 7);
-  const months = Math.floor(days / 30);
-  const years = Math.floor(days / 365);
-
-  if (years >= 1) {
-    return years === 1
-      ? "Il y a 1 an"
-      : `Il y a ${years} ans`;
-  }
-
-  if (months >= 1) {
-    return months === 1
-      ? "Il y a 1 mois"
-      : `Il y a ${months} mois`;
-  }
-
-  if (weeks >= 1) {
-    return weeks === 1
-      ? "Il y a 1 semaine"
-      : `Il y a ${weeks} semaines`;
-  }
-
-  if (days >= 1) {
-    return days === 1
-      ? "Il y a 1 jour"
-      : `Il y a ${days} jours`;
-  }
-
-  if (hours >= 1) {
-    return hours === 1
-      ? "Il y a 1 heure"
-      : `Il y a ${hours} heures`;
-  }
-
-  if (minutes >= 1) {
-    return minutes === 1
-      ? "Il y a 1 minute"
-      : `Il y a ${minutes} minutes`;
-  }
-
-  return "À l'instant";
-}
 ---
 
 <Layout title="Avis de nos clients">
-  <section class="section">
+  <section class="section section-reviews-page">
     <div class="container">
+
+      <!-- Reviews Header -->
+      <div class="reviews-header border-b border-b-main pb-10">
+        <h1>Avis de nos clients</h1>
+
+        <p class="mt-4 max-w-2xl">
+          Découvrez les avis laissés par nos clients après leur expérience
+          avec Kech Delivery à Marrakech.
+        </p>
+      </div>
+
 
       <!-- Reviews Grid -->
       <div
         id="reviews-grid"
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10"
       >
         {
-          team.map((review, index) => (
+          reviews.map((review, index) => (
             <article
               class:list={[
                 "review-card h-full p-7 rounded-xl bg-gray-50 dark:bg-dark border border-gray-200 dark:border-gray-700",
@@ -79,6 +38,7 @@ function getRelativeTime(date: Date) {
               ]}
               data-review
             >
+
               <!-- Customer -->
               <div class="flex items-start justify-between gap-4">
 
@@ -102,7 +62,8 @@ function getRelativeTime(date: Date) {
                     )}
                   </div>
 
-                  <!-- Name + Time -->
+
+                  <!-- Name + Date -->
                   <div class="min-w-0">
 
                     <p class="review-name">
@@ -110,7 +71,7 @@ function getRelativeTime(date: Date) {
                     </p>
 
                     <p class="review-guide text-gray-500 dark:text-gray-400">
-                      {getRelativeTime(review.data.pubDate)}
+                      {review.data.time}
                     </p>
 
                   </div>
@@ -128,6 +89,7 @@ function getRelativeTime(date: Date) {
                     fill="none"
                     aria-label="Google"
                   >
+
                     <path
                       d="M21.35 12.27c0-.79-.07-1.55-.2-2.27H12v4.3h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.42Z"
                       fill="#4285F4"
@@ -147,6 +109,7 @@ function getRelativeTime(date: Date) {
                       d="M12 5.79c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.84 2.87 14.63 2 12 2a9.74 9.74 0 0 0-8.71 5.29l3.25 2.53C7.31 7.51 9.46 5.79 12 5.79Z"
                       fill="#EA4335"
                     />
+
                   </svg>
 
                 </div>
@@ -159,12 +122,12 @@ function getRelativeTime(date: Date) {
 
                 <div class="review-stars">
                   {
-                    Array.from({ length: 5 }).map((_, starIndex) => (
+                    Array.from({ length: 5 }).map((_, index) => (
                       <Icon
                         name="heroicons:star-solid"
                         size={18}
                         class={
-                          starIndex < (review.data.rating || 5)
+                          index < (review.data.rating || 5)
                             ? "review-star-active"
                             : "review-star-inactive"
                         }
@@ -176,7 +139,7 @@ function getRelativeTime(date: Date) {
               </div>
 
 
-              <!-- Review Text -->
+              <!-- Review -->
               <p class="review-text text-gray-700 dark:text-gray-300">
                 {review.data.description}
               </p>
@@ -187,9 +150,9 @@ function getRelativeTime(date: Date) {
       </div>
 
 
-      <!-- Load More Button -->
+      <!-- Load More -->
       {
-        team.length > 6 && (
+        reviews.length > 6 && (
           <div class="reviews-load-more">
 
             <button
@@ -210,6 +173,19 @@ function getRelativeTime(date: Date) {
 
 
 <style>
+  /* ================================
+     Header
+  ================================= */
+
+  .reviews-header h1 {
+    margin: 0;
+  }
+
+  .reviews-header p {
+    margin-bottom: 0;
+  }
+
+
   /* ================================
      Review Card
   ================================= */
@@ -307,7 +283,6 @@ function getRelativeTime(date: Date) {
   .review-stars {
     display: flex;
     align-items: center;
-
     gap: 2px;
   }
 
@@ -349,8 +324,9 @@ function getRelativeTime(date: Date) {
   }
 
   .load-more-button {
-    padding: 12px 24px;
+    padding: 12px 26px;
 
+    border: none;
     border-radius: 9999px;
 
     background: var(--color-main);
@@ -358,8 +334,6 @@ function getRelativeTime(date: Date) {
 
     font-size: 14px;
     font-weight: 600;
-
-    border: none;
 
     cursor: pointer;
 
@@ -410,16 +384,18 @@ function getRelativeTime(date: Date) {
 <script>
   const loadMoreButton = document.getElementById(
     "load-more-reviews"
-  ) as HTMLButtonElement | null;
+  );
 
   if (loadMoreButton) {
+
     const reviews = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-review]")
+      document.querySelectorAll("[data-review]")
     );
 
     let visibleReviews = 6;
 
     loadMoreButton.addEventListener("click", () => {
+
       const nextReviews = reviews.slice(
         visibleReviews,
         visibleReviews + 6
@@ -434,6 +410,8 @@ function getRelativeTime(date: Date) {
       if (visibleReviews >= reviews.length) {
         loadMoreButton.style.display = "none";
       }
+
     });
+
   }
 </script>
