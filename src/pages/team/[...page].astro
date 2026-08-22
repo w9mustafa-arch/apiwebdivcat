@@ -15,61 +15,6 @@ export async function getStaticPaths({ paginate }) {
 }
 
 const { page } = Astro.props;
-
-/* ================================
-   Relative date in French
-================================ */
-
-function getRelativeDate(date: Date) {
-  const now = new Date();
-  const diff = now.getTime() - date.getTime();
-
-  const seconds = Math.floor(diff / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-  const weeks = Math.floor(days / 7);
-  const months = Math.floor(days / 30);
-  const years = Math.floor(days / 365);
-
-  if (seconds < 60) {
-    return "À l'instant";
-  }
-
-  if (minutes < 60) {
-    return minutes === 1
-      ? "Il y a 1 minute"
-      : `Il y a ${minutes} minutes`;
-  }
-
-  if (hours < 24) {
-    return hours === 1
-      ? "Il y a 1 heure"
-      : `Il y a ${hours} heures`;
-  }
-
-  if (days < 7) {
-    return days === 1
-      ? "Il y a 1 jour"
-      : `Il y a ${days} jours`;
-  }
-
-  if (weeks < 5) {
-    return weeks === 1
-      ? "Il y a 1 semaine"
-      : `Il y a ${weeks} semaines`;
-  }
-
-  if (months < 12) {
-    return months === 1
-      ? "Il y a 1 mois"
-      : `Il y a ${months} mois`;
-  }
-
-  return years === 1
-    ? "Il y a 1 an"
-    : `Il y a ${years} ans`;
-}
 ---
 
 <Layout title="Avis clients">
@@ -121,15 +66,20 @@ function getRelativeDate(date: Date) {
                   </div>
 
 
-                  <!-- Name + Date -->
+                  <!-- Name + Manual Date -->
                   <div class="min-w-0">
 
                     <p class="review-name">
                       {review.data.title}
                     </p>
 
+                    <!--
+                      IMPORTANT:
+                      Le texte de la date est manuel.
+                      Exemple : "Il y a 1 mois"
+                    -->
                     <p class="review-guide text-gray-500 dark:text-gray-400">
-                      {getRelativeDate(review.data.pubDate)}
+                      {review.data.time}
                     </p>
 
                   </div>
