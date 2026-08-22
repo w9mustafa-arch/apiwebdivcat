@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import Layout from "../../layouts/Main.astro";
-import Pagination from "../../components/pagination.astro";
 
 export async function getStaticPaths({ paginate }) {
   const team = (await getCollection("team")).sort(
@@ -16,9 +15,64 @@ export async function getStaticPaths({ paginate }) {
 }
 
 const { page } = Astro.props;
+
+/* ================================
+   Relative date in French
+================================ */
+
+function getRelativeDate(date: Date) {
+  const now = new Date();
+  const diff = now.getTime() - date.getTime();
+
+  const seconds = Math.floor(diff / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const weeks = Math.floor(days / 7);
+  const months = Math.floor(days / 30);
+  const years = Math.floor(days / 365);
+
+  if (seconds < 60) {
+    return "À l'instant";
+  }
+
+  if (minutes < 60) {
+    return minutes === 1
+      ? "Il y a 1 minute"
+      : `Il y a ${minutes} minutes`;
+  }
+
+  if (hours < 24) {
+    return hours === 1
+      ? "Il y a 1 heure"
+      : `Il y a ${hours} heures`;
+  }
+
+  if (days < 7) {
+    return days === 1
+      ? "Il y a 1 jour"
+      : `Il y a ${days} jours`;
+  }
+
+  if (weeks < 5) {
+    return weeks === 1
+      ? "Il y a 1 semaine"
+      : `Il y a ${weeks} semaines`;
+  }
+
+  if (months < 12) {
+    return months === 1
+      ? "Il y a 1 mois"
+      : `Il y a ${months} mois`;
+  }
+
+  return years === 1
+    ? "Il y a 1 an"
+    : `Il y a ${years} ans`;
+}
 ---
 
-<Layout title="Avis de nos clients">
+<Layout title="Avis clients">
   <section class="section">
     <div class="container">
 
@@ -29,13 +83,15 @@ const { page } = Astro.props;
             <a href="/">Accueil</a>
           </li>
 
-          <li>Avis de nos clients</li>
+          <li>Avis clients</li>
         </ul>
       </div>
 
 
-      <!-- Reviews -->
-      <div class="reviews-grid">
+      <!-- Reviews Grid -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch"
+      >
 
         {
           page.data.map((review) => (
@@ -52,18 +108,16 @@ const { page } = Astro.props;
                   <!-- Avatar -->
                   <div class="review-avatar shrink-0">
 
-                    {review.data.thumbnail ? (
+                    {review.data.thumbnail && (
                       <Image
                         src={review.data.thumbnail}
                         alt={`Photo de ${review.data.title}`}
+                        width={48}
+                        height={48}
                         format="webp"
                         quality={100}
                         class="w-full h-full rounded-full object-cover"
                       />
-                    ) : (
-                      <span>
-                        {review.data.title.charAt(0)}
-                      </span>
                     )}
 
                   </div>
@@ -77,57 +131,7 @@ const { page } = Astro.props;
                     </p>
 
                     <p class="review-guide text-gray-500 dark:text-gray-400">
-                      {(() => {
-                        const now = new Date();
-                        const date = new Date(review.data.pubDate);
-
-                        const diff =
-                          now.getTime() - date.getTime();
-
-                        const days = Math.floor(
-                          diff / (1000 * 60 * 60 * 24)
-                        );
-
-                        if (days < 1) {
-                          return "Aujourd'hui";
-                        }
-
-                        if (days === 1) {
-                          return "Il y a 1 jour";
-                        }
-
-                        if (days < 7) {
-                          return `Il y a ${days} jours`;
-                        }
-
-                        const weeks = Math.floor(days / 7);
-
-                        if (weeks === 1) {
-                          return "Il y a 1 semaine";
-                        }
-
-                        if (weeks < 5) {
-                          return `Il y a ${weeks} semaines`;
-                        }
-
-                        const months = Math.floor(days / 30);
-
-                        if (months <= 1) {
-                          return "Il y a 1 mois";
-                        }
-
-                        if (months < 12) {
-                          return `Il y a ${months} mois`;
-                        }
-
-                        const years = Math.floor(days / 365);
-
-                        if (years === 1) {
-                          return "Il y a 1 an";
-                        }
-
-                        return `Il y a ${years} ans`;
-                      })()}
+                      {getRelativeDate(review.data.pubDate)}
                     </p>
 
                   </div>
@@ -184,7 +188,7 @@ const { page } = Astro.props;
                         name="heroicons:star-solid"
                         size={18}
                         class={
-                          index < (review.data.rating || 5)
+                          index < Math.min(review.data.rating || 5, 5)
                             ? "review-star-active"
                             : "review-star-inactive"
                         }
@@ -211,75 +215,72 @@ const { page } = Astro.props;
 
       <!-- Pagination -->
       {
-        page.lastPage > 1 && (
+        (page.url.prev || page.url.next) && (
           <div class="reviews-pagination">
 
-            <!-- Previous -->
-            {page.url.prev ? (
-              <a
-                href={page.url.prev}
-                class="pagination-button"
-              >
-                <Icon
-                  name="heroicons:arrow-left"
-                  size={20}
-                />
+            {
+              page.url.prev ? (
+                <a
+                  href={page.url.prev}
+                  class="pagination-button"
+                >
+                  <Icon
+                    name="heroicons:arrow-left"
+                    size={20}
+                  />
 
-                <span>Précédent</span>
-              </a>
-            ) : (
-              <span class="pagination-button pagination-disabled">
-                <Icon
-                  name="heroicons:arrow-left"
-                  size={20}
-                />
+                  <span>Avis précédents</span>
+                </a>
+              ) : (
+                <span class="pagination-button pagination-disabled">
+                  <Icon
+                    name="heroicons:arrow-left"
+                    size={20}
+                  />
 
-                <span>Précédent</span>
-              </span>
-            )}
+                  <span>Avis précédents</span>
+                </span>
+              )
+            }
 
 
-            <!-- Page -->
             <div class="pagination-info">
 
-              <strong>
-                {page.currentPage}
-              </strong>
-
               <span>
-                /
+                Page {page.currentPage}
               </span>
 
-              <span>
-                {page.lastPage}
-              </span>
+              <small>
+                sur {page.lastPage}
+              </small>
 
             </div>
 
 
-            <!-- Next -->
-            {page.url.next ? (
-              <a
-                href={page.url.next}
-                class="pagination-button"
-              >
-                <span>Suivant</span>
+            {
+              page.url.next ? (
+                <a
+                  href={page.url.next}
+                  class="pagination-button"
+                >
+                  <span>Avis suivants</span>
 
-                <Icon
-                  name="heroicons:arrow-right"
-                  size={20}
-                />
-              </a>
-            ) : (
-              <span class="pagination-button pagination-disabled">
-                <span>Suivant</span>
+                  <Icon
+                    name="heroicons:arrow-right"
+                    size={20}
+                  />
+                </a>
+              ) : (
+                <span class="pagination-button pagination-disabled">
+                  <span>Avis suivants</span>
 
-                <Icon
-                  name="heroicons:arrow-right"
-                  size={20}
-                />
-              </span>
-            )}
+                  <Icon
+                    name="heroicons:arrow-right"
+                    size={20}
+                  />
+                </span>
+              )
+            }
 
           </div>
         )
@@ -291,54 +292,22 @@ const { page } = Astro.props;
 
 
 <style>
-
-  /* ================================
-     Reviews Grid
-  ================================= */
-
-  .reviews-grid {
-    display: grid;
-
-    grid-template-columns: 1fr;
-
-    gap: 2.5rem;
-  }
-
-
-  @media (min-width: 640px) {
-
-    .reviews-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-  }
-
-
-  @media (min-width: 1024px) {
-
-    .reviews-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-  }
-
-
   /* ================================
      Review Card
   ================================= */
 
   .review-card {
+    display: flex;
+    flex-direction: column;
+
     transition:
       border-color 0.25s ease,
       box-shadow 0.25s ease;
   }
 
-
   .review-card:hover {
     border-color: rgba(244, 78, 30, 0.35);
-
-    box-shadow:
-      0 12px 30px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
   }
 
 
@@ -347,7 +316,6 @@ const { page } = Astro.props;
   ================================= */
 
   .review-avatar {
-
     width: 48px;
     height: 48px;
 
@@ -355,16 +323,11 @@ const { page } = Astro.props;
 
     border-radius: 9999px;
 
+    background: rgba(244, 78, 30, 0.1);
+
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background: rgba(244, 78, 30, 0.1);
-
-    color: var(--color-main);
-
-    font-size: 18px;
-    font-weight: 700;
 
     flex-shrink: 0;
   }
@@ -375,17 +338,17 @@ const { page } = Astro.props;
   ================================= */
 
   .review-name {
-
     margin: 0;
 
     font-size: 16px;
-
     font-weight: 700;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-
   .review-guide {
-
     margin: 3px 0 0;
 
     font-size: 12px;
@@ -397,11 +360,8 @@ const { page } = Astro.props;
   ================================= */
 
   .review-google {
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
   }
 
@@ -411,43 +371,28 @@ const { page } = Astro.props;
   ================================= */
 
   .review-meta {
-
     display: flex;
-
     align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 10px;
 
     margin-top: 22px;
   }
 
-
   .review-stars {
-
     display: flex;
-
     align-items: center;
 
     gap: 2px;
   }
 
-
   .review-star-active {
-
     color: #f4b400;
   }
 
-
   .review-star-inactive {
-
     color: #d1d5db;
   }
 
-
   :global(.dark) .review-star-inactive {
-
     color: #4b5563;
   }
 
@@ -457,13 +402,10 @@ const { page } = Astro.props;
   ================================= */
 
   .review-text {
-
     margin-top: 18px;
-
     margin-bottom: 0;
 
     font-size: 15px;
-
     line-height: 1.75;
   }
 
@@ -473,11 +415,8 @@ const { page } = Astro.props;
   ================================= */
 
   .reviews-pagination {
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     gap: 18px;
@@ -486,20 +425,20 @@ const { page } = Astro.props;
   }
 
 
+  /* ================================
+     Pagination Button
+  ================================= */
+
   .pagination-button {
-
-    min-width: 46px;
-    height: 46px;
-
-    padding: 0 18px;
+    min-height: 46px;
 
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
 
     gap: 8px;
+
+    padding: 0 18px;
 
     border: 1px solid #e5e7eb;
 
@@ -510,10 +449,11 @@ const { page } = Astro.props;
     color: #1c232b;
 
     font-size: 14px;
-
     font-weight: 600;
 
     text-decoration: none;
+
+    cursor: pointer;
 
     transition:
       background 0.2s ease,
@@ -524,7 +464,6 @@ const { page } = Astro.props;
 
 
   .pagination-button:hover {
-
     background: var(--color-main);
 
     border-color: var(--color-main);
@@ -535,8 +474,16 @@ const { page } = Astro.props;
   }
 
 
-  .pagination-disabled {
+  .pagination-button:active {
+    transform: translateY(0);
+  }
 
+
+  /* ================================
+     Disabled
+  ================================= */
+
+  .pagination-disabled {
     opacity: 0.4;
 
     cursor: not-allowed;
@@ -545,41 +492,36 @@ const { page } = Astro.props;
   }
 
 
-  .pagination-info {
+  /* ================================
+     Pagination Info
+  ================================= */
 
+  .pagination-info {
     min-width: 70px;
 
     display: flex;
+    flex-direction: column;
 
     align-items: center;
-
     justify-content: center;
 
-    gap: 5px;
+    line-height: 1.2;
 
+    text-align: center;
+  }
+
+  .pagination-info span {
     font-size: 14px;
+
+    font-weight: 700;
   }
 
+  .pagination-info small {
+    margin-top: 3px;
 
-  .pagination-info strong {
+    font-size: 11px;
 
-    color: var(--color-main);
-
-    font-size: 17px;
-  }
-
-
-  /* ================================
-     Dark Mode
-  ================================= */
-
-  :global(.dark) .pagination-button {
-
-    background: var(--color-dark);
-
-    border-color: #374151;
-
-    color: white;
+    color: #6b7280;
   }
 
 
@@ -589,49 +531,39 @@ const { page } = Astro.props;
 
   @media (max-width: 639px) {
 
-    .reviews-grid {
-
-      gap: 1.5rem;
-    }
-
-
     .review-card {
-
       padding: 22px;
+      border-radius: 18px;
     }
-
 
     .review-text {
-
       font-size: 14px;
-
       line-height: 1.7;
     }
 
-
     .reviews-pagination {
-
       gap: 10px;
 
       margin-top: 35px;
     }
 
-
     .pagination-button {
+      width: 46px;
+      height: 46px;
 
-      height: 42px;
+      min-height: 46px;
 
-      padding: 0 14px;
+      padding: 0;
 
-      font-size: 13px;
+      border-radius: 9999px;
     }
 
+    .pagination-button span {
+      display: none;
+    }
 
     .pagination-info {
-
-      min-width: 45px;
+      min-width: 55px;
     }
-
   }
-
 </style>
