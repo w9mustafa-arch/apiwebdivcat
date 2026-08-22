@@ -10,31 +10,34 @@ const reviews = (await getCollection("team")).sort(
 ---
 
 <Layout title="Avis de nos clients">
-  <section class="section section-reviews-page">
+  <section class="section">
     <div class="container">
 
-      <!-- Reviews Header -->
+      <!-- Header -->
       <div class="reviews-header border-b border-b-main pb-10">
+
         <h1>Avis de nos clients</h1>
 
         <p class="mt-4 max-w-2xl">
           Découvrez les avis laissés par nos clients après leur expérience
           avec Kech Delivery à Marrakech.
         </p>
+
       </div>
 
 
-      <!-- Reviews Grid -->
+      <!-- Reviews -->
       <div
         id="reviews-grid"
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-10"
       >
+
         {
           reviews.map((review, index) => (
             <article
               class:list={[
                 "review-card h-full p-7 rounded-xl bg-gray-50 dark:bg-dark border border-gray-200 dark:border-gray-700",
-                { "review-hidden": index >= 6 },
+                index >= 6 && "review-hidden",
               ]}
               data-review
             >
@@ -42,28 +45,32 @@ const reviews = (await getCollection("team")).sort(
               <!-- Customer -->
               <div class="flex items-start justify-between gap-4">
 
-                <!-- Customer Info -->
+                <!-- Customer -->
                 <div class="flex items-center gap-3 min-w-0">
 
                   <!-- Avatar -->
-                  <div class="review-avatar shrink-0">
+                  <div class="review-avatar">
+
                     {review.data.thumbnail ? (
                       <Image
                         src={review.data.thumbnail}
                         alt={`Photo de ${review.data.title}`}
                         format="webp"
                         quality={100}
-                        class="w-full h-full rounded-full object-cover"
+                        width={48}
+                        height={48}
+                        class="w-full h-full object-cover"
                       />
                     ) : (
                       <span>
                         {review.data.title.charAt(0)}
                       </span>
                     )}
+
                   </div>
 
 
-                  <!-- Name + Date -->
+                  <!-- Name + Time -->
                   <div class="min-w-0">
 
                     <p class="review-name">
@@ -80,7 +87,7 @@ const reviews = (await getCollection("team")).sort(
 
 
                 <!-- Google -->
-                <div class="review-google shrink-0">
+                <div class="review-google">
 
                   <svg
                     width="24"
@@ -121,6 +128,7 @@ const reviews = (await getCollection("team")).sort(
               <div class="review-meta">
 
                 <div class="review-stars">
+
                   {
                     Array.from({ length: 5 }).map((_, index) => (
                       <Icon
@@ -134,6 +142,7 @@ const reviews = (await getCollection("team")).sort(
                       />
                     ))
                   }
+
                 </div>
 
               </div>
@@ -147,6 +156,7 @@ const reviews = (await getCollection("team")).sort(
             </article>
           ))
         }
+
       </div>
 
 
@@ -221,7 +231,7 @@ const reviews = (await getCollection("team")).sort(
     height: 48px;
 
     overflow: hidden;
-    border-radius: 9999px;
+    border-radius: 50%;
 
     flex-shrink: 0;
 
@@ -263,6 +273,8 @@ const reviews = (await getCollection("team")).sort(
     display: flex;
     align-items: center;
     justify-content: center;
+
+    flex-shrink: 0;
   }
 
 
@@ -273,9 +285,6 @@ const reviews = (await getCollection("team")).sort(
   .review-meta {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-
-    gap: 10px;
 
     margin-top: 22px;
   }
@@ -283,6 +292,7 @@ const reviews = (await getCollection("team")).sort(
   .review-stars {
     display: flex;
     align-items: center;
+
     gap: 2px;
   }
 
@@ -326,7 +336,7 @@ const reviews = (await getCollection("team")).sort(
   .load-more-button {
     padding: 12px 26px;
 
-    border: none;
+    border: 0;
     border-radius: 9999px;
 
     background: var(--color-main);
@@ -360,6 +370,7 @@ const reviews = (await getCollection("team")).sort(
 
     .review-card {
       padding: 22px;
+
       border-radius: 18px;
     }
 
@@ -388,27 +399,27 @@ const reviews = (await getCollection("team")).sort(
 
   if (loadMoreButton) {
 
-    const reviews = Array.from(
+    const allReviews = Array.from(
       document.querySelectorAll("[data-review]")
     );
 
-    let visibleReviews = 6;
+    let visibleCount = 6;
 
     loadMoreButton.addEventListener("click", () => {
 
-      const nextReviews = reviews.slice(
-        visibleReviews,
-        visibleReviews + 6
+      const nextReviews = allReviews.slice(
+        visibleCount,
+        visibleCount + 6
       );
 
       nextReviews.forEach((review) => {
         review.classList.remove("review-hidden");
       });
 
-      visibleReviews += 6;
+      visibleCount += 6;
 
-      if (visibleReviews >= reviews.length) {
-        loadMoreButton.style.display = "none";
+      if (visibleCount >= allReviews.length) {
+        loadMoreButton.remove();
       }
 
     });
