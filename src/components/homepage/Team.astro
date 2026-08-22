@@ -6,7 +6,7 @@ import Swiper from "../Swiper.astro";
 
 const reviews = (await getCollection("team"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+  .slice(0, 6);
 ---
 
 <section class="section section-reviews">
