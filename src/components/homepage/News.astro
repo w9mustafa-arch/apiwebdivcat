@@ -1,9 +1,62 @@
 ---
 import { Icon } from "astro-icon/components";
-import { getCollection } from "astro:content";
 
-const zones = (await getCollection("blog"))
-  .slice(0, 6);
+const zones = [
+  // Marrakech
+  { name: "Guéliz", search: "gueliz guéliz" },
+  { name: "Hivernage", search: "hivernage" },
+  { name: "Médina", search: "medina médina" },
+  { name: "Kasbah", search: "kasbah" },
+  { name: "Mellah", search: "mellah" },
+  { name: "Sidi Youssef Ben Ali", search: "sidi youssef ben ali syba" },
+  { name: "Daoudiate", search: "daoudiate" },
+  { name: "Bab Doukkala", search: "bab doukkala" },
+  { name: "Semlalia", search: "semlalia" },
+  { name: "Targa", search: "targa" },
+  { name: "Massira", search: "massira al massira" },
+  { name: "M'Hamid", search: "mhamid m hamid" },
+  { name: "Azli", search: "azli" },
+  { name: "Issil", search: "issil" },
+  { name: "Amerchich", search: "amerchich" },
+  { name: "Hay Al Qods", search: "hay al qods qods" },
+  { name: "Sidi Ghanem", search: "sidi ghanem" },
+  { name: "Palmeraie", search: "palmeraie" },
+  { name: "Agdal", search: "agdal" },
+  { name: "Chrifia", search: "chrifia" },
+  { name: "Tassoultante", search: "tassoultante" },
+  { name: "Centre Ville", search: "centre ville" },
+
+  // Routes
+  { name: "Route de l'Ourika", search: "route ourika ourika" },
+  { name: "Route de Targa", search: "route targa" },
+  { name: "Route de Fès", search: "route fes fès" },
+  { name: "Route de Casablanca", search: "route casablanca" },
+  { name: "Route de Safi", search: "route safi" },
+  { name: "Route de Ouarzazate", search: "route ouarzazate" },
+  { name: "Route de l'Aéroport", search: "route aeroport aéroport" },
+  { name: "Route de Tahannaout", search: "route tahannaout" },
+
+  // Around Marrakech
+  { name: "Tamansourt", search: "tamansourt" },
+  { name: "Saada", search: "saada" },
+  { name: "Harbil", search: "harbil" },
+  { name: "Aït Ourir", search: "ait ourir aït ourir" },
+  { name: "Tameslohte", search: "tameslohte" },
+  { name: "Tahannaout", search: "tahannaout" },
+  { name: "Sidi Abdallah Ghiat", search: "sidi abdallah ghiat" },
+  { name: "Chwiter", search: "chwiter" },
+  { name: "Aghmat", search: "aghmat" },
+  { name: "Lalla Takerkoust", search: "lalla takerkoust takerkoust" },
+  { name: "Amizmiz", search: "amizmiz" },
+  { name: "Ourika", search: "ourika vallée ourika" },
+  { name: "Setti Fatma", search: "setti fatma" },
+  { name: "Moulay Brahim", search: "moulay brahim" },
+  { name: "Asni", search: "asni" },
+  { name: "Ouirgane", search: "ouirgane" },
+  { name: "Imlil", search: "imlil" },
+];
+
+const initialVisible = 6;
 ---
 
 <section class="section section-services">
@@ -21,10 +74,10 @@ const zones = (await getCollection("blog"))
 
           <p>
             <a
-              href="/blog"
+              href="/contact"
               class="text-main underline hover:no-underline"
             >
-              Toutes les zones
+              Vérifier ma zone
             </a>
           </p>
 
@@ -39,57 +92,317 @@ const zones = (await getCollection("blog"))
     </div>
 
 
-    <!-- Zones -->
-    <div
-      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6
-      gap-3 sm:gap-4 mt-8 sm:mt-10"
-    >
+    <!-- Search + Zones -->
+    <div class="mt-8 sm:mt-10">
 
-      {
-        zones.map((zone) => (
-          <a
-            href={`/blog/${zone.id}`}
-            class="zone-card group
-            flex flex-col items-center justify-center
-            text-center
-            dark:bg-dark dark:border-dark
-            bg-gray-50 border border-gray-200
-            rounded-lg
-            p-4 sm:p-5
-            transition-all duration-300
-            hover:border-main
-            hover:bg-main/5
-            hover:shadow-sm"
+      <!-- Search -->
+      <div class="max-w-xl mx-auto mb-6">
+
+        <div
+          class="flex items-center
+          dark:bg-dark dark:border-dark
+          bg-gray-50 border border-gray-200
+          rounded-lg
+          transition-all duration-200
+          focus-within:border-main
+          focus-within:ring-2
+          focus-within:ring-main/10"
+        >
+
+          <div
+            class="flex items-center justify-center
+            text-main pl-4 shrink-0"
+          >
+            <Icon
+              name="lucide:search"
+              size={20}
+            />
+          </div>
+
+          <input
+            id="zone-search"
+            type="search"
+            autocomplete="off"
+            placeholder="Rechercher votre quartier ou votre ville..."
+            class="w-full px-3 py-3.5
+            bg-transparent
+            border-0 outline-none
+            text-sm sm:text-base
+            text-black dark:text-white
+            placeholder:text-gray-400
+            dark:placeholder:text-gray-500"
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- Zones -->
+      <div
+        id="delivery-zones"
+        class="grid grid-cols-2
+        sm:grid-cols-3
+        lg:grid-cols-4
+        gap-3 sm:gap-4"
+      >
+
+        {zones.map((zone, index) => (
+          <div
+            class:list={[
+              "zone-item group",
+              "flex items-center gap-2.5 sm:gap-3",
+              "dark:bg-dark dark:border-dark",
+              "bg-gray-50 border border-gray-200",
+              "rounded-lg p-3 sm:p-4",
+              "transition-all duration-300",
+              "hover:border-main",
+              "hover:bg-main/5",
+              "hover:shadow-sm",
+              index >= initialVisible ? "extra-zone hidden" : "",
+            ]}
+            data-zone={`${zone.name} ${zone.search}`}
           >
 
-            <!-- Icon -->
             <div
               class="flex items-center justify-center
+              shrink-0
               bg-main text-white
               rounded-full
-              w-10 h-10 sm:w-11 sm:h-11
-              mb-3"
+              w-9 h-9 sm:w-10 sm:h-10"
             >
               <Icon
                 name="lucide:map-pin"
-                size={20}
+                size={18}
+                class="sm:w-5 sm:h-5"
               />
             </div>
 
-            <!-- Zone name -->
             <span
               class="font-medium
-              text-xs sm:text-sm
+              text-xs sm:text-sm lg:text-base
               leading-tight"
             >
-              {zone.data.title}
+              {zone.name}
             </span>
 
-          </a>
-        ))
-      }
+          </div>
+        ))}
+
+      </div>
+
+
+      <!-- Show More -->
+      <div
+        id="show-more-wrapper"
+        class="flex justify-center mt-6"
+      >
+
+        <button
+          id="show-more"
+          type="button"
+          class="inline-flex items-center gap-2
+          px-5 py-2.5
+          rounded-lg
+          border border-main
+          text-main
+          font-medium
+          text-sm
+          transition-all duration-300
+          hover:bg-main
+          hover:text-white"
+        >
+
+          <span id="show-more-text">
+            Afficher plus
+          </span>
+
+          <Icon
+            id="show-more-icon"
+            name="lucide:chevron-down"
+            size={18}
+          />
+
+        </button>
+
+      </div>
+
+
+      <!-- No result -->
+      <div
+        id="no-zone"
+        class="hidden text-center mt-8"
+      >
+
+        <div
+          class="flex items-center justify-center
+          w-12 h-12 mx-auto mb-3
+          rounded-full
+          bg-gray-100 dark:bg-dark
+          text-gray-400"
+        >
+          <Icon
+            name="lucide:map-pin-off"
+            size={22}
+          />
+        </div>
+
+        <p
+          class="text-sm text-gray-500
+          dark:text-gray-400"
+        >
+          Aucune zone trouvée.
+        </p>
+
+        <p
+          class="text-xs text-gray-400
+          dark:text-gray-500 mt-1"
+        >
+          Contactez-nous pour vérifier votre zone de livraison.
+        </p>
+
+      </div>
 
     </div>
 
   </div>
 </section>
+
+
+<script>
+  const searchInput = document.querySelector("#zone-search");
+  const zones = document.querySelectorAll(".zone-item");
+  const extraZones = document.querySelectorAll(".extra-zone");
+  const noZone = document.querySelector("#no-zone");
+
+  const showMore = document.querySelector("#show-more");
+  const showMoreText = document.querySelector("#show-more-text");
+  const showMoreIcon = document.querySelector("#show-more-icon");
+  const showMoreWrapper = document.querySelector("#show-more-wrapper");
+
+  let expanded = false;
+
+
+  // -----------------------------
+  // Show / Hide all zones
+  // -----------------------------
+
+  showMore?.addEventListener("click", () => {
+
+    expanded = !expanded;
+
+    extraZones.forEach((zone) => {
+      zone.classList.toggle("hidden", !expanded);
+    });
+
+    if (expanded) {
+
+      if (showMoreText) {
+        showMoreText.textContent = "Afficher moins";
+      }
+
+      showMoreIcon?.setAttribute(
+        "name",
+        "lucide:chevron-up"
+      );
+
+    } else {
+
+      if (showMoreText) {
+        showMoreText.textContent = "Afficher plus";
+      }
+
+      showMoreIcon?.setAttribute(
+        "name",
+        "lucide:chevron-down"
+      );
+
+    }
+  });
+
+
+  // -----------------------------
+  // Search
+  // -----------------------------
+
+  searchInput?.addEventListener("input", () => {
+
+    const search =
+      searchInput.value
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+
+    let visibleZones = 0;
+
+
+    // Empty search
+    if (search === "") {
+
+      zones.forEach((zone, index) => {
+
+        if (index < 6) {
+          zone.classList.remove("hidden");
+        } else {
+          zone.classList.add("hidden");
+        }
+
+      });
+
+      expanded = false;
+
+      if (showMoreText) {
+        showMoreText.textContent = "Afficher plus";
+      }
+
+      showMoreIcon?.setAttribute(
+        "name",
+        "lucide:chevron-down"
+      );
+
+      showMoreWrapper?.classList.remove("hidden");
+      noZone?.classList.add("hidden");
+
+      return;
+    }
+
+
+    // Search all zones
+    zones.forEach((zone) => {
+
+      const name =
+        zone.getAttribute("data-zone")?.toLowerCase() || "";
+
+      const normalizedName =
+        name
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+
+      if (normalizedName.includes(search)) {
+
+        zone.classList.remove("hidden");
+        visibleZones++;
+
+      } else {
+
+        zone.classList.add("hidden");
+
+      }
+
+    });
+
+
+    // Hide "Afficher plus" during search
+    showMoreWrapper?.classList.add("hidden");
+
+
+    // No result
+    if (visibleZones === 0) {
+      noZone?.classList.remove("hidden");
+    } else {
+      noZone?.classList.add("hidden");
+    }
+
+  });
+</script>
