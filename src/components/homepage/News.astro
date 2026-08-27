@@ -1,38 +1,95 @@
 ---
-import NewsCard from "../card/NewsCard.astro";
+import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 
-const posts = (await getCollection("blog"))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+const zones = (await getCollection("blog"))
+  .slice(0, 6);
 ---
 
 <section class="section section-services">
   <div class="container">
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-4 border-b border-b-main pb-10"
-    >
-      <h2 class="capitalize">Stay Updated with Our Tips & Service News!</h2>
+
+    <!-- Header -->
+    <div class="border-b border-b-main pb-8 sm:pb-10">
+
       <div>
         <div class="flex flex-wrap justify-between items-center gap-3">
-          <p class="font-semibold mb-3 text-xl">Our Blog</p>
-          <p>
-            <a href="/blog" class="text-main underline hover:no-underline"
-              >All news</a
-            >
+
+          <p class="font-semibold mb-3 text-xl">
+            Nos zones de livraison
           </p>
+
+          <p>
+            <a
+              href="/blog"
+              class="text-main underline hover:no-underline"
+            >
+              Toutes les zones
+            </a>
+          </p>
+
         </div>
+
         <p class="mb-3">
-          Stay informed with our latest cleaning tips, service updates, expert
-          advice on maintaining an immaculate home
+          Nous assurons nos livraisons dans les principaux quartiers
+          de Marrakech et ses environs, rapidement et en toute simplicité.
         </p>
       </div>
+
     </div>
 
+
+    <!-- Zones -->
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-10 relative"
+      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6
+      gap-3 sm:gap-4 mt-8 sm:mt-10"
     >
-      {posts.map((post) => <NewsCard {...post} />)}
+
+      {
+        zones.map((zone) => (
+          <a
+            href={`/blog/${zone.id}`}
+            class="zone-card group
+            flex flex-col items-center justify-center
+            text-center
+            dark:bg-dark dark:border-dark
+            bg-gray-50 border border-gray-200
+            rounded-lg
+            p-4 sm:p-5
+            transition-all duration-300
+            hover:border-main
+            hover:bg-main/5
+            hover:shadow-sm"
+          >
+
+            <!-- Icon -->
+            <div
+              class="flex items-center justify-center
+              bg-main text-white
+              rounded-full
+              w-10 h-10 sm:w-11 sm:h-11
+              mb-3"
+            >
+              <Icon
+                name="lucide:map-pin"
+                size={20}
+              />
+            </div>
+
+            <!-- Zone name -->
+            <span
+              class="font-medium
+              text-xs sm:text-sm
+              leading-tight"
+            >
+              {zone.data.title}
+            </span>
+
+          </a>
+        ))
+      }
+
     </div>
+
   </div>
 </section>
