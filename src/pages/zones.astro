@@ -1,0 +1,1190 @@
+---
+import { Icon } from "astro-icon/components";
+import Layout from "../layouts/Main.astro";
+
+const zones = [
+  // Marrakech
+  { name: "Guéliz", search: "gueliz guéliz" },
+  { name: "Hivernage", search: "hivernage" },
+  { name: "Médina", search: "medina médina" },
+  { name: "Kasbah", search: "kasbah" },
+  { name: "Mellah", search: "mellah" },
+  { name: "Sidi Youssef Ben Ali", search: "sidi youssef ben ali syba" },
+  { name: "Daoudiate", search: "daoudiate" },
+  { name: "Bab Doukkala", search: "bab doukkala" },
+  { name: "Semlalia", search: "semlalia" },
+  { name: "Targa", search: "targa" },
+  { name: "Massira", search: "massira al massira" },
+  { name: "M'Hamid", search: "mhamid m hamid" },
+  { name: "Azli", search: "azli" },
+  { name: "Issil", search: "issil" },
+  { name: "Amerchich", search: "amerchich" },
+  { name: "Hay Al Qods", search: "hay al qods qods" },
+  { name: "Sidi Ghanem", search: "sidi ghanem" },
+  { name: "Palmeraie", search: "palmeraie" },
+  { name: "Agdal", search: "agdal" },
+  { name: "Chrifia", search: "chrifia" },
+  { name: "Tassoultante", search: "tassoultante" },
+  { name: "Centre Ville", search: "centre ville" },
+
+  // Routes
+  { name: "Route de l'Ourika", search: "route ourika ourika" },
+  { name: "Route de Targa", search: "route targa" },
+  { name: "Route de Fès", search: "route fes fès" },
+  { name: "Route de Casablanca", search: "route casablanca" },
+  { name: "Route de Safi", search: "route safi" },
+  { name: "Route de Ouarzazate", search: "route ouarzazate" },
+  { name: "Route de l'Aéroport", search: "route aeroport aéroport" },
+  { name: "Route de Tahannaout", search: "route tahannaout" },
+
+  // Around Marrakech
+  { name: "Tamansourt", search: "tamansourt" },
+  { name: "Saada", search: "saada" },
+  { name: "Harbil", search: "harbil" },
+  { name: "Aït Ourir", search: "ait ourir aït ourir" },
+  { name: "Tameslohte", search: "tameslohte" },
+  { name: "Tahannaout", search: "tahannaout" },
+  { name: "Sidi Abdallah Ghiat", search: "sidi abdallah ghiat" },
+  { name: "Chwiter", search: "chwiter" },
+  { name: "Aghmat", search: "aghmat" },
+  { name: "Lalla Takerkoust", search: "lalla takerkoust takerkoust" },
+  { name: "Amizmiz", search: "amizmiz" },
+  { name: "Ourika", search: "ourika vallée ourika" },
+  { name: "Setti Fatma", search: "setti fatma" },
+  { name: "Moulay Brahim", search: "moulay brahim" },
+  { name: "Asni", search: "asni" },
+  { name: "Ouirgane", search: "ouirgane" },
+  { name: "Imlil", search: "imlil" },
+];
+---
+
+<Layout
+  title="Zones de livraison"
+  description="Découvrez les quartiers et villes desservis par Kech Delivery à Marrakech et ses environs."
+>
+  <section class="section zones-page">
+    <div class="container">
+
+      <!-- =================================
+           Breadcrumbs
+      ================================== -->
+
+      <div class="breadcrumbs text-sm mb-8 sm:mb-10">
+        <ul class="flex! flex-wrap">
+          <li>
+            <a href="/">Accueil</a>
+          </li>
+
+          <li>Zones de livraison</li>
+        </ul>
+      </div>
+
+
+      <!-- =================================
+           Header
+      ================================== -->
+
+      <div class="zones-header border-b border-b-main pb-8 sm:pb-10">
+
+        <div class="flex flex-wrap justify-between items-center gap-3">
+
+          <h1 class="zones-title">
+            Nos zones de livraison
+          </h1>
+
+          <a
+            href="/contact"
+            class="zones-contact-link text-main underline hover:no-underline"
+          >
+            Besoin d'aide ?
+          </a>
+
+        </div>
+
+        <p class="zones-description">
+          Nous assurons nos livraisons dans les principaux quartiers
+          de Marrakech et ses environs, rapidement et en toute simplicité.
+        </p>
+
+      </div>
+
+
+      <!-- =================================
+           Search
+      ================================== -->
+
+      <div class="zones-search-wrapper">
+
+        <div class="zones-search">
+
+          <div class="zones-search-icon">
+            <Icon
+              name="lucide:search"
+              size={21}
+            />
+          </div>
+
+          <input
+            id="zone-search"
+            type="search"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Rechercher votre quartier ou votre ville..."
+            aria-label="Rechercher une zone de livraison"
+          />
+
+          <button
+            id="clear-search"
+            type="button"
+            class="clear-search hidden"
+            aria-label="Effacer la recherche"
+          >
+            <Icon
+              name="lucide:x"
+              size={18}
+            />
+          </button>
+
+        </div>
+
+        <p class="search-help">
+          Recherchez un quartier, une ville ou une route.
+        </p>
+
+      </div>
+
+
+      <!-- =================================
+           Results Counter
+      ================================== -->
+
+      <div
+        id="results-info"
+        class="results-info"
+      >
+        <span id="results-count">{zones.length}</span>
+        <span>zones disponibles</span>
+      </div>
+
+
+      <!-- =================================
+           Zones
+      ================================== -->
+
+      <div id="zones-content">
+
+
+        <!-- Marrakech -->
+
+        <section class="zone-group">
+
+          <div class="zone-group-header">
+
+            <div class="zone-group-icon">
+              <Icon
+                name="lucide:map-pin"
+                size={21}
+              />
+            </div>
+
+            <div>
+              <h2>Marrakech</h2>
+
+              <p>
+                Quartiers et secteurs desservis à Marrakech
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="zones-grid">
+
+            {
+              zones.slice(0, 22).map((zone) => (
+                <div
+                  class="zone-item"
+                  data-zone={`${zone.name} ${zone.search}`}
+                >
+                  <div class="zone-icon">
+                    <Icon
+                      name="lucide:map-pin"
+                      size={18}
+                    />
+                  </div>
+
+                  <span>{zone.name}</span>
+                </div>
+              ))
+            }
+
+          </div>
+
+        </section>
+
+
+        <!-- Routes -->
+
+        <section class="zone-group">
+
+          <div class="zone-group-header">
+
+            <div class="zone-group-icon">
+              <Icon
+                name="lucide:route"
+                size={21}
+              />
+            </div>
+
+            <div>
+              <h2>Routes principales</h2>
+
+              <p>
+                Principaux axes et routes desservis
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="zones-grid">
+
+            {
+              zones.slice(22, 30).map((zone) => (
+                <div
+                  class="zone-item"
+                  data-zone={`${zone.name} ${zone.search}`}
+                >
+                  <div class="zone-icon">
+                    <Icon
+                      name="lucide:map-pin"
+                      size={18}
+                    />
+                  </div>
+
+                  <span>{zone.name}</span>
+                </div>
+              ))
+            }
+
+          </div>
+
+        </section>
+
+
+        <!-- Around Marrakech -->
+
+        <section class="zone-group">
+
+          <div class="zone-group-header">
+
+            <div class="zone-group-icon">
+              <Icon
+                name="lucide:map"
+                size={21}
+              />
+            </div>
+
+            <div>
+              <h2>Autour de Marrakech</h2>
+
+              <p>
+                Villes et communes aux alentours de Marrakech
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="zones-grid">
+
+            {
+              zones.slice(30).map((zone) => (
+                <div
+                  class="zone-item"
+                  data-zone={`${zone.name} ${zone.search}`}
+                >
+                  <div class="zone-icon">
+                    <Icon
+                      name="lucide:map-pin"
+                      size={18}
+                    />
+                  </div>
+
+                  <span>{zone.name}</span>
+                </div>
+              ))
+            }
+
+          </div>
+
+        </section>
+
+      </div>
+
+
+      <!-- =================================
+           No Results
+      ================================== -->
+
+      <div
+        id="no-zone"
+        class="no-zone hidden"
+      >
+
+        <div class="no-zone-icon">
+
+          <Icon
+            name="lucide:map-pin-off"
+            size={25}
+          />
+
+        </div>
+
+        <h3>Aucune zone trouvée</h3>
+
+        <p>
+          Nous ne trouvons pas cette zone dans notre liste de livraison.
+        </p>
+
+        <a
+          href="/contact"
+          class="no-zone-button"
+        >
+          <Icon
+            name="lucide:message-circle"
+            size={18}
+          />
+
+          <span>Contactez-nous</span>
+        </a>
+
+      </div>
+
+
+      <!-- =================================
+           Contact CTA
+      ================================== -->
+
+      <div class="zones-cta">
+
+        <div class="zones-cta-icon">
+
+          <Icon
+            name="lucide:map-pin-check"
+            size={25}
+          />
+
+        </div>
+
+        <div class="zones-cta-content">
+
+          <h3>Votre zone n'est pas dans la liste ?</h3>
+
+          <p>
+            Contactez-nous et nous vérifierons la possibilité
+            de vous livrer.
+          </p>
+
+        </div>
+
+        <a
+          href="/contact"
+          class="zones-cta-button"
+        >
+          Vérifier ma zone
+          <Icon
+            name="lucide:arrow-right"
+            size={18}
+          />
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+</Layout>
+
+
+<style>
+
+  /* =================================
+     Page
+  ================================= */
+
+  .zones-page {
+    min-height: 60vh;
+  }
+
+
+  /* =================================
+     Header
+  ================================= */
+
+  .zones-title {
+    margin: 0;
+
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .zones-description {
+    margin-top: 14px;
+    margin-bottom: 0;
+
+    max-width: 800px;
+
+    font-size: 15px;
+    line-height: 1.75;
+
+    color: #6b7280;
+  }
+
+  :global(.dark) .zones-description {
+    color: #9ca3af;
+  }
+
+  .zones-contact-link {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+
+  /* =================================
+     Search
+  ================================= */
+
+  .zones-search-wrapper {
+    max-width: 720px;
+
+    margin: 38px auto 0;
+
+    text-align: center;
+  }
+
+  .zones-search {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    background: #f9fafb;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  :global(.dark) .zones-search {
+    background: var(--color-dark);
+    border-color: #374151;
+  }
+
+  .zones-search:focus-within {
+    border-color: var(--color-main);
+
+    box-shadow: 0 0 0 3px rgba(244, 78, 30, 0.1);
+  }
+
+  .zones-search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-left: 17px;
+
+    color: var(--color-main);
+
+    flex-shrink: 0;
+  }
+
+  .zones-search input {
+    width: 100%;
+
+    padding: 15px 12px 15px 12px;
+
+    border: 0;
+    outline: 0;
+
+    background: transparent;
+
+    color: #1c232b;
+
+    font-size: 15px;
+  }
+
+  :global(.dark) .zones-search input {
+    color: white;
+  }
+
+  .zones-search input::placeholder {
+    color: #9ca3af;
+  }
+
+  .clear-search {
+    width: 38px;
+    height: 38px;
+
+    margin-right: 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: 9999px;
+
+    background: #e5e7eb;
+
+    color: #6b7280;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .clear-search:hover {
+    background: var(--color-main);
+
+    color: white;
+  }
+
+  :global(.dark) .clear-search {
+    background: #374151;
+    color: #d1d5db;
+  }
+
+  .search-help {
+    margin-top: 9px;
+    margin-bottom: 0;
+
+    font-size: 12px;
+
+    color: #9ca3af;
+  }
+
+
+  /* =================================
+     Results
+  ================================= */
+
+  .results-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    margin-top: 25px;
+
+    font-size: 13px;
+
+    color: #6b7280;
+  }
+
+  #results-count {
+    font-weight: 700;
+
+    color: var(--color-main);
+  }
+
+  :global(.dark) .results-info {
+    color: #9ca3af;
+  }
+
+
+  /* =================================
+     Zone Groups
+  ================================= */
+
+  .zone-group {
+    margin-top: 45px;
+  }
+
+  .zone-group + .zone-group {
+    margin-top: 55px;
+  }
+
+  .zone-group-header {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+  }
+
+  .zone-group-icon {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: var(--color-main);
+
+    color: white;
+
+    flex-shrink: 0;
+  }
+
+  .zone-group-header h2 {
+    margin: 0;
+
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .zone-group-header p {
+    margin: 4px 0 0;
+
+    font-size: 13px;
+
+    color: #6b7280;
+  }
+
+  :global(.dark) .zone-group-header p {
+    color: #9ca3af;
+  }
+
+
+  /* =================================
+     Zones Grid
+  ================================= */
+
+  .zones-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+  }
+
+  .zone-item {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    min-height: 62px;
+
+    padding: 10px 14px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    background: #f9fafb;
+
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  :global(.dark) .zone-item {
+    border-color: #374151;
+
+    background: var(--color-dark);
+  }
+
+  .zone-item:hover {
+    border-color: var(--color-main);
+
+    background: rgba(244, 78, 30, 0.05);
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+
+    transform: translateY(-1px);
+  }
+
+  .zone-icon {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9999px;
+
+    background: var(--color-main);
+
+    color: white;
+
+    flex-shrink: 0;
+  }
+
+  .zone-item span {
+    font-size: 14px;
+
+    font-weight: 600;
+
+    line-height: 1.3;
+  }
+
+
+  /* =================================
+     No Results
+  ================================= */
+
+  .no-zone {
+    padding: 55px 20px;
+
+    text-align: center;
+  }
+
+  .no-zone-icon {
+    width: 56px;
+    height: 56px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9999px;
+
+    background: #f3f4f6;
+
+    color: #9ca3af;
+  }
+
+  :global(.dark) .no-zone-icon {
+    background: var(--color-dark);
+  }
+
+  .no-zone h3 {
+    margin: 0;
+
+    font-size: 17px;
+
+    font-weight: 700;
+  }
+
+  .no-zone p {
+    margin: 7px 0 20px;
+
+    font-size: 13px;
+
+    color: #6b7280;
+  }
+
+  :global(.dark) .no-zone p {
+    color: #9ca3af;
+  }
+
+  .no-zone-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 44px;
+
+    padding: 0 18px;
+
+    border-radius: 9999px;
+
+    background: var(--color-main);
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .no-zone-button:hover {
+    transform: translateY(-2px);
+
+    opacity: 0.92;
+  }
+
+
+  /* =================================
+     CTA
+  ================================= */
+
+  .zones-cta {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 60px;
+
+    padding: 22px 24px;
+
+    border: 1px solid rgba(244, 78, 30, 0.25);
+
+    border-radius: 14px;
+
+    background: rgba(244, 78, 30, 0.05);
+  }
+
+  .zones-cta-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: var(--color-main);
+
+    color: white;
+
+    flex-shrink: 0;
+  }
+
+  .zones-cta-content {
+    flex: 1;
+  }
+
+  .zones-cta-content h3 {
+    margin: 0;
+
+    font-size: 16px;
+
+    font-weight: 700;
+  }
+
+  .zones-cta-content p {
+    margin: 5px 0 0;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    color: #6b7280;
+  }
+
+  :global(.dark) .zones-cta-content p {
+    color: #9ca3af;
+  }
+
+  .zones-cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 44px;
+
+    padding: 0 17px;
+
+    border-radius: 9999px;
+
+    background: var(--color-main);
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .zones-cta-button:hover {
+    transform: translateY(-2px);
+
+    opacity: 0.92;
+  }
+
+
+  /* =================================
+     Tablet
+  ================================= */
+
+  @media (min-width: 640px) {
+
+    .zones-title {
+      font-size: 2.25rem;
+    }
+
+    .zones-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      gap: 14px;
+    }
+
+  }
+
+
+  /* =================================
+     Desktop
+  ================================= */
+
+  @media (min-width: 1024px) {
+
+    .zones-title {
+      font-size: 2.5rem;
+    }
+
+    .zones-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+
+      gap: 15px;
+    }
+
+    .zone-item {
+      min-height: 66px;
+    }
+
+  }
+
+
+  /* =================================
+     Mobile
+  ================================= */
+
+  @media (max-width: 639px) {
+
+    .zones-title {
+      font-size: 1.75rem;
+    }
+
+    .zones-description {
+      font-size: 14px;
+    }
+
+    .zones-search-wrapper {
+      margin-top: 30px;
+    }
+
+    .zones-search input {
+      font-size: 14px;
+
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+
+    .zone-group {
+      margin-top: 35px;
+    }
+
+    .zone-group + .zone-group {
+      margin-top: 45px;
+    }
+
+    .zone-group-header h2 {
+      font-size: 18px;
+    }
+
+    .zone-group-header p {
+      font-size: 12px;
+    }
+
+    .zone-group-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .zones-grid {
+      gap: 9px;
+    }
+
+    .zone-item {
+      min-height: 58px;
+
+      padding: 8px 9px;
+
+      gap: 8px;
+    }
+
+    .zone-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .zone-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .zone-item span {
+      font-size: 12px;
+    }
+
+    .zones-cta {
+      flex-direction: column;
+
+      align-items: stretch;
+
+      text-align: center;
+
+      margin-top: 45px;
+
+      padding: 22px 18px;
+    }
+
+    .zones-cta-icon {
+      margin: 0 auto;
+    }
+
+    .zones-cta-button {
+      width: 100%;
+    }
+
+  }
+
+</style>
+
+
+<script>
+  const searchInput = document.querySelector("#zone-search");
+  const zoneItems = document.querySelectorAll(".zone-item");
+  const noZone = document.querySelector("#no-zone");
+  const zonesContent = document.querySelector("#zones-content");
+  const resultsInfo = document.querySelector("#results-info");
+  const resultsCount = document.querySelector("#results-count");
+  const clearSearch = document.querySelector("#clear-search");
+
+  const normalizeText = (text) =>
+    text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+
+
+  const updateSearch = () => {
+
+    if (!searchInput) return;
+
+    const search = normalizeText(searchInput.value);
+
+    let visibleCount = 0;
+
+
+    zoneItems.forEach((zone) => {
+
+      const zoneText =
+        normalizeText(
+          zone.getAttribute("data-zone") || zone.textContent || ""
+        );
+
+
+      if (search === "" || zoneText.includes(search)) {
+
+        zone.classList.remove("hidden");
+
+        visibleCount++;
+
+      } else {
+
+        zone.classList.add("hidden");
+
+      }
+
+    });
+
+
+    // Update counter
+
+    if (resultsCount) {
+      resultsCount.textContent = visibleCount.toString();
+    }
+
+
+    // Clear button
+
+    if (clearSearch) {
+
+      clearSearch.classList.toggle(
+        "hidden",
+        search === ""
+      );
+
+    }
+
+
+    // No results
+
+    if (visibleCount === 0 && search !== "") {
+
+      noZone?.classList.remove("hidden");
+
+      resultsInfo?.classList.add("hidden");
+
+    } else {
+
+      noZone?.classList.add("hidden");
+
+      resultsInfo?.classList.remove("hidden");
+
+    }
+
+
+    // Hide empty groups
+
+    document.querySelectorAll(".zone-group").forEach((group) => {
+
+      const visibleZones =
+        group.querySelectorAll(".zone-item:not(.hidden)");
+
+      group.classList.toggle(
+        "hidden",
+        visibleZones.length === 0
+      );
+
+    });
+
+  };
+
+
+  searchInput?.addEventListener(
+    "input",
+    updateSearch
+  );
+
+
+  clearSearch?.addEventListener(
+    "click",
+    () => {
+
+      if (!searchInput) return;
+
+      searchInput.value = "";
+
+      updateSearch();
+
+      searchInput.focus();
+
+    }
+  );
+
+</script>
