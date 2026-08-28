@@ -2,8 +2,7 @@
 import { Icon } from "astro-icon/components";
 import Layout from "../layouts/Main.astro";
 
-const zones = [
-  // Marrakech
+const marrakechZones = [
   { name: "Guéliz", search: "gueliz guéliz" },
   { name: "Hivernage", search: "hivernage" },
   { name: "Médina", search: "medina médina" },
@@ -26,8 +25,9 @@ const zones = [
   { name: "Chrifia", search: "chrifia" },
   { name: "Tassoultante", search: "tassoultante" },
   { name: "Centre Ville", search: "centre ville" },
+];
 
-  // Routes
+const routeZones = [
   { name: "Route de l'Ourika", search: "route ourika ourika" },
   { name: "Route de Targa", search: "route targa" },
   { name: "Route de Fès", search: "route fes fès" },
@@ -36,8 +36,9 @@ const zones = [
   { name: "Route de Ouarzazate", search: "route ouarzazate" },
   { name: "Route de l'Aéroport", search: "route aeroport aéroport" },
   { name: "Route de Tahannaout", search: "route tahannaout" },
+];
 
-  // Around Marrakech
+const surroundingZones = [
   { name: "Tamansourt", search: "tamansourt" },
   { name: "Saada", search: "saada" },
   { name: "Harbil", search: "harbil" },
@@ -56,11 +57,16 @@ const zones = [
   { name: "Ouirgane", search: "ouirgane" },
   { name: "Imlil", search: "imlil" },
 ];
+
+const totalZones =
+  marrakechZones.length +
+  routeZones.length +
+  surroundingZones.length;
 ---
 
 <Layout
   title="Zones de livraison"
-  description="Découvrez les quartiers et villes desservis par Kech Delivery à Marrakech et ses environs."
+  description="Découvrez les zones desservies par Kech Delivery à Marrakech et ses environs."
 >
   <section class="section zones-page">
     <div class="container">
@@ -81,35 +87,6 @@ const zones = [
 
 
       <!-- =================================
-           Header
-      ================================== -->
-
-      <div class="zones-header border-b border-b-main pb-8 sm:pb-10">
-
-        <div class="flex flex-wrap justify-between items-center gap-3">
-
-          <h1 class="zones-title">
-            Nos zones de livraison
-          </h1>
-
-          <a
-            href="/contact"
-            class="zones-contact-link text-main underline hover:no-underline"
-          >
-            Besoin d'aide ?
-          </a>
-
-        </div>
-
-        <p class="zones-description">
-          Nous assurons nos livraisons dans les principaux quartiers
-          de Marrakech et ses environs, rapidement et en toute simplicité.
-        </p>
-
-      </div>
-
-
-      <!-- =================================
            Search
       ================================== -->
 
@@ -120,7 +97,7 @@ const zones = [
           <div class="zones-search-icon">
             <Icon
               name="lucide:search"
-              size={21}
+              size={20}
             />
           </div>
 
@@ -147,10 +124,6 @@ const zones = [
 
         </div>
 
-        <p class="search-help">
-          Recherchez un quartier, une ville ou une route.
-        </p>
-
       </div>
 
 
@@ -162,19 +135,21 @@ const zones = [
         id="results-info"
         class="results-info"
       >
-        <span id="results-count">{zones.length}</span>
+        <span id="results-count">{totalZones}</span>
         <span>zones disponibles</span>
       </div>
 
 
       <!-- =================================
-           Zones
+           Zones Content
       ================================== -->
 
       <div id="zones-content">
 
 
-        <!-- Marrakech -->
+        <!-- =================================
+             Marrakech
+        ================================== -->
 
         <section class="zone-group">
 
@@ -201,11 +176,12 @@ const zones = [
           <div class="zones-grid">
 
             {
-              zones.slice(0, 22).map((zone) => (
+              marrakechZones.map((zone) => (
                 <div
                   class="zone-item"
                   data-zone={`${zone.name} ${zone.search}`}
                 >
+
                   <div class="zone-icon">
                     <Icon
                       name="lucide:map-pin"
@@ -214,6 +190,7 @@ const zones = [
                   </div>
 
                   <span>{zone.name}</span>
+
                 </div>
               ))
             }
@@ -223,7 +200,9 @@ const zones = [
         </section>
 
 
-        <!-- Routes -->
+        <!-- =================================
+             Routes
+        ================================== -->
 
         <section class="zone-group">
 
@@ -250,11 +229,12 @@ const zones = [
           <div class="zones-grid">
 
             {
-              zones.slice(22, 30).map((zone) => (
+              routeZones.map((zone) => (
                 <div
                   class="zone-item"
                   data-zone={`${zone.name} ${zone.search}`}
                 >
+
                   <div class="zone-icon">
                     <Icon
                       name="lucide:map-pin"
@@ -263,6 +243,7 @@ const zones = [
                   </div>
 
                   <span>{zone.name}</span>
+
                 </div>
               ))
             }
@@ -272,7 +253,9 @@ const zones = [
         </section>
 
 
-        <!-- Around Marrakech -->
+        <!-- =================================
+             Around Marrakech
+        ================================== -->
 
         <section class="zone-group">
 
@@ -299,11 +282,12 @@ const zones = [
           <div class="zones-grid">
 
             {
-              zones.slice(30).map((zone) => (
+              surroundingZones.map((zone) => (
                 <div
                   class="zone-item"
                   data-zone={`${zone.name} ${zone.search}`}
                 >
+
                   <div class="zone-icon">
                     <Icon
                       name="lucide:map-pin"
@@ -312,6 +296,7 @@ const zones = [
                   </div>
 
                   <span>{zone.name}</span>
+
                 </div>
               ))
             }
@@ -336,7 +321,7 @@ const zones = [
 
           <Icon
             name="lucide:map-pin-off"
-            size={25}
+            size={24}
           />
 
         </div>
@@ -351,12 +336,14 @@ const zones = [
           href="/contact"
           class="no-zone-button"
         >
+
           <Icon
             name="lucide:message-circle"
             size={18}
           />
 
           <span>Contactez-nous</span>
+
         </a>
 
       </div>
@@ -372,7 +359,7 @@ const zones = [
 
           <Icon
             name="lucide:map-pin-check"
-            size={25}
+            size={24}
           />
 
         </div>
@@ -392,11 +379,14 @@ const zones = [
           href="/contact"
           class="zones-cta-button"
         >
-          Vérifier ma zone
+
+          <span>Vérifier ma zone</span>
+
           <Icon
             name="lucide:arrow-right"
             size={18}
           />
+
         </a>
 
       </div>
@@ -418,49 +408,14 @@ const zones = [
 
 
   /* =================================
-     Header
-  ================================= */
-
-  .zones-title {
-    margin: 0;
-
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 1.2;
-  }
-
-  .zones-description {
-    margin-top: 14px;
-    margin-bottom: 0;
-
-    max-width: 800px;
-
-    font-size: 15px;
-    line-height: 1.75;
-
-    color: #6b7280;
-  }
-
-  :global(.dark) .zones-description {
-    color: #9ca3af;
-  }
-
-  .zones-contact-link {
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-
-  /* =================================
      Search
   ================================= */
 
   .zones-search-wrapper {
+    width: 100%;
     max-width: 720px;
 
-    margin: 38px auto 0;
-
-    text-align: center;
+    margin: 0 auto 0;
   }
 
   .zones-search {
@@ -475,11 +430,12 @@ const zones = [
 
     border: 1px solid #e5e7eb;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
     transition:
       border-color 0.2s ease,
-      box-shadow 0.2s ease;
+      box-shadow 0.2s ease,
+      background 0.2s ease;
   }
 
   :global(.dark) .zones-search {
@@ -490,7 +446,8 @@ const zones = [
   .zones-search:focus-within {
     border-color: var(--color-main);
 
-    box-shadow: 0 0 0 3px rgba(244, 78, 30, 0.1);
+    box-shadow:
+      0 0 0 3px rgba(244, 78, 30, 0.10);
   }
 
   .zones-search-icon {
@@ -498,7 +455,7 @@ const zones = [
     align-items: center;
     justify-content: center;
 
-    padding-left: 17px;
+    padding-left: 16px;
 
     color: var(--color-main);
 
@@ -506,39 +463,64 @@ const zones = [
   }
 
   .zones-search input {
+    display: block;
+
     width: 100%;
 
-    padding: 15px 12px 15px 12px;
+    min-width: 0;
+
+    padding: 14px 12px;
+
+    margin: 0;
 
     border: 0;
-    outline: 0;
+    outline: none;
 
     background: transparent;
 
     color: #1c232b;
 
     font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .zones-search input:focus {
+    outline: none;
+    box-shadow: none;
   }
 
   :global(.dark) .zones-search input {
-    color: white;
+    color: #ffffff;
   }
 
   .zones-search input::placeholder {
     color: #9ca3af;
+    opacity: 1;
   }
 
+  :global(.dark) .zones-search input::placeholder {
+    color: #6b7280;
+  }
+
+
+  /* =================================
+     Clear Search
+  ================================= */
+
   .clear-search {
-    width: 38px;
-    height: 38px;
-
-    margin-right: 6px;
-
     display: flex;
     align-items: center;
     justify-content: center;
 
+    width: 34px;
+    height: 34px;
+
+    margin-right: 6px;
+
+    padding: 0;
+
     border: 0;
+
     border-radius: 9999px;
 
     background: #e5e7eb;
@@ -556,7 +538,6 @@ const zones = [
 
   .clear-search:hover {
     background: var(--color-main);
-
     color: white;
   }
 
@@ -565,18 +546,14 @@ const zones = [
     color: #d1d5db;
   }
 
-  .search-help {
-    margin-top: 9px;
-    margin-bottom: 0;
-
-    font-size: 12px;
-
-    color: #9ca3af;
+  :global(.dark) .clear-search:hover {
+    background: var(--color-main);
+    color: white;
   }
 
 
   /* =================================
-     Results
+     Results Info
   ================================= */
 
   .results-info {
@@ -586,21 +563,20 @@ const zones = [
 
     gap: 5px;
 
-    margin-top: 25px;
+    margin-top: 18px;
 
     font-size: 13px;
 
     color: #6b7280;
   }
 
-  #results-count {
-    font-weight: 700;
-
-    color: var(--color-main);
-  }
-
   :global(.dark) .results-info {
     color: #9ca3af;
+  }
+
+  #results-count {
+    font-weight: 700;
+    color: var(--color-main);
   }
 
 
@@ -609,12 +585,17 @@ const zones = [
   ================================= */
 
   .zone-group {
-    margin-top: 45px;
+    margin-top: 42px;
   }
 
   .zone-group + .zone-group {
-    margin-top: 55px;
+    margin-top: 52px;
   }
+
+
+  /* =================================
+     Zone Group Header
+  ================================= */
 
   .zone-group-header {
     display: flex;
@@ -622,18 +603,18 @@ const zones = [
 
     gap: 12px;
 
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 
   .zone-group-icon {
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
     background: var(--color-main);
 
@@ -645,16 +626,24 @@ const zones = [
   .zone-group-header h2 {
     margin: 0;
 
+    color: #1c232b;
+
     font-size: 20px;
     font-weight: 700;
+    line-height: 1.3;
+  }
+
+  :global(.dark) .zone-group-header h2 {
+    color: white;
   }
 
   .zone-group-header p {
     margin: 4px 0 0;
 
-    font-size: 13px;
-
     color: #6b7280;
+
+    font-size: 13px;
+    line-height: 1.4;
   }
 
   :global(.dark) .zone-group-header p {
@@ -669,20 +658,26 @@ const zones = [
   .zones-grid {
     display: grid;
 
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
 
-    gap: 12px;
+    gap: 10px;
   }
+
+
+  /* =================================
+     Zone Item
+  ================================= */
 
   .zone-item {
     display: flex;
     align-items: center;
 
-    gap: 11px;
+    gap: 10px;
 
-    min-height: 62px;
+    min-height: 60px;
 
-    padding: 10px 14px;
+    padding: 9px 12px;
 
     border: 1px solid #e5e7eb;
 
@@ -690,17 +685,20 @@ const zones = [
 
     background: #f9fafb;
 
+    color: #1c232b;
+
     transition:
       border-color 0.2s ease,
       background 0.2s ease,
-      box-shadow 0.2s ease,
-      transform 0.2s ease;
+      box-shadow 0.2s ease;
   }
 
   :global(.dark) .zone-item {
     border-color: #374151;
 
     background: var(--color-dark);
+
+    color: #ffffff;
   }
 
   .zone-item:hover {
@@ -708,14 +706,25 @@ const zones = [
 
     background: rgba(244, 78, 30, 0.05);
 
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-
-    transform: translateY(-1px);
+    box-shadow:
+      0 5px 15px rgba(0, 0, 0, 0.05);
   }
 
+  :global(.dark) .zone-item:hover {
+    background: rgba(244, 78, 30, 0.08);
+
+    box-shadow:
+      0 5px 15px rgba(0, 0, 0, 0.20);
+  }
+
+
+  /* =================================
+     Zone Icon
+  ================================= */
+
   .zone-icon {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
 
     display: flex;
     align-items: center;
@@ -730,11 +739,18 @@ const zones = [
     flex-shrink: 0;
   }
 
+
+  /* =================================
+     Zone Text
+  ================================= */
+
   .zone-item span {
+    min-width: 0;
+
+    color: inherit;
+
     font-size: 14px;
-
     font-weight: 600;
-
     line-height: 1.3;
   }
 
@@ -768,22 +784,29 @@ const zones = [
 
   :global(.dark) .no-zone-icon {
     background: var(--color-dark);
+    color: #6b7280;
   }
 
   .no-zone h3 {
     margin: 0;
 
-    font-size: 17px;
+    color: #1c232b;
 
+    font-size: 17px;
     font-weight: 700;
+  }
+
+  :global(.dark) .no-zone h3 {
+    color: white;
   }
 
   .no-zone p {
     margin: 7px 0 20px;
 
-    font-size: 13px;
-
     color: #6b7280;
+
+    font-size: 13px;
+    line-height: 1.5;
   }
 
   :global(.dark) .no-zone p {
@@ -813,14 +836,13 @@ const zones = [
     text-decoration: none;
 
     transition:
-      transform 0.2s ease,
-      opacity 0.2s ease;
+      opacity 0.2s ease,
+      transform 0.2s ease;
   }
 
   .no-zone-button:hover {
-    transform: translateY(-2px);
-
     opacity: 0.92;
+    transform: translateY(-2px);
   }
 
 
@@ -834,9 +856,9 @@ const zones = [
 
     gap: 15px;
 
-    margin-top: 60px;
+    margin-top: 55px;
 
-    padding: 22px 24px;
+    padding: 21px 23px;
 
     border: 1px solid rgba(244, 78, 30, 0.25);
 
@@ -845,15 +867,21 @@ const zones = [
     background: rgba(244, 78, 30, 0.05);
   }
 
+  :global(.dark) .zones-cta {
+    border-color: rgba(244, 78, 30, 0.30);
+
+    background: rgba(244, 78, 30, 0.08);
+  }
+
   .zones-cta-icon {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 12px;
+    border-radius: 11px;
 
     background: var(--color-main);
 
@@ -864,24 +892,30 @@ const zones = [
 
   .zones-cta-content {
     flex: 1;
+    min-width: 0;
   }
 
   .zones-cta-content h3 {
     margin: 0;
 
-    font-size: 16px;
+    color: #1c232b;
 
+    font-size: 16px;
     font-weight: 700;
+    line-height: 1.4;
+  }
+
+  :global(.dark) .zones-cta-content h3 {
+    color: white;
   }
 
   .zones-cta-content p {
     margin: 5px 0 0;
 
-    font-size: 13px;
-
-    line-height: 1.5;
-
     color: #6b7280;
+
+    font-size: 13px;
+    line-height: 1.5;
   }
 
   :global(.dark) .zones-cta-content p {
@@ -906,7 +940,6 @@ const zones = [
     color: white;
 
     font-size: 13px;
-
     font-weight: 600;
 
     text-decoration: none;
@@ -914,14 +947,13 @@ const zones = [
     white-space: nowrap;
 
     transition:
-      transform 0.2s ease,
-      opacity 0.2s ease;
+      opacity 0.2s ease,
+      transform 0.2s ease;
   }
 
   .zones-cta-button:hover {
-    transform: translateY(-2px);
-
     opacity: 0.92;
+    transform: translateY(-2px);
   }
 
 
@@ -931,14 +963,11 @@ const zones = [
 
   @media (min-width: 640px) {
 
-    .zones-title {
-      font-size: 2.25rem;
-    }
-
     .zones-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
-      gap: 14px;
+      gap: 12px;
     }
 
   }
@@ -950,18 +979,17 @@ const zones = [
 
   @media (min-width: 1024px) {
 
-    .zones-title {
-      font-size: 2.5rem;
-    }
-
     .zones-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
 
-      gap: 15px;
+      gap: 14px;
     }
 
     .zone-item {
-      min-height: 66px;
+      min-height: 64px;
+
+      padding: 10px 13px;
     }
 
   }
@@ -973,23 +1001,20 @@ const zones = [
 
   @media (max-width: 639px) {
 
-    .zones-title {
-      font-size: 1.75rem;
-    }
-
-    .zones-description {
-      font-size: 14px;
-    }
-
-    .zones-search-wrapper {
-      margin-top: 30px;
-    }
-
     .zones-search input {
-      font-size: 14px;
+      padding-top: 13px;
+      padding-bottom: 13px;
 
-      padding-top: 14px;
-      padding-bottom: 14px;
+      font-size: 14px;
+    }
+
+    .zones-search-icon {
+      padding-left: 14px;
+    }
+
+    .clear-search {
+      width: 32px;
+      height: 32px;
     }
 
     .zone-group {
@@ -997,7 +1022,17 @@ const zones = [
     }
 
     .zone-group + .zone-group {
-      margin-top: 45px;
+      margin-top: 43px;
+    }
+
+    .zone-group-header {
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .zone-group-icon {
+      width: 39px;
+      height: 39px;
     }
 
     .zone-group-header h2 {
@@ -1008,31 +1043,28 @@ const zones = [
       font-size: 12px;
     }
 
-    .zone-group-icon {
-      width: 40px;
-      height: 40px;
-    }
-
     .zones-grid {
-      gap: 9px;
+      gap: 8px;
     }
 
     .zone-item {
-      min-height: 58px;
+      min-height: 56px;
 
       padding: 8px 9px;
 
       gap: 8px;
+
+      border-radius: 9px;
     }
 
     .zone-icon {
-      width: 32px;
-      height: 32px;
+      width: 31px;
+      height: 31px;
     }
 
     .zone-icon svg {
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
     }
 
     .zone-item span {
@@ -1046,9 +1078,9 @@ const zones = [
 
       text-align: center;
 
-      margin-top: 45px;
+      margin-top: 43px;
 
-      padding: 22px 18px;
+      padding: 21px 17px;
     }
 
     .zones-cta-icon {
@@ -1065,40 +1097,74 @@ const zones = [
 
 
 <script>
-  const searchInput = document.querySelector("#zone-search");
-  const zoneItems = document.querySelectorAll(".zone-item");
-  const noZone = document.querySelector("#no-zone");
-  const zonesContent = document.querySelector("#zones-content");
-  const resultsInfo = document.querySelector("#results-info");
-  const resultsCount = document.querySelector("#results-count");
-  const clearSearch = document.querySelector("#clear-search");
+  const searchInput =
+    document.querySelector("#zone-search");
 
-  const normalizeText = (text) =>
-    text
+  const zoneItems =
+    document.querySelectorAll(".zone-item");
+
+  const noZone =
+    document.querySelector("#no-zone");
+
+  const resultsInfo =
+    document.querySelector("#results-info");
+
+  const resultsCount =
+    document.querySelector("#results-count");
+
+  const clearSearch =
+    document.querySelector("#clear-search");
+
+
+  /* =================================
+     Normalize Text
+  ================================= */
+
+  const normalizeText = (text) => {
+
+    return text
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .trim();
 
+  };
+
+
+  /* =================================
+     Update Search
+  ================================= */
 
   const updateSearch = () => {
 
     if (!searchInput) return;
 
-    const search = normalizeText(searchInput.value);
+    const search =
+      normalizeText(searchInput.value);
 
     let visibleCount = 0;
 
+
+    /* ===============================
+       Filter Zones
+    =============================== */
 
     zoneItems.forEach((zone) => {
 
       const zoneText =
         normalizeText(
-          zone.getAttribute("data-zone") || zone.textContent || ""
+          zone.getAttribute("data-zone") ||
+          zone.textContent ||
+          ""
         );
 
 
-      if (search === "" || zoneText.includes(search)) {
+      const matches =
+        search === "" ||
+        zoneText.includes(search);
+
+
+      if (matches) {
 
         zone.classList.remove("hidden");
 
@@ -1113,14 +1179,21 @@ const zones = [
     });
 
 
-    // Update counter
+    /* ===============================
+       Results Counter
+    =============================== */
 
     if (resultsCount) {
-      resultsCount.textContent = visibleCount.toString();
+
+      resultsCount.textContent =
+        visibleCount.toString();
+
     }
 
 
-    // Clear button
+    /* ===============================
+       Clear Button
+    =============================== */
 
     if (clearSearch) {
 
@@ -1132,9 +1205,35 @@ const zones = [
     }
 
 
-    // No results
+    /* ===============================
+       Hide Empty Groups
+    =============================== */
 
-    if (visibleCount === 0 && search !== "") {
+    document
+      .querySelectorAll(".zone-group")
+      .forEach((group) => {
+
+        const visibleZones =
+          group.querySelectorAll(
+            ".zone-item:not(.hidden)"
+          );
+
+        group.classList.toggle(
+          "hidden",
+          visibleZones.length === 0
+        );
+
+      });
+
+
+    /* ===============================
+       No Results
+    =============================== */
+
+    if (
+      visibleCount === 0 &&
+      search !== ""
+    ) {
 
       noZone?.classList.remove("hidden");
 
@@ -1148,29 +1247,22 @@ const zones = [
 
     }
 
-
-    // Hide empty groups
-
-    document.querySelectorAll(".zone-group").forEach((group) => {
-
-      const visibleZones =
-        group.querySelectorAll(".zone-item:not(.hidden)");
-
-      group.classList.toggle(
-        "hidden",
-        visibleZones.length === 0
-      );
-
-    });
-
   };
 
+
+  /* =================================
+     Search Event
+  ================================= */
 
   searchInput?.addEventListener(
     "input",
     updateSearch
   );
 
+
+  /* =================================
+     Clear Search
+  ================================= */
 
   clearSearch?.addEventListener(
     "click",
