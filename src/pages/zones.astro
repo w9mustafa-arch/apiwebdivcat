@@ -66,15 +66,12 @@ const totalZones =
 
 <Layout
   title="Zones de livraison"
-  description="Découvrez les zones desservies par Kech Delivery à Marrakech et ses environs."
+  description="Découvrez les zones de livraison de Kech Delivery à Marrakech et ses environs."
 >
-  <section class="section zones-page">
+  <section class="section">
     <div class="container">
 
-      <!-- =================================
-           Breadcrumbs
-      ================================== -->
-
+      <!-- Breadcrumbs -->
       <div class="breadcrumbs text-sm mb-8 sm:mb-10">
         <ul class="flex! flex-wrap">
           <li>
@@ -86,39 +83,91 @@ const totalZones =
       </div>
 
 
-      <!-- =================================
-           Search
-      ================================== -->
+      <!-- Search -->
+      <div class="max-w-xl mx-auto">
 
-      <div class="zones-search-wrapper">
+        <div
+          class="
+            flex items-center
+            bg-gray-50
+            dark:bg-dark
+            border border-gray-200
+            dark:border-gray-700
+            rounded-lg
+            transition-all duration-200
+            focus-within:border-main
+            focus-within:ring-2
+            focus-within:ring-main/10
+          "
+        >
 
-        <div class="zones-search">
-
-          <div class="zones-search-icon">
+          <!-- Search icon -->
+          <div
+            class="
+              flex items-center justify-center
+              pl-4
+              shrink-0
+              text-main
+            "
+          >
             <Icon
               name="lucide:search"
               size={20}
             />
           </div>
 
+
+          <!-- Input -->
           <input
             id="zone-search"
             type="search"
             autocomplete="off"
             spellcheck="false"
             placeholder="Rechercher votre quartier ou votre ville..."
-            aria-label="Rechercher une zone de livraison"
+            aria-label="Rechercher votre quartier ou votre ville"
+            class="
+              w-full
+              min-w-0
+              px-3
+              py-3.5
+              bg-transparent
+              border-0
+              outline-none
+              text-sm sm:text-base
+              text-black
+              dark:text-white
+              placeholder:text-gray-400
+              dark:placeholder:text-gray-500
+            "
           />
 
+
+          <!-- Clear -->
           <button
             id="clear-search"
             type="button"
-            class="clear-search hidden"
+            class="
+              hidden
+              mr-2
+              w-8
+              h-8
+              shrink-0
+              items-center
+              justify-center
+              rounded-full
+              bg-gray-200
+              dark:bg-gray-700
+              text-gray-500
+              dark:text-gray-300
+              transition-colors
+              hover:bg-main
+              hover:text-white
+            "
             aria-label="Effacer la recherche"
           >
             <Icon
               name="lucide:x"
-              size={18}
+              size={17}
             />
           </button>
 
@@ -127,30 +176,39 @@ const totalZones =
       </div>
 
 
-      <!-- =================================
-           Results Counter
-      ================================== -->
-
+      <!-- Result count -->
       <div
         id="results-info"
-        class="results-info"
+        class="
+          flex
+          items-center
+          justify-center
+          gap-1.5
+          mt-5
+          text-sm
+          text-gray-500
+          dark:text-gray-400
+        "
       >
-        <span id="results-count">{totalZones}</span>
+        <span
+          id="results-count"
+          class="font-semibold text-main"
+        >
+          {totalZones}
+        </span>
+
         <span>zones disponibles</span>
       </div>
 
 
-      <!-- =================================
-           Zones Content
-      ================================== -->
+      <!-- Zones -->
+      <div
+        id="zones-content"
+        class="mt-8 sm:mt-10"
+      >
 
-      <div id="zones-content">
 
-
-        <!-- =================================
-             Marrakech
-        ================================== -->
-
+        <!-- Marrakech -->
         <section class="zone-group">
 
           <div class="zone-group-header">
@@ -158,16 +216,20 @@ const totalZones =
             <div class="zone-group-icon">
               <Icon
                 name="lucide:map-pin"
-                size={21}
+                size={20}
               />
             </div>
 
-            <div>
-              <h2>Marrakech</h2>
+            <div class="min-w-0">
+
+              <h2>
+                Marrakech
+              </h2>
 
               <p>
                 Quartiers et secteurs desservis à Marrakech
               </p>
+
             </div>
 
           </div>
@@ -189,7 +251,9 @@ const totalZones =
                     />
                   </div>
 
-                  <span>{zone.name}</span>
+                  <span>
+                    {zone.name}
+                  </span>
 
                 </div>
               ))
@@ -200,27 +264,28 @@ const totalZones =
         </section>
 
 
-        <!-- =================================
-             Routes
-        ================================== -->
-
+        <!-- Routes -->
         <section class="zone-group">
 
           <div class="zone-group-header">
 
             <div class="zone-group-icon">
               <Icon
-                name="lucide:route"
-                size={21}
+                name="lucide:map-pin"
+                size={20}
               />
             </div>
 
-            <div>
-              <h2>Routes principales</h2>
+            <div class="min-w-0">
+
+              <h2>
+                Routes principales
+              </h2>
 
               <p>
                 Principaux axes et routes desservis
               </p>
+
             </div>
 
           </div>
@@ -242,7 +307,9 @@ const totalZones =
                     />
                   </div>
 
-                  <span>{zone.name}</span>
+                  <span>
+                    {zone.name}
+                  </span>
 
                 </div>
               ))
@@ -253,27 +320,28 @@ const totalZones =
         </section>
 
 
-        <!-- =================================
-             Around Marrakech
-        ================================== -->
-
+        <!-- Around Marrakech -->
         <section class="zone-group">
 
           <div class="zone-group-header">
 
             <div class="zone-group-icon">
               <Icon
-                name="lucide:map"
-                size={21}
+                name="lucide:map-pin"
+                size={20}
               />
             </div>
 
-            <div>
-              <h2>Autour de Marrakech</h2>
+            <div class="min-w-0">
+
+              <h2>
+                Autour de Marrakech
+              </h2>
 
               <p>
                 Villes et communes aux alentours de Marrakech
               </p>
+
             </div>
 
           </div>
@@ -295,7 +363,9 @@ const totalZones =
                     />
                   </div>
 
-                  <span>{zone.name}</span>
+                  <span>
+                    {zone.name}
+                  </span>
 
                 </div>
               ))
@@ -308,88 +378,82 @@ const totalZones =
       </div>
 
 
-      <!-- =================================
-           No Results
-      ================================== -->
-
+      <!-- No results -->
       <div
         id="no-zone"
-        class="no-zone hidden"
+        class="hidden text-center py-14"
       >
 
-        <div class="no-zone-icon">
-
+        <div
+          class="
+            flex items-center justify-center
+            w-12 h-12
+            mx-auto mb-4
+            rounded-full
+            bg-gray-100
+            dark:bg-dark
+            text-gray-400
+            dark:text-gray-500
+          "
+        >
           <Icon
             name="lucide:map-pin-off"
-            size={24}
+            size={22}
           />
-
         </div>
 
-        <h3>Aucune zone trouvée</h3>
+        <p
+          class="
+            text-base
+            font-semibold
+            text-gray-800
+            dark:text-white
+          "
+        >
+          Aucune zone trouvée.
+        </p>
 
-        <p>
-          Nous ne trouvons pas cette zone dans notre liste de livraison.
+        <p
+          class="
+            mt-2
+            text-sm
+            text-gray-500
+            dark:text-gray-400
+          "
+        >
+          Contactez-nous pour vérifier votre zone de livraison.
         </p>
 
         <a
           href="/contact"
-          class="no-zone-button"
+          class="
+            inline-flex
+            items-center
+            gap-2
+            mt-5
+            px-5
+            py-2.5
+            rounded-lg
+            bg-main
+            text-white
+            text-sm
+            font-medium
+            transition-opacity
+            hover:opacity-90
+          "
         >
-
           <Icon
             name="lucide:message-circle"
             size={18}
           />
 
-          <span>Contactez-nous</span>
-
+          <span>
+            Contactez-nous
+          </span>
         </a>
 
       </div>
 
-
-      <!-- =================================
-           Contact CTA
-      ================================== -->
-
-      <div class="zones-cta">
-
-        <div class="zones-cta-icon">
-
-          <Icon
-            name="lucide:map-pin-check"
-            size={24}
-          />
-
-        </div>
-
-        <div class="zones-cta-content">
-
-          <h3>Votre zone n'est pas dans la liste ?</h3>
-
-          <p>
-            Contactez-nous et nous vérifierons la possibilité
-            de vous livrer.
-          </p>
-
-        </div>
-
-        <a
-          href="/contact"
-          class="zones-cta-button"
-        >
-
-          <span>Vérifier ma zone</span>
-
-          <Icon
-            name="lucide:arrow-right"
-            size={18}
-          />
-
-        </a>
-
-      </div>
 
     </div>
   </section>
@@ -399,193 +463,15 @@ const totalZones =
 <style>
 
   /* =================================
-     Page
-  ================================= */
-
-  .zones-page {
-    min-height: 60vh;
-  }
-
-
-  /* =================================
-     Search
-  ================================= */
-
-  .zones-search-wrapper {
-    width: 100%;
-    max-width: 720px;
-
-    margin: 0 auto 0;
-  }
-
-  .zones-search {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-
-    width: 100%;
-
-    background: #f9fafb;
-
-    border: 1px solid #e5e7eb;
-
-    border-radius: 10px;
-
-    transition:
-      border-color 0.2s ease,
-      box-shadow 0.2s ease,
-      background 0.2s ease;
-  }
-
-  :global(.dark) .zones-search {
-    background: var(--color-dark);
-    border-color: #374151;
-  }
-
-  .zones-search:focus-within {
-    border-color: var(--color-main);
-
-    box-shadow:
-      0 0 0 3px rgba(244, 78, 30, 0.10);
-  }
-
-  .zones-search-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding-left: 16px;
-
-    color: var(--color-main);
-
-    flex-shrink: 0;
-  }
-
-  .zones-search input {
-    display: block;
-
-    width: 100%;
-
-    min-width: 0;
-
-    padding: 14px 12px;
-
-    margin: 0;
-
-    border: 0;
-    outline: none;
-
-    background: transparent;
-
-    color: #1c232b;
-
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  .zones-search input:focus {
-    outline: none;
-    box-shadow: none;
-  }
-
-  :global(.dark) .zones-search input {
-    color: #ffffff;
-  }
-
-  .zones-search input::placeholder {
-    color: #9ca3af;
-    opacity: 1;
-  }
-
-  :global(.dark) .zones-search input::placeholder {
-    color: #6b7280;
-  }
-
-
-  /* =================================
-     Clear Search
-  ================================= */
-
-  .clear-search {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 34px;
-    height: 34px;
-
-    margin-right: 6px;
-
-    padding: 0;
-
-    border: 0;
-
-    border-radius: 9999px;
-
-    background: #e5e7eb;
-
-    color: #6b7280;
-
-    cursor: pointer;
-
-    flex-shrink: 0;
-
-    transition:
-      background 0.2s ease,
-      color 0.2s ease;
-  }
-
-  .clear-search:hover {
-    background: var(--color-main);
-    color: white;
-  }
-
-  :global(.dark) .clear-search {
-    background: #374151;
-    color: #d1d5db;
-  }
-
-  :global(.dark) .clear-search:hover {
-    background: var(--color-main);
-    color: white;
-  }
-
-
-  /* =================================
-     Results Info
-  ================================= */
-
-  .results-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 5px;
-
-    margin-top: 18px;
-
-    font-size: 13px;
-
-    color: #6b7280;
-  }
-
-  :global(.dark) .results-info {
-    color: #9ca3af;
-  }
-
-  #results-count {
-    font-weight: 700;
-    color: var(--color-main);
-  }
-
-
-  /* =================================
-     Zone Groups
+     Zone Group
   ================================= */
 
   .zone-group {
-    margin-top: 42px;
+    margin-top: 40px;
+  }
+
+  .zone-group:first-child {
+    margin-top: 0;
   }
 
   .zone-group + .zone-group {
@@ -594,7 +480,7 @@ const totalZones =
 
 
   /* =================================
-     Zone Group Header
+     Group Header
   ================================= */
 
   .zone-group-header {
@@ -614,23 +500,24 @@ const totalZones =
     align-items: center;
     justify-content: center;
 
-    border-radius: 10px;
+    flex-shrink: 0;
+
+    border-radius: 9999px;
 
     background: var(--color-main);
 
     color: white;
-
-    flex-shrink: 0;
   }
 
   .zone-group-header h2 {
     margin: 0;
 
-    color: #1c232b;
-
     font-size: 20px;
     font-weight: 700;
+
     line-height: 1.3;
+
+    color: #1c232b;
   }
 
   :global(.dark) .zone-group-header h2 {
@@ -640,10 +527,11 @@ const totalZones =
   .zone-group-header p {
     margin: 4px 0 0;
 
-    color: #6b7280;
-
     font-size: 13px;
-    line-height: 1.4;
+
+    line-height: 1.45;
+
+    color: #6b7280;
   }
 
   :global(.dark) .zone-group-header p {
@@ -675,9 +563,11 @@ const totalZones =
 
     gap: 10px;
 
-    min-height: 60px;
+    min-width: 0;
 
-    padding: 9px 12px;
+    min-height: 58px;
+
+    padding: 9px 11px;
 
     border: 1px solid #e5e7eb;
 
@@ -696,7 +586,7 @@ const totalZones =
   :global(.dark) .zone-item {
     border-color: #374151;
 
-    background: var(--color-dark);
+    background: #1f2937;
 
     color: #ffffff;
   }
@@ -707,14 +597,14 @@ const totalZones =
     background: rgba(244, 78, 30, 0.05);
 
     box-shadow:
-      0 5px 15px rgba(0, 0, 0, 0.05);
+      0 4px 12px rgba(0, 0, 0, 0.05);
   }
 
   :global(.dark) .zone-item:hover {
-    background: rgba(244, 78, 30, 0.08);
+    background: rgba(244, 78, 30, 0.10);
 
     box-shadow:
-      0 5px 15px rgba(0, 0, 0, 0.20);
+      0 4px 12px rgba(0, 0, 0, 0.20);
   }
 
 
@@ -723,20 +613,20 @@ const totalZones =
   ================================= */
 
   .zone-icon {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    flex-shrink: 0;
 
     border-radius: 9999px;
 
     background: var(--color-main);
 
     color: white;
-
-    flex-shrink: 0;
   }
 
 
@@ -747,213 +637,13 @@ const totalZones =
   .zone-item span {
     min-width: 0;
 
-    color: inherit;
+    overflow-wrap: anywhere;
 
     font-size: 14px;
+
     font-weight: 600;
+
     line-height: 1.3;
-  }
-
-
-  /* =================================
-     No Results
-  ================================= */
-
-  .no-zone {
-    padding: 55px 20px;
-
-    text-align: center;
-  }
-
-  .no-zone-icon {
-    width: 56px;
-    height: 56px;
-
-    margin: 0 auto 15px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 9999px;
-
-    background: #f3f4f6;
-
-    color: #9ca3af;
-  }
-
-  :global(.dark) .no-zone-icon {
-    background: var(--color-dark);
-    color: #6b7280;
-  }
-
-  .no-zone h3 {
-    margin: 0;
-
-    color: #1c232b;
-
-    font-size: 17px;
-    font-weight: 700;
-  }
-
-  :global(.dark) .no-zone h3 {
-    color: white;
-  }
-
-  .no-zone p {
-    margin: 7px 0 20px;
-
-    color: #6b7280;
-
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  :global(.dark) .no-zone p {
-    color: #9ca3af;
-  }
-
-  .no-zone-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 8px;
-
-    min-height: 44px;
-
-    padding: 0 18px;
-
-    border-radius: 9999px;
-
-    background: var(--color-main);
-
-    color: white;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    text-decoration: none;
-
-    transition:
-      opacity 0.2s ease,
-      transform 0.2s ease;
-  }
-
-  .no-zone-button:hover {
-    opacity: 0.92;
-    transform: translateY(-2px);
-  }
-
-
-  /* =================================
-     CTA
-  ================================= */
-
-  .zones-cta {
-    display: flex;
-    align-items: center;
-
-    gap: 15px;
-
-    margin-top: 55px;
-
-    padding: 21px 23px;
-
-    border: 1px solid rgba(244, 78, 30, 0.25);
-
-    border-radius: 14px;
-
-    background: rgba(244, 78, 30, 0.05);
-  }
-
-  :global(.dark) .zones-cta {
-    border-color: rgba(244, 78, 30, 0.30);
-
-    background: rgba(244, 78, 30, 0.08);
-  }
-
-  .zones-cta-icon {
-    width: 46px;
-    height: 46px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 11px;
-
-    background: var(--color-main);
-
-    color: white;
-
-    flex-shrink: 0;
-  }
-
-  .zones-cta-content {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .zones-cta-content h3 {
-    margin: 0;
-
-    color: #1c232b;
-
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.4;
-  }
-
-  :global(.dark) .zones-cta-content h3 {
-    color: white;
-  }
-
-  .zones-cta-content p {
-    margin: 5px 0 0;
-
-    color: #6b7280;
-
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  :global(.dark) .zones-cta-content p {
-    color: #9ca3af;
-  }
-
-  .zones-cta-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 8px;
-
-    min-height: 44px;
-
-    padding: 0 17px;
-
-    border-radius: 9999px;
-
-    background: var(--color-main);
-
-    color: white;
-
-    font-size: 13px;
-    font-weight: 600;
-
-    text-decoration: none;
-
-    white-space: nowrap;
-
-    transition:
-      opacity 0.2s ease,
-      transform 0.2s ease;
-  }
-
-  .zones-cta-button:hover {
-    opacity: 0.92;
-    transform: translateY(-2px);
   }
 
 
@@ -987,9 +677,9 @@ const totalZones =
     }
 
     .zone-item {
-      min-height: 64px;
+      min-height: 62px;
 
-      padding: 10px 13px;
+      padding: 10px 12px;
     }
 
   }
@@ -1001,33 +691,18 @@ const totalZones =
 
   @media (max-width: 639px) {
 
-    .zones-search input {
-      padding-top: 13px;
-      padding-bottom: 13px;
-
-      font-size: 14px;
-    }
-
-    .zones-search-icon {
-      padding-left: 14px;
-    }
-
-    .clear-search {
-      width: 32px;
-      height: 32px;
-    }
-
     .zone-group {
-      margin-top: 35px;
+      margin-top: 34px;
     }
 
     .zone-group + .zone-group {
-      margin-top: 43px;
+      margin-top: 42px;
     }
 
     .zone-group-header {
       gap: 10px;
-      margin-bottom: 15px;
+
+      margin-bottom: 14px;
     }
 
     .zone-group-icon {
@@ -1048,13 +723,11 @@ const totalZones =
     }
 
     .zone-item {
-      min-height: 56px;
+      min-height: 55px;
 
       padding: 8px 9px;
 
       gap: 8px;
-
-      border-radius: 9px;
     }
 
     .zone-icon {
@@ -1062,33 +735,8 @@ const totalZones =
       height: 31px;
     }
 
-    .zone-icon svg {
-      width: 15px;
-      height: 15px;
-    }
-
     .zone-item span {
       font-size: 12px;
-    }
-
-    .zones-cta {
-      flex-direction: column;
-
-      align-items: stretch;
-
-      text-align: center;
-
-      margin-top: 43px;
-
-      padding: 21px 17px;
-    }
-
-    .zones-cta-icon {
-      margin: 0 auto;
-    }
-
-    .zones-cta-button {
-      width: 100%;
     }
 
   }
@@ -1117,12 +765,12 @@ const totalZones =
 
 
   /* =================================
-     Normalize Text
+     Normalize
   ================================= */
 
-  const normalizeText = (text) => {
+  const normalizeText = (value) => {
 
-    return text
+    return value
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -1132,10 +780,10 @@ const totalZones =
 
 
   /* =================================
-     Update Search
+     Search
   ================================= */
 
-  const updateSearch = () => {
+  const updateZones = () => {
 
     if (!searchInput) return;
 
@@ -1145,26 +793,24 @@ const totalZones =
     let visibleCount = 0;
 
 
-    /* ===============================
-       Filter Zones
-    =============================== */
+    /* --------------------------------
+       Filter zones
+    -------------------------------- */
 
     zoneItems.forEach((zone) => {
 
-      const zoneText =
-        normalizeText(
-          zone.getAttribute("data-zone") ||
-          zone.textContent ||
-          ""
-        );
+      const zoneData =
+        zone.getAttribute("data-zone") || "";
 
+      const normalizedZone =
+        normalizeText(zoneData);
 
-      const matches =
+      const match =
         search === "" ||
-        zoneText.includes(search);
+        normalizedZone.includes(search);
 
 
-      if (matches) {
+      if (match) {
 
         zone.classList.remove("hidden");
 
@@ -1179,9 +825,35 @@ const totalZones =
     });
 
 
-    /* ===============================
-       Results Counter
-    =============================== */
+    /* --------------------------------
+       Hide empty groups
+    -------------------------------- */
+
+    document
+      .querySelectorAll(".zone-group")
+      .forEach((group) => {
+
+        const visibleItems =
+          group.querySelectorAll(
+            ".zone-item:not(.hidden)"
+          );
+
+        if (visibleItems.length === 0) {
+
+          group.classList.add("hidden");
+
+        } else {
+
+          group.classList.remove("hidden");
+
+        }
+
+      });
+
+
+    /* --------------------------------
+       Counter
+    -------------------------------- */
 
     if (resultsCount) {
 
@@ -1191,9 +863,9 @@ const totalZones =
     }
 
 
-    /* ===============================
-       Clear Button
-    =============================== */
+    /* --------------------------------
+       Clear button
+    -------------------------------- */
 
     if (clearSearch) {
 
@@ -1202,37 +874,21 @@ const totalZones =
         search === ""
       );
 
+      clearSearch.classList.toggle(
+        "flex",
+        search !== ""
+      );
+
     }
 
 
-    /* ===============================
-       Hide Empty Groups
-    =============================== */
-
-    document
-      .querySelectorAll(".zone-group")
-      .forEach((group) => {
-
-        const visibleZones =
-          group.querySelectorAll(
-            ".zone-item:not(.hidden)"
-          );
-
-        group.classList.toggle(
-          "hidden",
-          visibleZones.length === 0
-        );
-
-      });
-
-
-    /* ===============================
-       No Results
-    =============================== */
+    /* --------------------------------
+       No results
+    -------------------------------- */
 
     if (
-      visibleCount === 0 &&
-      search !== ""
+      search !== "" &&
+      visibleCount === 0
     ) {
 
       noZone?.classList.remove("hidden");
@@ -1251,17 +907,17 @@ const totalZones =
 
 
   /* =================================
-     Search Event
+     Input
   ================================= */
 
   searchInput?.addEventListener(
     "input",
-    updateSearch
+    updateZones
   );
 
 
   /* =================================
-     Clear Search
+     Clear
   ================================= */
 
   clearSearch?.addEventListener(
@@ -1272,7 +928,7 @@ const totalZones =
 
       searchInput.value = "";
 
-      updateSearch();
+      updateZones();
 
       searchInput.focus();
 
