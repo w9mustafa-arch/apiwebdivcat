@@ -6,7 +6,7 @@ import { Icon } from "astro-icon/components";
   <div class="container">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
       <div>
-        <h3 class="font-semibold text-xl lg:text-[40px]">Trouvez-nous</h3>
+        <h3 class="font-semibold text-xl lg:text-[40px]">Contactez-nous</h3>
         <div class="mt-10 grid gap-6">
           <div
             class="grid grid-cols-[54px_1fr] gap-4 items-center dark:bg-dark dark:border-dark bg-gray-50 border border-gray-200 rounded-lg p-4"
@@ -31,7 +31,7 @@ import { Icon } from "astro-icon/components";
               <Icon name="lucide:mail" size={24} />
             </div>
             <div>
-              <p class="font-semibold text-lg mb-0">Envoyez-nous un e-mail</p>
+              <p class="font-semibold text-lg mb-0">Écrivez-nous</p>
               <a href="mailto:Hello@procleaning.com">Hello@procleaning.com</a>
             </div>
           </div>
@@ -45,10 +45,10 @@ import { Icon } from "astro-icon/components";
               <Icon name="lucide:map-pin" size={24} />
             </div>
             <div>
-              <p class="font-semibold text-lg mb-0">Adresse</p>
+              <p class="font-semibold text-lg mb-0">Notre adresse</p>
               <a href="#"
                 ><address class="not-italic">
-                  7510, Brand Tower, New York, USA
+                  Marrakech, Maroc
                 </address></a
               >
             </div>
@@ -56,48 +56,48 @@ import { Icon } from "astro-icon/components";
         </div>
       </div>
       <div>
-        <p class="text-sm mb-0">Informations de contact</p>
-        <h3 class="font-semibold text-xl lg:text-[40px] mb-3">Restons en contact</h3>
+        <p class="text-sm mb-0">Besoin d’aide ?</p>
+        <h3 class="font-semibold text-xl lg:text-[40px] mb-3">Parlons de votre livraison</h3>
         <p class="">
-          Nous accordons une grande importance à vos demandes et nous nous efforçons d’y répondre rapidement afin de vous apporter l’aide dont vous avez besoin dans les meilleurs délais.
+          Une question, une demande ou un besoin particulier ? Contactez-nous et notre équipe vous répondra rapidement pour vous accompagner.
         </p>
 
         <form action="/" method="POST" class="mt-8 grid gap-3">
           <fieldset class="fieldset">
             <input
               type="text"
-              placeholder="Nom"
+              placeholder="Votre nom"
               class="input w-full validator"
               id="contact-name"
               name="contact_name"
               required
             />
-            <p class="validator-hint hidden">Champ obligatoire</p>
+            <p class="validator-hint hidden">Ce champ est obligatoire</p>
           </fieldset>
 
           <fieldset class="fieldset">
             <input
               type="text"
-              placeholder="E-mail"
+              placeholder="Votre e-mail"
               class="input w-full validator"
               id="contact-email"
               name="contact_email"
               required
             />
-            <p class="validator-hint hidden">Champ obligatoire</p>
+            <p class="validator-hint hidden">Ce champ est obligatoire</p>
           </fieldset>
           <fieldset class="fieldset">
             <textarea
               class="textarea w-full validator"
-              placeholder="Message"
+              placeholder="Votre message"
               id="contact-msg"
               name="contact_msg"
               required></textarea>
-            <p class="validator-hint hidden">Champ obligatoire</p>
+            <p class="validator-hint hidden">Ce champ est obligatoire</p>
           </fieldset>
           <button
             class="btn bg-main border-main text-white rounded-lg hover:bg-green-600 shadow-none lg:mr-auto"
-            type="submit">Envoyer le message</button
+            type="submit">Envoyer ma demande</button
           >
         </form>
       </div>
