@@ -8,7 +8,7 @@ export const SITE_DESCRIPTION = 'Specialized, efficient, and thorough cleaning s
 export const NAV_MENU = [
     {
         url: "/",
-        title: "Home"
+        title: "Home1"
     },
     {
         url: "#",
