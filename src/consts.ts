@@ -1,33 +1,29 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
-export const SITE_TITLE = 'ProCleaning';
-export const SITE_DESCRIPTION = 'Specialized, efficient, and thorough cleaning services';
+export const SITE_TITLE = 'Kech Delivery;
+export const SITE_DESCRIPTION = 'Livraison rapide à Marrakech : repas, courses, médicaments, colis et bien plus, directement chez vous.';
 
 
 export const NAV_MENU = [
     {
         url: "/",
-        title: "Home1"
-    },
-    {
-        url: "#",
-        title: "About us"
+        title: "Accueil"
     },
     {
         url: "/service",
-        title: "Service"
+        title: "Nos services"
     },
     {
         url: "/team",
-        title: "Team"
+        title: "Avis clients"
     },
     {
-        url: "/blog",
-        title: "Blog"
+        url: "/zones",
+        title: "Zones de livraison"
     },
      {
         url: "/contact",
-        title: "Contact"
+        title: "Contactez-nous"
     }
 ];
