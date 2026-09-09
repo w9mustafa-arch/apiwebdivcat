@@ -22,6 +22,10 @@ export const NAV_MENU = [
         url: "/zones",
         title: "Zones de livraison"
     },
+    {
+        url: "/faq-question",
+        title: "FAQ"
+    },
      {
         url: "/contact",
         title: "Contactez-nous"
