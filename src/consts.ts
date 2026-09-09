@@ -12,15 +12,15 @@ export const NAV_MENU = [
     },
     {
         url: "/service",
-        title: "Nos services"
+        title: "Services"
     },
     {
         url: "/team",
-        title: "Avis clients"
+        title: "Avis"
     },
     {
         url: "/zones",
-        title: "Zones de livraison"
+        title: "Zones"
     },
     {
         url: "/faq-question",
@@ -28,6 +28,6 @@ export const NAV_MENU = [
     },
      {
         url: "/contact",
-        title: "Contactez-nous"
+        title: "Contact"
     }
 ];
