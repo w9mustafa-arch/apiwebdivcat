@@ -1,1 +1,144 @@
+---
+import { Icon } from "astro-icon/components";
 
+const faqs = [
+  {
+    question: "Comment commander une livraison ?",
+    answer:
+      "C’est simple ! Contactez-nous par téléphone ou via WhatsApp, indiquez-nous votre demande et nous nous occupons du reste.",
+  },
+  {
+    question: "Quels types de livraisons proposez-vous ?",
+    answer:
+      "Nous proposons la livraison de repas, courses, médicaments, colis, cadeaux et bien d’autres demandes à Marrakech.",
+  },
+  {
+    question: "Dans quelles zones livrez-vous ?",
+    answer:
+      "Nous livrons dans plusieurs quartiers de Marrakech. Contactez-nous pour vérifier si votre adresse est couverte.",
+  },
+  {
+    question: "Quels sont vos horaires de livraison ?",
+    answer:
+      "Notre service est disponible tous les jours afin de répondre à vos besoins de livraison.",
+  },
+  {
+    question: "Comment connaître le prix de ma livraison ?",
+    answer:
+      "Le prix dépend de la distance et du type de demande. Contactez-nous pour recevoir le tarif avant votre livraison.",
+  },
+  {
+    question: "Quels moyens de paiement acceptez-vous ?",
+    answer:
+      "Vous pouvez payer selon les modalités proposées par notre service lors de votre commande.",
+  },
+  {
+    question: "Puis-je suivre ma commande ?",
+    answer:
+      "Vous pouvez nous contacter directement pour connaître l’état et l’avancement de votre livraison.",
+  },
+  {
+    question: "Que faire si j’ai une demande particulière ?",
+    answer:
+      "Contactez-nous et expliquez-nous votre besoin. Nous ferons notre possible pour vous proposer une solution adaptée.",
+  },
+];
+---
+
+<section class="section section-faq-question">
+  <div class="container">
+
+    <!-- Titre -->
+    <div class="max-w-3xl mx-auto text-center mb-10 lg:mb-14">
+
+      <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-main/10 text-main mb-5">
+        <Icon name="lucide:circle-help" size={28} />
+      </div>
+
+      <h1 class="mb-4">
+        Questions fréquentes
+      </h1>
+
+      <p class="text-base sm:text-lg opacity-70">
+        Retrouvez les réponses aux questions les plus fréquentes concernant notre service de livraison à Marrakech.
+      </p>
+
+    </div>
+
+    <!-- Contenu -->
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 lg:gap-12">
+
+      <!-- Liste des questions -->
+      <div class="grid gap-4">
+
+        {
+          faqs.map((faq, index) => (
+            <div class="collapse collapse-plus bg-gray-50 dark:bg-dark border border-gray-200 dark:border-white/10 rounded-xl">
+
+              <input
+                type="radio"
+                name="faq-question"
+                checked={index === 0}
+              />
+
+              <div class="collapse-title font-semibold text-base sm:text-lg pr-12">
+                {faq.question}
+              </div>
+
+              <div class="collapse-content">
+                <p class="opacity-75 leading-relaxed">
+                  {faq.answer}
+                </p>
+              </div>
+
+            </div>
+          ))
+        }
+
+      </div>
+
+      <!-- Carte contact -->
+      <aside class="lg:sticky lg:top-28 h-fit">
+
+        <div class="bg-gray-50 dark:bg-dark border border-gray-200 dark:border-white/10 rounded-2xl p-6 sm:p-8">
+
+          <div class="w-12 h-12 rounded-full bg-main text-white flex items-center justify-center mb-5">
+            <Icon name="lucide:messages-square" size={22} />
+          </div>
+
+          <h3 class="text-xl sm:text-2xl mb-3">
+            Vous avez une autre question ?
+          </h3>
+
+          <p class="opacity-70 mb-6">
+            Notre équipe est disponible pour répondre à vos questions et vous accompagner dans votre demande de livraison.
+          </p>
+
+          <div class="grid gap-3">
+
+            <a
+              href="tel:+212000000000"
+              class="btn bg-main border-main text-white rounded-lg hover:bg-main/90 shadow-none"
+            >
+              <Icon name="lucide:phone-call" size={19} />
+              Appelez-nous
+            </a>
+
+            <a
+              href="#"
+              class="btn btn-outline rounded-lg"
+            >
+              <Icon name="simple-icons:whatsapp" size={18} />
+              WhatsApp
+            </a>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  </div>
+</section>
