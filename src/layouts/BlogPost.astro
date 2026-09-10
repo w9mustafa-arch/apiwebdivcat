@@ -24,15 +24,6 @@ const {
 ---
 
 <Layout title={title} description={description} image={thumbnail}>
-  <div class="container pt-0 pb-10 lg:py-20">
-    <article class="post">
-      <div class="breadcrumbs text-sm">
-        <ul class="flex! flex-wrap">
-          <li><a href="/">Home</a></li>
-          <li><a href="./">{breadcrumbParent}</a></li>
-          <li>{title}</li>
-        </ul>
-      </div>
       <div class="title text-center my-5 sm:my-10">
         <div class="flex flex-wrap gap-x-6 gap-y-2 justify-center items-center">
           {showDate && <FormattedDate date={pubDate} />}
